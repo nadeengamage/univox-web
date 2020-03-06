@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../service/authentication.service';
-import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-nav-bar',
@@ -12,7 +11,6 @@ export class NavBarComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private notifier: NotifierService
     ) { }
 
   ngOnInit() {

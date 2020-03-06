@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from './user';
+import { NotifierService } from 'angular-notifier';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    public router: Router
+    public router: Router,
+    private notifier: NotifierService
   ) {
   }
 
@@ -36,9 +38,15 @@ export class AuthService {
     return this.http.post<any>(`${this.endpoint}`, user)
       .subscribe((res: any) => {
         localStorage.setItem('access_token', res.access_token);
-        this.getUserProfile(res.username).subscribe((response) => {
-          this.currentUser = response.data.username;
-          this.router.navigate(['univox']);
+        this.getUserProfile(user).subscribe((response) => {
+            for (const element of response.data) {
+              if (element.username === user.username) {
+                this.currentUser = element.username;
+                this.router.navigate(['univox']);
+                this.notifier.notify('success', 'Welcome! ' + this.currentUser);
+                break;
+              }
+            }
         });
       });
   }
@@ -56,6 +64,7 @@ export class AuthService {
     const removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
       this.router.navigate(['signin']);
+      this.notifier.notify('success', 'See yaa!');
     }
   }
 
