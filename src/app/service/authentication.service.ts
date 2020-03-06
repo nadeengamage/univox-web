@@ -12,6 +12,7 @@ import { User } from './user';
 export class AuthService {
 
   endpoint = '/api/v1/auth';
+  userendpoint = '/api/v1/users';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
 
@@ -34,10 +35,10 @@ export class AuthService {
   signIn(user: User) {
     return this.http.post<any>(`${this.endpoint}`, user)
       .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token);
+        localStorage.setItem('access_token', res.access_token);
         this.getUserProfile(res.username).subscribe((response) => {
-          this.currentUser = response;
-          this.router.navigate(['user-profile/' + response.msg.username]);
+          this.currentUser = response.data.username;
+          this.router.navigate(['univox']);
         });
       });
   }
@@ -54,13 +55,13 @@ export class AuthService {
   doLogout() {
     const removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
-      this.router.navigate(['log-in']);
+      this.router.navigate(['signin']);
     }
   }
 
   // User profile
-  getUserProfile(id): Observable<any> {
-    const api = `${this.endpoint}/user-profile/${id}`;
+  getUserProfile(username): Observable<any> {
+    const api = `${this.userendpoint}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {};

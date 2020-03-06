@@ -7,8 +7,8 @@ import { UsersComponent } from './univox/users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
-  { path: 'signin', component: FullLayoutComponent },
-  { path: 'univox', component: UnivoxComponent,
+  { path: 'signin', component: FullLayoutComponent},
+  { path: 'univox', component: UnivoxComponent, canActivate: [AuthGuard],
   children: [
     { path: 'users', component: UsersComponent },
   ] },

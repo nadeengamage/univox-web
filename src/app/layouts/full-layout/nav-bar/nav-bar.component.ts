@@ -19,8 +19,7 @@ export class NavBarComponent implements OnInit {
   }
 
   logOut() {
-    sessionStorage.removeItem('username');
-    this.notifier.notify('default', 'See You Again!');
+    this.authService.doLogout();
   }
 
 }

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UovtxServiceService } from './uovtx-service.service';
+import { UnivoxService } from './univox-service.service';
 
 describe('EmpServiceService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: UovtxServiceService = TestBed.get(UovtxServiceService);
+    const service: UnivoxService = TestBed.get(UnivoxService);
     expect(service).toBeTruthy();
   });
 });
