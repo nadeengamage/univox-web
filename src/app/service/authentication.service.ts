@@ -11,7 +11,7 @@ import { User } from './user';
 })
 export class AuthService {
 
-  endpoint = 'http://152.67.9.121:5000/api/v1/auth';
+  endpoint = '/api/v1/auth';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
 
