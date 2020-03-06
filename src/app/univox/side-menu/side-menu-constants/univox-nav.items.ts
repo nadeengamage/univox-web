@@ -12,6 +12,12 @@ export const univoxNavItems = [
     canAccess: true
   },
   {
+    text: 'Faculties',
+    icon: 'fas fa-user',
+    routerLink: '/univox/faculties',
+    canAccess: true
+  },
+  {
     text: 'Students',
     icon: 'fas fa-sign-out-alt',
     routerLink: '/univox',

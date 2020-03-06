@@ -6,16 +6,23 @@ import { HttpUtilsService } from './http-utils.service';
 })
 export class UnivoxService {
 
-  private mainUrl = 'http://152.67.9.121:5000';
+  private mainUrl = '/api/v1';
   private getUsers: string;
+  private getFaculty: string;
 
   constructor(private http: HttpUtilsService) {
-    this.getUsers = this.mainUrl + '/api/v1/users';
+    this.getUsers = this.mainUrl + '/users';
+    this.getFaculty = this.mainUrl + '/faculties';
   }
 
   public getAllUsers() {
     const users = this.getUsers;
     return this.http.get(users);
+  }
+
+  public getAllFaculties() {
+    const faculties = this.getFaculty;
+    return this.http.get(faculties);
   }
 
 }

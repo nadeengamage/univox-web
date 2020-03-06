@@ -8,6 +8,7 @@ import { AuthService } from '../../../service/authentication.service';
 })
 export class NavBarComponent implements OnInit {
   public signInUser = sessionStorage.getItem('username');
+  hideSignOut = true;
 
   constructor(
     private authService: AuthService,

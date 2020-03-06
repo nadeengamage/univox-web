@@ -43,7 +43,7 @@ export class AuthService {
               if (element.username === user.username) {
                 this.currentUser = element.username;
                 this.router.navigate(['univox']);
-                this.notifier.notify('success', 'Welcome! ' + this.currentUser);
+                this.notifier.notify('success', 'Welcome back! ' + this.currentUser);
                 break;
               }
             }
@@ -64,7 +64,7 @@ export class AuthService {
     const removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
       this.router.navigate(['signin']);
-      this.notifier.notify('success', 'See yaa!');
+      this.notifier.notify('default', 'See yaa! ' + this.currentUser);
     }
   }
 

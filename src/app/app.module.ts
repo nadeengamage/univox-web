@@ -14,6 +14,7 @@ import { FooterComponent } from './layouts/full-layout/footer/footer.component';
 import { SideMenuComponent } from './univox/side-menu/side-menu.component';
 import { UnivoxComponent } from './univox/univox.component';
 import { UsersComponent } from './univox/users/users.component';
+import { FacultyComponent } from './univox/faculty/faculty.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -65,7 +66,8 @@ const customNotifierOptions: NotifierOptions = {
     FooterComponent,
     SideMenuComponent,
     UnivoxComponent,
-    UsersComponent
+    UsersComponent,
+    FacultyComponent
   ],
   imports: [
     BrowserModule,

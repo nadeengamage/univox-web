@@ -2,7 +2,7 @@
     <a class="navbar-brand flex-grow-1" href="/">
       <img src="./../../../../assets/img/logo.png" alt=""/>
       University of Vocational Technology</a>
-    <div class="navRight" >
+    <div class="navRight" *ngIf="hideSignOut">
       <p>Hi, {{signInUser}}</p>
       <button class="btn btn-danger" routerLink="/signin" (click)="logOut()">Sign Out</button>
     </div>
