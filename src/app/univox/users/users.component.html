@@ -32,6 +32,9 @@
                       <button class="btn btn-warning tableEdit"><i class="far fa-edit"></i></button>
                     </td>
                   </tr>
+                  <tr *ngIf="!(usersList.length > 0);" class="nodata">
+                    <td colspan="7">No Data Found!</td>
+                </tr>
                 </tbody>
               </table>
         </div>

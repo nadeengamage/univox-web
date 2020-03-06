@@ -37,8 +37,8 @@ export class FacultyComponent implements OnInit {
     if (!term) {
       this.filterFacultyData = this.facultyList;
     } else {
-      this.filterFacultyData = this.facultyList.filter(empFirstName =>
-        empFirstName.faculty_code.trim().toLowerCase().includes(term.trim().toLowerCase())
+      this.filterFacultyData = this.facultyList.filter(fcode =>
+        fcode.faculty_code.trim().toLowerCase().includes(term.trim().toLowerCase())
       );
       if (this.filterFacultyData.length === 0) {
         console.log('No Data Found!', this.filterFacultyData);

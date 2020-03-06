@@ -15,6 +15,7 @@ import { SideMenuComponent } from './univox/side-menu/side-menu.component';
 import { UnivoxComponent } from './univox/univox.component';
 import { UsersComponent } from './univox/users/users.component';
 import { FacultyComponent } from './univox/faculty/faculty.component';
+import { DegreeComponent } from './univox/degree/degree.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -67,7 +68,8 @@ const customNotifierOptions: NotifierOptions = {
     SideMenuComponent,
     UnivoxComponent,
     UsersComponent,
-    FacultyComponent
+    FacultyComponent,
+    DegreeComponent
   ],
   imports: [
     BrowserModule,
