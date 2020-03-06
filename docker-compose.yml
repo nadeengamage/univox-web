@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  univox_webapp:
+    container_name: univox_webapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '4201:4200'
