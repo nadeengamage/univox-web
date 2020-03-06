@@ -1,0 +1,25 @@
+<!-- sidebar-->
+<aside class="aside-container" id="sideNavbar">
+  <!-- START Sidebar (left)-->
+  <div class="aside-inner">
+    <nav class="sidebar show-scrollbar">
+      <!-- START sidebar nav-->
+      <ul class="sidebar-nav" style="margin-bottom: 30px;">
+        
+        <!-- Iterates over all sidebar items-->
+        <ng-container>
+          <ng-container *ngFor="let link of links">
+            <li class="text-white" routerLinkActive="active" *ngIf="link.canAccess" [routerLink]="[link.routerLink]">
+              <a [routerLink]="[link.routerLink]">
+                <em class="{{ link.icon }}"></em>
+                <span>{{ link.text }}</span>
+              </a>
+            </li>
+          </ng-container>
+        </ng-container>
+      </ul>
+      <!-- END sidebar nav-->
+    </nav>
+  </div>
+  <!-- END Sidebar (left)-->
+</aside>
