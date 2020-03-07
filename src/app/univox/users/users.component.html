@@ -72,7 +72,7 @@
               <td>{{user.x_id}}</td>
               <td>
                  <button class="btn btn-danger tableDelete" (click)="deleteUser(user.x_id)"><i class="far fa-trash-alt"></i></button>
-                 <button class="btn btn-warning tableEdit"><i class="far fa-edit"></i></button>
+                 <button class="btn btn-warning tableEdit" (click)="editUser(user)" data-toggle="modal" data-target="#userModal"><i class="far fa-edit"></i></button>
               </td>
            </tr>
            <tr *ngIf="!(usersList.length > 0);" class="nodata">
@@ -80,5 +80,50 @@
            </tr>
         </tbody>
      </table>
+  </div>
+</div>
+
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Details - {{modalTitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label>User Name</label><sup>*</sup>
+              <input type="text" class="form-control" placeholder="Enter User Name" [(ngModel)]="editDetails.username" [ngModelOptions]="{standalone: true}">
+            </div>
+              <div class="form-group">
+                <label>Password</label><sup>*</sup>
+                <input type="text" class="form-control" placeholder="Enter Password" [(ngModel)]="editDetails.password" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="form-group">
+                <label>First Name</label><sup>*</sup>
+                <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="editDetails.firstname" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="form-group">
+                <label>Last Name</label><sup>*</sup>
+                <input type="text" class="form-control" placeholder="Enter Last Name" [(ngModel)]="editDetails.lastname" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="form-group">
+                <label>Role</label><sup>*</sup>
+                <input type="text" class="form-control" placeholder="Enter Role" [(ngModel)]="editDetails.role" [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="form-group">
+                <label>Status</label><sup>*</sup>
+                <input type="number" class="form-control" placeholder="Enter Status" [(ngModel)]="editDetails.status" [ngModelOptions]="{standalone: true}">
+              </div>
+              </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="updateUser()">Update User</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>

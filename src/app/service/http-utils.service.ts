@@ -77,7 +77,7 @@ export class HttpUtilsService {
     return this.httpClient
       .delete(path, {
         headers: this.setHeaders(),
-        // params
+        params
       })
       .pipe(
         map(res => res),

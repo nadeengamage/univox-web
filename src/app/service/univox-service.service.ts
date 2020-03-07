@@ -37,7 +37,7 @@ export class UnivoxService {
     this.getUsersEndPoint = this.mainUrl + '/users';
     this.createUserEndPoint = this.mainUrl + '/users';
     this.getUsersByIdEndPoint = this.mainUrl + '/users';
-    this.updateUsersEndPoint = this.mainUrl + '/users';
+    this.updateUsersEndPoint = this.mainUrl + '/users/{id}';
     this.deleteUsersEndPoint = this.mainUrl + '/users/{id}';
 
     // FACULTY
@@ -74,15 +74,17 @@ export class UnivoxService {
     const getUserById = this.getUsersByIdEndPoint;
     return this.http.get(getUserById);
   }
-  public updateUserById(data) {
-    const updateUserById = this.updateUsersEndPoint;
-    return this.http.put(data, updateUserById);
+  public updateUserById(id, data) {
+    const updateUserById = this.updateUsersEndPoint.replace(
+      '{id}', id
+    );
+    return this.http.put(updateUserById, data);
   }
-  public deleteUser(id) {
+  public deleteUser(id, status) {
     const deleteUser = this.deleteUsersEndPoint.replace(
       '{id}', id
     );
-    return this.http.delete(deleteUser, id);
+    return this.http.delete(deleteUser, status);
   }
 
   public getAllFaculties() {

@@ -13,6 +13,16 @@ export class UsersComponent implements OnInit {
   filterUserData = [];
   usersList = [];
   showUserCreateForm = false;
+  modalTitle = null;
+  editDetails = {
+    username: '',
+    password: '',
+    firstname: '',
+    lastname: '',
+    role: '',
+    status: 0
+  };
+  editUserId;
   userCreateForm: FormGroup;
 
   constructor(
@@ -77,7 +87,33 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id) {
-    this.univoxService.deleteUser(id).subscribe(res => {
+    const set = {
+      status: 0
+    };
+    this.univoxService.deleteUser(id, set).subscribe(res => {
+      this.notifier.notify('success', res.message);
+      this.getAllUsers();
+    },
+    error => {
+      this.notifier.notify('error', error.error);
+    }
+    );
+  }
+
+  editUser(user) {
+    this.editDetails = {
+      username: user.username,
+      password: '',
+      firstname: user.firstname,
+      lastname: user.lastname,
+      role: user.role_id.toString(),
+      status: 0
+    };
+    this.editUserId = user.x_id;
+  }
+
+  updateUser() {
+    this.univoxService.updateUserById(this.editUserId, this.editDetails).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.getAllUsers();
     },
