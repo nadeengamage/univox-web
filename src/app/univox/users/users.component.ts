@@ -79,6 +79,7 @@ export class UsersComponent implements OnInit {
         lastname: [''],
         role: ['']
       });
+      this.getAllUsers();
     },
     error => {
       this.notifier.notify('error', error.error);
@@ -110,6 +111,7 @@ export class UsersComponent implements OnInit {
       status: 0
     };
     this.editUserId = user.x_id;
+    this.modalTitle = user.username;
   }
 
   updateUser() {
