@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-users',
@@ -11,11 +12,22 @@ export class UsersComponent implements OnInit {
 
   filterUserData = [];
   usersList = [];
+  showUserCreateForm = false;
+  userCreateForm: FormGroup;
 
   constructor(
+    public fb: FormBuilder,
     private univoxService: UnivoxService,
-    private notifier: NotifierService
-  ) { }
+    private notifier: NotifierService,
+  ) {
+    this.userCreateForm = this.fb.group({
+      username: [''],
+      password: [''],
+      firstname: [''],
+      lastname: [''],
+      role: ['']
+    });
+  }
 
   ngOnInit() {
     this.getAllUsers();
@@ -44,5 +56,23 @@ export class UsersComponent implements OnInit {
         console.log('No Data Found!', this.filterUserData);
       }
     }
+  }
+
+  createUser() {
+    this.univoxService.createUser(this.userCreateForm.value).subscribe(res => {
+      this.notifier.notify('success', res.message);
+      this.showUserCreateForm = false;
+      this.userCreateForm = this.fb.group({
+        username: [''],
+        password: [''],
+        firstname: [''],
+        lastname: [''],
+        role: ['']
+      });
+    },
+    error => {
+      this.notifier.notify('error', error.error);
+    }
+    );
   }
 }

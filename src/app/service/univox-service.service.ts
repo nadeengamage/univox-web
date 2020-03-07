@@ -68,7 +68,7 @@ export class UnivoxService {
   }
   public createUser(data) {
     const create = this.createUserEndPoint;
-    return this.http.post(data, create);
+    return this.http.post(create, data);
   }
   public getUserById() {
     const getUserById = this.getUsersByIdEndPoint;
