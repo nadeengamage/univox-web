@@ -51,15 +51,15 @@ export class UnivoxService {
     this.getDegreeEndPoint = this.mainUrl + '/degrees';
     this.createDegreeEndPoint = this.mainUrl + '/degrees';
     this.getDegreeByIdEndPoint = this.mainUrl + '/degrees';
-    this.updateDegreeEndPoint = this.mainUrl + '/degrees';
-    this.deleteDegreeEndPoint = this.mainUrl + '/degrees';
+    this.updateDegreeEndPoint = this.mainUrl + '/degrees/{id}';
+    this.deleteDegreeEndPoint = this.mainUrl + '/degrees/{id}';
 
     // CRITERIA
     this.getCriteriaEndPoint = this.mainUrl + '/criterias';
     this.createCriteriaEndPoint = this.mainUrl + '/criterias';
     this.getCriteriaByIdEndPoint = this.mainUrl + '/criterias';
-    this.updateCriteriaEndPoint = this.mainUrl + '/criterias';
-    this.deleteCriteriaEndPoint = this.mainUrl + '/criterias';
+    this.updateCriteriaEndPoint = this.mainUrl + '/criterias/{id}';
+    this.deleteCriteriaEndPoint = this.mainUrl + '/criterias/{id}';
   }
 
   public getAllUsers() {
@@ -118,19 +118,23 @@ export class UnivoxService {
   }
   public createDegree(data) {
     const create = this.createDegreeEndPoint;
-    return this.http.post(data, create);
+    return this.http.post(create, data);
   }
   public getDegreeById() {
     const getDegreeById = this.getDegreeByIdEndPoint;
     return this.http.get(getDegreeById);
   }
-  public updateDegreeById(data) {
-    const updateDegreeById = this.updateDegreeEndPoint;
-    return this.http.put(data, updateDegreeById);
+  public updateDegreeById(id, data) {
+      const updateDegreeById = this.updateDegreeEndPoint.replace(
+        '{id}', id
+      );
+      return this.http.put(updateDegreeById, data);
   }
-  public deleteDegree(data) {
-    const deleteDegree = this.deleteDegreeEndPoint;
-    return this.http.delete(data, deleteDegree);
+  public deleteDegree(id) {
+      const deleteDegree = this.deleteDegreeEndPoint.replace(
+        '{id}', id
+      );
+      return this.http.delete(deleteDegree);
   }
 
   public getAllCriterias() {

@@ -29,46 +29,46 @@ export const univoxNavItems = [
     routerLink: '/univox/criterias',
     canAccess: true
   },
-  {
-    text: 'Countries',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox/countries',
-    canAccess: true
-  },
-  {
-    text: 'Districts',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox/districts',
-    canAccess: true
-  },
-  {
-    text: 'Cities',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox/cities',
-    canAccess: true
-  },
-  {
-    text: 'Import/Export',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
-    canAccess: true
-  },
-  {
-    text: 'Calendar',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
-    canAccess: true
-  },
-  {
-    text: 'Help Center',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
-    canAccess: true
-  },
-  {
-    text: 'Settings',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
-    canAccess: true
-  },
+  // {
+  //   text: 'Countries',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox/countries',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Districts',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox/districts',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Cities',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox/cities',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Import/Export',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Calendar',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Help Center',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Settings',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox',
+  //   canAccess: true
+  // },
 ];
