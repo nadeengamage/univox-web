@@ -16,6 +16,7 @@ import { UnivoxComponent } from './univox/univox.component';
 import { UsersComponent } from './univox/users/users.component';
 import { FacultyComponent } from './univox/faculty/faculty.component';
 import { DegreeComponent } from './univox/degree/degree.component';
+import { CriteriaComponent } from './univox/criteria/criteria.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -69,7 +70,8 @@ const customNotifierOptions: NotifierOptions = {
     UnivoxComponent,
     UsersComponent,
     FacultyComponent,
-    DegreeComponent
+    DegreeComponent,
+    CriteriaComponent
   ],
   imports: [
     BrowserModule,

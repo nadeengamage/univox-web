@@ -15,7 +15,7 @@ export class AuthService {
   endpoint = '/api/v1/auth';
   userendpoint = '/api/v1/users';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser = {};
+  currentUser;
 
   constructor(
     private http: HttpClient,

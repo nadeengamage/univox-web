@@ -7,14 +7,22 @@ import { AuthService } from '../../../service/authentication.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  public signInUser = sessionStorage.getItem('username');
-  hideSignOut = true;
+  signInUser;
+  isSignIn;
+  hideSignOut = false;
 
   constructor(
     private authService: AuthService,
     ) { }
 
   ngOnInit() {
+    this.isSignIn = this.authService.getToken();
+    this.signInUser = this.authService.currentUser;
+    if (this.isSignIn !== null) {
+      this.hideSignOut = true;
+    } else {
+      this.hideSignOut = false;
+    }
   }
 
   logOut() {
