@@ -75,4 +75,15 @@ export class UsersComponent implements OnInit {
     }
     );
   }
+
+  deleteUser(id) {
+    this.univoxService.deleteUser(id).subscribe(res => {
+      this.notifier.notify('success', res.message);
+      this.getAllUsers();
+    },
+    error => {
+      this.notifier.notify('error', error.error);
+    }
+    );
+  }
 }

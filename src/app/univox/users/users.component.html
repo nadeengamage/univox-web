@@ -71,7 +71,7 @@
               <td>{{user.username}}</td>
               <td>{{user.x_id}}</td>
               <td>
-                 <button class="btn btn-danger tableDelete"><i class="far fa-trash-alt"></i></button>
+                 <button class="btn btn-danger tableDelete" (click)="deleteUser(user.x_id)"><i class="far fa-trash-alt"></i></button>
                  <button class="btn btn-warning tableEdit"><i class="far fa-edit"></i></button>
               </td>
            </tr>
