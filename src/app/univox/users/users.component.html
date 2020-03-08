@@ -58,7 +58,7 @@
               <th scope="col">Last Name</th>
               <th scope="col">Status</th>
               <th scope="col">User Name</th>
-              <th scope="col">X-ID</th>
+              <th scope="col">Role Name</th>
               <th scope="col"></th>
            </tr>
         </thead>
@@ -67,9 +67,10 @@
               <td>{{user.role_id}}</td>
               <td>{{user.firstname}}</td>
               <td>{{user.lastname}}</td>
-              <td>{{user.status}}</td>
+              <td *ngIf="user.status === true">Active</td>
+              <td *ngIf="user.status === false">Deactive</td>
               <td>{{user.username}}</td>
-              <td>{{user.x_id}}</td>
+              <td>{{user.roles.role_name}}</td>
               <td>
                  <button class="btn btn-danger tableDelete" (click)="deleteUser(user.x_id)"><i class="far fa-trash-alt"></i></button>
                  <button class="btn btn-warning tableEdit" (click)="editUser(user)" data-toggle="modal" data-target="#userModal"><i class="far fa-edit"></i></button>
@@ -98,10 +99,6 @@
               <label>User Name</label><sup>*</sup>
               <input type="text" class="form-control" placeholder="Enter User Name" [(ngModel)]="editDetails.username" [ngModelOptions]="{standalone: true}">
             </div>
-              <div class="form-group">
-                <label>Password</label><sup>*</sup>
-                <input type="text" class="form-control" placeholder="Enter Password" [(ngModel)]="editDetails.password" [ngModelOptions]="{standalone: true}">
-              </div>
               <div class="form-group">
                 <label>First Name</label><sup>*</sup>
                 <input type="text" class="form-control" placeholder="Enter First Name" [(ngModel)]="editDetails.firstname" [ngModelOptions]="{standalone: true}">

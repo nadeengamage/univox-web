@@ -76,7 +76,7 @@ export class HttpUtilsService {
   delete(path, params?): Observable<any> {
     return this.httpClient
       .delete(path, {
-        headers: this.setHeaders(),
+        // headers: this.setHeaders(),
         params
       })
       .pipe(

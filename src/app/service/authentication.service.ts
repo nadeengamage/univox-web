@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Router } from '@angular/router';
 import { User } from './user';
 import { NotifierService } from 'angular-notifier';
+import { error } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +49,9 @@ export class AuthService {
               }
             }
         });
+      },
+      res => {
+        this.notifier.notify('error', res.error.description);
       });
   }
 
@@ -80,14 +84,14 @@ export class AuthService {
   }
 
   // Error
-  handleError(error: HttpErrorResponse) {
+  handleError(res: HttpErrorResponse) {
     let msg = '';
-    if (error.error instanceof ErrorEvent) {
+    if (res.error instanceof ErrorEvent) {
       // client-side error
-      msg = error.error.message;
+      msg = res.error.message;
     } else {
       // server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      msg = `Error Code: ${res.error.status}\nMessage: ${res.error.message}`;
     }
     return throwError(msg);
   }

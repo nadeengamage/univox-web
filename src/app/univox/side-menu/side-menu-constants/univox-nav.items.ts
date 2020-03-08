@@ -29,12 +29,12 @@ export const univoxNavItems = [
     routerLink: '/univox/criterias',
     canAccess: true
   },
-  // {
-  //   text: 'Countries',
-  //   icon: 'fas fa-sign-out-alt',
-  //   routerLink: '/univox/countries',
-  //   canAccess: true
-  // },
+  {
+    text: 'Applicants',
+    icon: 'fas fa-sign-out-alt',
+    routerLink: '/univox/applicant',
+    canAccess: true
+  },
   // {
   //   text: 'Districts',
   //   icon: 'fas fa-sign-out-alt',

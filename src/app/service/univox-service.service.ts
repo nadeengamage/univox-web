@@ -32,6 +32,11 @@ export class UnivoxService {
   private updateCriteriaEndPoint: string;
   private deleteCriteriaEndPoint: string;
 
+  private getNvqApplicantEndPoint: string;
+  private getAlApplicantEndPoint: string;
+  private createNvqApplicantEndPoint: string;
+  private createAlApplicantEndPoint: string;
+
   constructor(private http: HttpUtilsService) {
     // USERS
     this.getUsersEndPoint = this.mainUrl + '/users';
@@ -60,6 +65,13 @@ export class UnivoxService {
     this.getCriteriaByIdEndPoint = this.mainUrl + '/criterias';
     this.updateCriteriaEndPoint = this.mainUrl + '/criterias/{id}';
     this.deleteCriteriaEndPoint = this.mainUrl + '/criterias/{id}';
+
+    // APPLICANTS
+    this.getNvqApplicantEndPoint = this.mainUrl + '/applicants/nvq/details';
+    this.getAlApplicantEndPoint = this.mainUrl + '/applicants/al/details';
+    this.createNvqApplicantEndPoint = this.mainUrl + '/applicants';
+    this.createAlApplicantEndPoint = this.mainUrl + '/applicants';
+
   }
 
   public getAllUsers() {
@@ -80,11 +92,11 @@ export class UnivoxService {
     );
     return this.http.put(updateUserById, data);
   }
-  public deleteUser(id, status) {
+  public deleteUser(id) {
     const deleteUser = this.deleteUsersEndPoint.replace(
       '{id}', id
     );
-    return this.http.delete(deleteUser, status);
+    return this.http.delete(deleteUser);
   }
 
   public getAllFaculties() {
@@ -143,19 +155,39 @@ export class UnivoxService {
   }
   public createCriteria(data) {
     const create = this.createCriteriaEndPoint;
-    return this.http.post(data, create);
+    return this.http.post(create, data);
   }
   public getCriteriaById() {
     const getCriteriaById = this.getCriteriaByIdEndPoint;
     return this.http.get(getCriteriaById);
   }
-  public updateCriteriaById(data) {
-    const updateCriteriaById = this.updateCriteriaEndPoint;
-    return this.http.put(data, updateCriteriaById);
+  public updateCriteriaById(id, data) {
+    const updateCriteriaById = this.updateCriteriaEndPoint.replace(
+      '{id}', id
+    );
+    return this.http.put(updateCriteriaById, data);
   }
-  public deleteCriteria(data) {
-    const deleteCriteria = this.deleteCriteriaEndPoint;
-    return this.http.delete(data, deleteCriteria);
+  public deleteCriteria(id) {
+    const deleteCriteria = this.deleteCriteriaEndPoint.replace(
+      '{id}', id
+    );
+    return this.http.delete(deleteCriteria);
   }
 
+  public getNvqApplicant() {
+    const get = this.getNvqApplicantEndPoint;
+    return this.http.get(get);
+  }
+  public getAlNvqApplicant() {
+    const get = this.getAlApplicantEndPoint;
+    return this.http.get(get);
+  }
+  public createNvqApplicant(data) {
+    const create = this.createNvqApplicantEndPoint;
+    return this.http.post(create, data);
+  }
+  public createAlApplicant(data) {
+    const create = this.createAlApplicantEndPoint;
+    return this.http.post(create, data);
+  }
 }

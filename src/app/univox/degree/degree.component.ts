@@ -15,7 +15,7 @@ export class DegreeComponent implements OnInit {
   showDegreeCreateForm = false;
   modalTitle = null;
   editDetails = {
-    faculty_id: '',
+    faculty_code: '',
     degree_code: '',
     degree_name: '',
     status: 0
@@ -29,10 +29,9 @@ export class DegreeComponent implements OnInit {
     private notifier: NotifierService
   ) {
     this.degreeCreateForm = this.fb.group({
-      faculty_id: [''],
+      faculty_code: [''],
       degree_code: [''],
-      degree_name: [''],
-      status: ['']
+      degree_name: ['']
     });
   }
 
@@ -70,10 +69,9 @@ export class DegreeComponent implements OnInit {
       this.notifier.notify('success', res.message);
       this.showDegreeCreateForm = false;
       this.degreeCreateForm = this.fb.group({
-        faculty_id: [''],
+        faculty_code: [''],
         degree_code: [''],
         degree_name: [''],
-        status: ['']
       });
       this.getAllDegree();
     },
@@ -96,7 +94,7 @@ export class DegreeComponent implements OnInit {
 
   editDegree(degree) {
     this.editDetails = {
-      faculty_id: degree.faculty.faculty_code,
+      faculty_code: degree.faculty.faculty_code,
       degree_code: degree.degree_code,
       degree_name: degree.degree_name,
       status: 1

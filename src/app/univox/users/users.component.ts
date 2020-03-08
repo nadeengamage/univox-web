@@ -16,7 +16,6 @@ export class UsersComponent implements OnInit {
   modalTitle = null;
   editDetails = {
     username: '',
-    password: '',
     firstname: '',
     lastname: '',
     role: '',
@@ -88,11 +87,8 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id) {
-    const set = {
-      status: 0
-    };
-    this.univoxService.deleteUser(id, set).subscribe(res => {
-      this.notifier.notify('success', res.message);
+    this.univoxService.deleteUser(id).subscribe(res => {
+      this.notifier.notify('success', 'User Deactivated!');
       this.getAllUsers();
     },
     error => {
@@ -104,11 +100,10 @@ export class UsersComponent implements OnInit {
   editUser(user) {
     this.editDetails = {
       username: user.username,
-      password: '',
       firstname: user.firstname,
       lastname: user.lastname,
       role: user.role_id.toString(),
-      status: 0
+      status: user.status ? 1 : 0
     };
     this.editUserId = user.x_id;
     this.modalTitle = user.username;
