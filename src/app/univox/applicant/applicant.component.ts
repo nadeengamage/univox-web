@@ -22,8 +22,10 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   nvqSubmitted = false;
   showAlApplicantCreateForm = false;
   alApplicantCreateForm: FormGroup;
-  uploadForm: FormGroup;
+  uploadNvqBulkForm: FormGroup;
+  uploadAlBulkForm: FormGroup;
   alSubmitted = false;
+  showNvqBulkUpload = false;
 
   public loading = false;
 
@@ -60,8 +62,11 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       permenent_address: ['', Validators.required],
       batch_type: ['', Validators.required]
     });
-    this.uploadForm = this.fb.group({
-      profile: ['']
+    this.uploadNvqBulkForm = this.fb.group({
+      nvq_profile: ['']
+    });
+    this.uploadAlBulkForm = this.fb.group({
+      al_profile: ['']
     });
     this.alApplicantCreateForm = this.fb.group({
       student_type: ['', Validators.required],
@@ -202,15 +207,35 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     }
   }
 
-  onFileSelect(event) {
+  onNvqFileSelect(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
-      this.uploadForm.get('profile').setValue(file);
+      this.uploadNvqBulkForm.get('nvq_profile').setValue(file);
     }
   }
 
-  onBulkNvqSubmit() {
+  onAlFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.uploadAlBulkForm.get('al_profile').setValue(file);
+    }
+  }
+
+onBulkNvqSubmit() {
     this.univoxService.createNvqBulkApplicant(this.uploadForm.get('profile').value).subscribe(
+      res => {
+        console.log(res);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  onBulkAlSubmit() {
+    const formData = new FormData();
+    formData.append('file', this.uploadNvqBulkForm.get('al_profile').value);
+    this.univoxService.createAlBulkApplicant(formData).subscribe(
       res => {
         console.log(res);
       },
