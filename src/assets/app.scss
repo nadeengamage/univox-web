@@ -452,7 +452,6 @@ $primary: #1857cc;
       height:  30px; 
       width:  30px; 
       margin:  auto;
-      opacity:  .15; 
       transition:  all .3s ease; 
       path {
         transition:  all .3s ease; 
@@ -805,4 +804,11 @@ ngx-loading .custom-class {
     -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+.toggle-password {
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
+  color: #084fe4;
 }

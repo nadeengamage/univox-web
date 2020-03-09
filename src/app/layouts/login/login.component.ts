@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   invalidLogin = false;
   signinForm: FormGroup;
+  isActive = true;
 
   public loading = false;
 
