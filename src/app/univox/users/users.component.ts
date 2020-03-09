@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnDestroy, OnInit {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
 
   filterUserData = [];
   usersList = [];
@@ -39,7 +42,17 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      responsive: true
+    };
     this.getAllUsers();
+  }
+
+  ngOnDestroy() {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   getAllUsers() {
@@ -47,24 +60,12 @@ export class UsersComponent implements OnInit {
       res => {
         this.usersList = res.data;
         this.filterUserData = res.data;
+        this.dtTrigger.next();
         console.log(res.data);
       },
       error => {
       }
     );
-  }
-
-  search(term: string) {
-    if (!term) {
-      this.filterUserData = this.usersList;
-    } else {
-      this.filterUserData = this.usersList.filter(empFirstName =>
-        empFirstName.firstname.trim().toLowerCase().includes(term.trim().toLowerCase())
-      );
-      if (this.filterUserData.length === 0) {
-        console.log('No Data Found!', this.filterUserData);
-      }
-    }
   }
 
   createUser() {

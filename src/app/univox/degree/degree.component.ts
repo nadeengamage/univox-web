@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-degree',
   templateUrl: './degree.component.html',
   styleUrls: ['./degree.component.scss']
 })
-export class DegreeComponent implements OnInit {
+export class DegreeComponent implements OnDestroy, OnInit {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
 
   filterDegreeData = [];
   degreeList = [];
@@ -36,7 +39,17 @@ export class DegreeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      responsive: true
+    };
     this.getAllDegree();
+  }
+
+  ngOnDestroy() {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   getAllDegree() {
@@ -44,24 +57,12 @@ export class DegreeComponent implements OnInit {
       res => {
         this.degreeList = res.data;
         this.filterDegreeData = res.data;
+        this.dtTrigger.next();
         console.log(res.data);
       },
       error => {
       }
     );
-  }
-
-  search(term: string) {
-    if (!term) {
-      this.filterDegreeData = this.degreeList;
-    } else {
-      this.filterDegreeData = this.degreeList.filter(dcode =>
-        dcode.degree_code.trim().toLowerCase().includes(term.trim().toLowerCase())
-      );
-      if (this.filterDegreeData.length === 0) {
-        console.log('No Data Found!', this.filterDegreeData);
-      }
-    }
   }
 
   createDegree() {

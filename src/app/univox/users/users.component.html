@@ -44,13 +44,9 @@
            </div>
         </div>
      </div>
-     <div class="row">
-        <div class="form-group col-3">
-           <label>Filter by User First Name</label>
-           <input type="text" class="form-control" placeholder="Enter Filter Text Here" (keyup)='search($event.target.value)'>
-        </div>
-     </div>
-     <table class="table table-striped table-bordered" id="tblUserData">
+     <div class="col-md-12 table_outer">
+      <div class="row">
+     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover" id="tblUserData">
         <thead>
            <tr>
               <th scope="col">Role ID</th>
@@ -81,6 +77,8 @@
            </tr>
         </tbody>
      </table>
+     </div>
+     </div>
   </div>
 </div>
 

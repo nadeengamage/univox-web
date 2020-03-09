@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-criteria',
   templateUrl: './criteria.component.html',
   styleUrls: ['./criteria.component.scss']
 })
-export class CriteriaComponent implements OnInit {
+export class CriteriaComponent implements OnDestroy, OnInit {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
 
   filterCriteriaData = [];
   criteriaList = [];
@@ -44,7 +47,17 @@ export class CriteriaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      responsive: true
+    };
     this.getAllCriterias();
+  }
+
+  ngOnDestroy() {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   getAllCriterias() {
@@ -52,24 +65,12 @@ export class CriteriaComponent implements OnInit {
       res => {
         this.criteriaList = res.data;
         this.filterCriteriaData = res.data;
+        this.dtTrigger.next();
         console.log(res.data);
       },
       error => {
       }
     );
-  }
-
-  search(term: string) {
-    if (!term) {
-      this.filterCriteriaData = this.criteriaList;
-    } else {
-      this.filterCriteriaData = this.criteriaList.filter(fcode =>
-        fcode.faculty_code.trim().toLowerCase().includes(term.trim().toLowerCase())
-      );
-      if (this.filterCriteriaData.length === 0) {
-        console.log('No Data Found!', this.filterCriteriaData);
-      }
-    }
   }
 
   createCriteria() {

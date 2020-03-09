@@ -18,6 +18,7 @@ import { FacultyComponent } from './univox/faculty/faculty.component';
 import { DegreeComponent } from './univox/degree/degree.component';
 import { CriteriaComponent } from './univox/criteria/criteria.component';
 import { ApplicantComponent } from './univox/applicant/applicant.component';
+import { DataTablesModule } from 'angular-datatables';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -81,6 +82,7 @@ const customNotifierOptions: NotifierOptions = {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    DataTablesModule,
     NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [

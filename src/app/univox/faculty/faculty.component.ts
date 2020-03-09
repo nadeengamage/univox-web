@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-faculty',
   templateUrl: './faculty.component.html',
   styleUrls: ['./faculty.component.scss']
 })
-export class FacultyComponent implements OnInit {
+export class FacultyComponent implements OnDestroy, OnInit {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
 
   filterFacultyData = [];
   facultyList = [];
@@ -35,7 +38,17 @@ export class FacultyComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      responsive: true
+    };
     this.getAllFaculty();
+  }
+
+  ngOnDestroy() {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 
   getAllFaculty() {
@@ -43,26 +56,13 @@ export class FacultyComponent implements OnInit {
       res => {
         this.facultyList = res.data;
         this.filterFacultyData = res.data;
+        this.dtTrigger.next();
         console.log(res.data);
       },
       error => {
       }
     );
   }
-
-  search(term: string) {
-    if (!term) {
-      this.filterFacultyData = this.facultyList;
-    } else {
-      this.filterFacultyData = this.facultyList.filter(fcode =>
-        fcode.faculty_code.trim().toLowerCase().includes(term.trim().toLowerCase())
-      );
-      if (this.filterFacultyData.length === 0) {
-        console.log('No Data Found!', this.filterFacultyData);
-      }
-    }
-  }
-
 
   createFaculty() {
     this.univoxService.createFaculty(this.facultyCreateForm.value).subscribe(res => {
