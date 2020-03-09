@@ -592,20 +592,20 @@ table.dataTable thead th {
 }
 
 table.dataTable thead th, table.dataTable thead td {
-  border: 1px solid #a4c9ff;
-  background-color: #b9d5ff;
+  border: 1px solid #f3d195;
+  background-color: #ffd9b9;
 }
 
 .table-bordered td, .table-bordered th {
-  border: 1px solid #c6ddff;
+  border: 1px solid #ffebc6;
 }
 
 table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
-  border: 1px solid #c6ddff;
+  border: 1px solid #ffebc6;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgb(243, 248, 255);
+  background-color: #fffbf3;
 }
 
 table.dataTable.no-footer {
