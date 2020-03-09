@@ -25,6 +25,9 @@ export class FacultyComponent implements OnDestroy, OnInit {
   editFacultyId;
   facultyCreateForm: FormGroup;
 
+
+  public loading = false;
+
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
@@ -52,11 +55,13 @@ export class FacultyComponent implements OnDestroy, OnInit {
   }
 
   getAllFaculty() {
+    this.loading = true;
     this.univoxService.getAllFaculties().subscribe(
       res => {
         this.facultyList = res.data;
         this.filterFacultyData = res.data;
         this.dtTrigger.next();
+        this.loading = false;
         console.log(res.data);
       },
       error => {
@@ -65,6 +70,7 @@ export class FacultyComponent implements OnDestroy, OnInit {
   }
 
   createFaculty() {
+    this.loading = true;
     this.univoxService.createFaculty(this.facultyCreateForm.value).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.showFacultyCreateForm = false;
@@ -77,17 +83,20 @@ export class FacultyComponent implements OnDestroy, OnInit {
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
 
   deleteFaculty(id) {
+    this.loading = true;
     this.univoxService.deleteFaculty(id).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.getAllFaculty();
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
@@ -103,12 +112,14 @@ export class FacultyComponent implements OnDestroy, OnInit {
   }
 
   updateFaculty() {
+    this.loading = true;
     this.univoxService.updateFacultyById(this.editFacultyId, this.editDetails).subscribe(res => {
       this.getAllFaculty();
       this.notifier.notify('success', res.message);
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }

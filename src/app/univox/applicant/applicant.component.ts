@@ -24,6 +24,8 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   alApplicantCreateForm: FormGroup;
   alSubmitted = false;
 
+  public loading = false;
+
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
@@ -103,14 +105,18 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   }
 
   getNvqAplicants() {
+    this.loading = true;
     this.univoxService.getNvqApplicant().subscribe(
       res => {
         this.nvqAplicantList = res.data;
         this.nvqAplicantFilterList = res.data;
         this.dtTrigger.next();
+        this.loading = false;
         console.log(res.data);
       },
       error => {
+        this.loading = false;
+        this.notifier.notify('success', error.message);
       }
     );
   }
@@ -198,14 +204,18 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   getAlAplicants() {
     this.dtTrigger.unsubscribe();
     this.dtTrigger = new Subject();
+    this.loading = true;
     this.univoxService.getAlApplicant().subscribe(
       res => {
         this.alAplicantList = res.data;
         this.alAplicantFilterList = res.data;
         this.dtTrigger.next();
+        this.loading = false;
         console.log(res.data);
       },
       error => {
+        this.loading = false;
+        this.notifier.notify('success', error.message);
       }
     );
   }
@@ -214,6 +224,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     console.log(this.alApplicantCreateForm);
     if (!this.alApplicantCreateForm.invalid) {
     this.alSubmitted = false;
+    this.loading = true;
     this.univoxService.createApplicant(this.alApplicantCreateForm.value).subscribe(
       res => {
         this.alAplicantList = res.data;
@@ -221,10 +232,12 @@ export class ApplicantComponent implements OnDestroy, OnInit {
         this.ngOnDestroy();
         this.getAlAplicants();
         this.dtTrigger.next();
+        this.loading = false;
         this.notifier.notify('success', res.message);
         console.log(res.data);
       },
       error => {
+        this.loading = false;
         this.notifier.notify('error', error.error);
       }
     );

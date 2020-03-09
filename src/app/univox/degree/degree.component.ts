@@ -26,6 +26,8 @@ export class DegreeComponent implements OnDestroy, OnInit {
   editDegreeId;
   degreeCreateForm: FormGroup;
 
+  public loading = false;
+
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
@@ -53,11 +55,13 @@ export class DegreeComponent implements OnDestroy, OnInit {
   }
 
   getAllDegree() {
+    this.loading = true;
     this.univoxService.getAllDegrees().subscribe(
       res => {
         this.degreeList = res.data;
         this.filterDegreeData = res.data;
         this.dtTrigger.next();
+        this.loading = false;
         console.log(res.data);
       },
       error => {
@@ -66,6 +70,7 @@ export class DegreeComponent implements OnDestroy, OnInit {
   }
 
   createDegree() {
+    this.loading = true;
     this.univoxService.createDegree(this.degreeCreateForm.value).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.showDegreeCreateForm = false;
@@ -78,17 +83,20 @@ export class DegreeComponent implements OnDestroy, OnInit {
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
 
   deleteDegree(id) {
+    this.loading = true;
     this.univoxService.deleteDegree(id).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.getAllDegree();
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
@@ -105,12 +113,14 @@ export class DegreeComponent implements OnDestroy, OnInit {
   }
 
   updateDegree() {
+    this.loading = true;
     this.univoxService.updateDegreeById(this.editDegreeId, this.editDetails).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.getAllDegree();
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
