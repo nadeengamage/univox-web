@@ -7,7 +7,7 @@
 	   <div class="univox">
 		   <img src="./../../../assets/img/univox.png" alt=""/>
 	   </div>
-	   <p>Welcome back! Log in to University Management System</p>
+	   <p>Welcome to, Student Admission System</p>
 	   <div class="floating-label">
 		  <input id="email" type="email" class="input" formControlName="username"/>
 		  <label for="email">User Name:</label>
@@ -43,3 +43,12 @@
 	</form>
  </div>
 </div>
+
+<ng-template #customLoadingTemplate>
+	<div class="custom-class">
+		<h3>
+			Please Wait...
+		</h3>
+	</div>
+ </ng-template>
+ <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>

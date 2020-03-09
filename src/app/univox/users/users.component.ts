@@ -27,6 +27,8 @@ export class UsersComponent implements OnDestroy, OnInit {
   editUserId;
   userCreateForm: FormGroup;
 
+  public loading = false;
+
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
@@ -56,19 +58,23 @@ export class UsersComponent implements OnDestroy, OnInit {
   }
 
   getAllUsers() {
+    this.loading = true;
     this.univoxService.getAllUsers().subscribe(
       res => {
         this.usersList = res.data;
         this.filterUserData = res.data;
         this.dtTrigger.next();
+        this.loading = false;
         console.log(res.data);
       },
       error => {
+        this.loading = false;
       }
     );
   }
 
   createUser() {
+    this.loading = true;
     this.univoxService.createUser(this.userCreateForm.value).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.showUserCreateForm = false;
@@ -83,17 +89,20 @@ export class UsersComponent implements OnDestroy, OnInit {
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
 
   deleteUser(id) {
+    this.loading = true;
     this.univoxService.deleteUser(id).subscribe(res => {
       this.notifier.notify('success', 'User Deactivated!');
       this.getAllUsers();
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
@@ -111,12 +120,14 @@ export class UsersComponent implements OnDestroy, OnInit {
   }
 
   updateUser() {
+    this.loading = true;
     this.univoxService.updateUserById(this.editUserId, this.editDetails).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.getAllUsers();
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
