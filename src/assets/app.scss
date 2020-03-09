@@ -339,12 +339,14 @@ $primary: #1857cc;
 }
 .mainlogin form {
   padding:  15em 30px; 
-  background:  #fefefe; 
+  // background:  #fefefe;
   display:  flex; 
   flex-direction:  column;
   align-items:  flex-start; 
   padding-bottom:  20px; 
   width:  30%; 
+  position: relative;
+  overflow: hidden;
   h4 {
     margin-bottom:  20px;
     color:  rgba(#000, .5);
@@ -742,4 +744,65 @@ ngx-loading .custom-class {
 
 .custom-file-input:active::before {
   background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.log-in::before, .login::after {
+  content: '';
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 45%;
+  border-bottom-left-radius: 35%;
+  border-bottom-right-radius: 40%;
+  z-index: -1;
+}
+.log-in::before {
+  right: -150px;
+  bottom: -150px;
+  background-color: rgba(69, 105, 144, 0.15);
+  -webkit-animation: wawes 6s infinite linear;
+  animation: wawes 6s infinite linear;
+}
+.log-in::after {
+  right: 0;
+  bottom: 0;
+  background-color: rgba(2, 128, 144, 0.2);
+  -webkit-animation: wawes 7s infinite;
+  -moz-animation: wawes 7s infinite;
+  animation: wawes 7s infinite;
+}
+
+
+@-webkit-keyframes wawes {
+  from {
+    -webkit-transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes wawes {
+  from {
+    -moz-transform: rotate(0);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+@keyframes wawes {
+  from {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
