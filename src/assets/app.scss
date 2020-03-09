@@ -708,3 +708,38 @@ ngx-loading .custom-class {
   z-index: 2000;
   color: #fff;
 }
+
+.custom-file-input {
+  opacity: 1;
+  width: 200px;
+  height: 20px;
+}
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input::before {
+  content: "Upload File";
+  display: inline-block;
+  background: #003c8b;
+  border: 1px solid #003c8b;
+  border-radius: 100px;
+  padding: 2px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: #ffffff;
+  position: absolute;
+  left: 0;
+}
+
+.custom-file-input:hover::before {
+  border-color: black;
+}
+
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}

@@ -15,16 +15,28 @@
          <div class="tab-pane fade show active" id="nvq" role="tabpanel" aria-labelledby="nvq-tab">
             <div class="d-flex flex-row-start">
                <button class="btn btn-info" (click)="showNvqApplicantCreateForm = true; onNvqReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
-               <button class="btn btn-warning"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
+               <button class="btn btn-warning" (click)="showNvqBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
             </div>
-            <form [formGroup]="uploadForm" (ngSubmit)="onBulkNvqSubmit()">      
-               <div>
-                 <input type="file" name="profile" (change)="onFileSelect($event)" />
+            <div class="createForm" *ngIf="showNvqBulkUpload">
+               <div class="card secondary-card">
+                  <div class="card-header d-flex">
+                     <h6 class="card-title">Bulk Applicant</h6>
+                  </div>
+                  <div class="card-body">
+                     <form [formGroup]="uploadNvqBulkForm" (ngSubmit)="onBulkNvqSubmit()">
+                        <div class="d-inline-flex align-items-center">
+                           <div class="d-inline-flex flex-row-start">
+                              <input type="file" class="custom-file-input" name="nvq_profile" (change)="onNvqFileSelect($event)" />
+                           </div>
+                           <div class="d-inline-flex flex-row-reverse">
+                              <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp;Upload</button>&nbsp;
+                              <button class="btn btn-warning" (click)="showNvqBulkUpload = false"><i class="fa fa-reply"></i>&nbsp; Cancel</button>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
                </div>
-               <div>
-                 <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp;Upload</button>
-               </div>
-             </form>
+            </div>
             <div class="createForm" *ngIf="showNvqApplicantCreateForm">
                <div class="card secondary-card">
                   <div class="card-header d-flex">
@@ -340,7 +352,28 @@
          </div>
          <div class="tab-pane fade" id="al" role="tabpanel" aria-labelledby="al-tab">
             <div class="d-flex flex-row-start">
-               <button class="btn btn-info" (click)="showAlApplicantCreateForm = true; onAlReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>
+               <button class="btn btn-info" (click)="showAlApplicantCreateForm = true; onAlReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
+               <button class="btn btn-warning" (click)="showAlBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
+            </div>
+            <div class="createForm" *ngIf="showAlBulkUpload">
+               <div class="card secondary-card">
+                  <div class="card-header d-flex">
+                     <h6 class="card-title">Bulk Applicant</h6>
+                  </div>
+                  <div class="card-body">
+                     <form [formGroup]="uploadAlBulkForm" (ngSubmit)="onBulkAlSubmit()">
+                        <div class="d-inline-flex align-items-center">
+                           <div class="d-inline-flex flex-row-start">
+                              <input type="file" class="custom-file-input" name="al_profile" (change)="onAlFileSelect($event)" />
+                           </div>
+                           <div class="d-inline-flex flex-row-reverse">
+                              <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp;Upload</button>&nbsp;
+                              <button class="btn btn-warning" (click)="showAlBulkUpload = false"><i class="fa fa-reply"></i>&nbsp; Cancel</button>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
             </div>
             <div class="createForm" *ngIf="showAlApplicantCreateForm">
                <div class="card secondary-card">

@@ -192,4 +192,8 @@ export class UnivoxService {
     const create = this.createNvqBulkApplicantEndPoint;
     return this.http.multiPart(create, data);
   }
+  public createAlBulkApplicant(data) {
+    const create = this.createAlBulkApplicantEndPoint;
+    return this.http.multiPart(create, data);
+  }
 }
