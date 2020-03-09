@@ -14,7 +14,7 @@
     <div class="tab-content" id="applicantTabContent">
       <div class="tab-pane fade show active" id="nvq" role="tabpanel" aria-labelledby="nvq-tab">
       <div class="d-flex flex-row-start">
-         <button class="btn btn-success" (click)="showApplicantCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>
+         <button class="btn btn-info" (click)="showApplicantCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>
       </div>
       <div class="createForm" *ngIf="showApplicantCreateForm">
          <div class="card secondary-card">
@@ -26,9 +26,15 @@
                   <div class="row">
                      <div class="form-group col-3">
                         <label>Student Type</label>
-                        <select class="form-control" (change)="changeType($event)" formControlName="student_type" >
+                        <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeType($event)" formControlName="student_type" 
+                        [ngClass]="submitted || isInvalidField('student_type') ? 'error-field' : ''">
                            <option ngValue="NVQ">NVQ</option>
                          </select>
+                         <div class="err-lbl" *ngIf="submitted || isInvalidField('student_type')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.student_type.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Application No<span class="mandatory">*</span></label>
@@ -51,30 +57,66 @@
                      </div>
                      <div class="form-group col-3">
                         <label>Initials<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="initials">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="initials"
+                        [ngClass]="submitted || isInvalidField('initials') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('initials')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.initials.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Surename<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="surename">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="surename"
+                        [ngClass]="submitted || isInvalidField('surename') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('surename')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.surename.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Title<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="title">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="title"
+                        [ngClass]="submitted || isInvalidField('title') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('title')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.title.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Gender<span class="mandatory">*</span></label>
-                        <select class="form-control" formControlName="gender" (change)="changeGender($event)" >
+                        <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="gender" (change)="changeGender($event)" 
+                        [ngClass]="submitted || isInvalidField('gender') ? 'error-field' : ''">
                            <option ngValue="M">Male</option>
                            <option ngValue="F">Female</option>
                          </select>
+                         <div class="err-lbl" *ngIf="submitted || isInvalidField('gender')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.gender.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Ethnicity<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="ethnicity">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="ethnicity"
+                        [ngClass]="submitted || isInvalidField('ethnicity') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('ethnicity')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.ethnicity.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Address 1<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="address_1">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="address_1"
+                        [ngClass]="submitted || isInvalidField('address_1') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('address_1')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.address_1.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Address 2</label>
@@ -86,11 +128,23 @@
                      </div>
                      <div class="form-group col-3">
                         <label>City<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="city">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="city"
+                        [ngClass]="submitted || isInvalidField('city') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('city')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.city.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>District<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="district">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="district"
+                        [ngClass]="submitted || isInvalidField('district') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('district')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.district.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Telephone<span class="mandatory">*</span></label>
@@ -121,7 +175,13 @@
                      </div>
                      <div class="form-group col-3">
                         <label>Preference 1<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="preference_1">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="preference_1"
+                        [ngClass]="submitted || isInvalidField('preference_1') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('preference_1')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.preference_1.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Preference 2</label>
@@ -133,11 +193,23 @@
                      </div>
                      <div class="form-group col-3">
                         <label>Index No<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="index_no">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="index_no"
+                        [ngClass]="submitted || isInvalidField('index_no') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('index_no')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.index_no.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Diploma<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="diploma">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="diploma"
+                        [ngClass]="submitted || isInvalidField('diploma') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('diploma')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.diploma.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Remarks</label>
@@ -145,17 +217,29 @@
                      </div>
                      <div class="form-group col-3">
                         <label>Permenent Address<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="permenent_address">
+                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="permenent_address"
+                        [ngClass]="submitted || isInvalidField('permenent_address') ? 'error-field' : ''">
+                        <div class="err-lbl" *ngIf="submitted || isInvalidField('permenent_address')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.permenent_address.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3">
                         <label>Civil Status<span class="mandatory">*</span></label>
-                        <select class="form-control" (change)="changeCivil($event)" formControlName="civil_status" >
+                        <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeCivil($event)" formControlName="civil_status" 
+                        [ngClass]="submitted || isInvalidField('civil_status') ? 'error-field' : ''">
                            <option ngValue="S">Un-Married</option>
                            <option ngValue="M">Married</option>
                          </select>
+                         <div class="err-lbl" *ngIf="submitted || isInvalidField('civil_status')">
+                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.civil_status.errors?.required">
+                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                           </span>
+                         </div>
                      </div>
                      <div class="form-group col-3 d-flex align-items-center">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Add Applicant</button>
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp; Save Applicant</button>
                        </div>
                   </div>
                </form>

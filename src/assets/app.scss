@@ -531,6 +531,7 @@ $displacement:  3px;
 
 .card-header {
   padding: 15px;
+  background-color: #abcfff;
 }
 
 .secondary-card {
@@ -656,4 +657,8 @@ table.dataTable.no-footer {
 .nav-tabs .nav-link.active {
   background-color: #636c73;
   color: #fff;
+}
+
+.ng-invalid.error-field {
+  border-color: red;
 }
