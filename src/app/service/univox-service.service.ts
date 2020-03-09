@@ -176,7 +176,7 @@ export class UnivoxService {
     const get = this.getNvqApplicantEndPoint;
     return this.http.get(get);
   }
-  public getAlNvqApplicant() {
+  public getAlApplicant() {
     const get = this.getAlApplicantEndPoint;
     return this.http.get(get);
   }

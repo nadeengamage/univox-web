@@ -20,6 +20,9 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   showNvqApplicantCreateForm = false;
   nvqApplicantCreateForm: FormGroup;
   nvqSubmitted = false;
+  showAlApplicantCreateForm = false;
+  alApplicantCreateForm: FormGroup;
+  alSubmitted = false;
 
   constructor(
     public fb: FormBuilder,
@@ -53,6 +56,35 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       civil_status: ['', Validators.required],
       permenent_address: ['', Validators.required],
     });
+    this.alApplicantCreateForm = this.fb.group({
+      student_type: ['', Validators.required],
+      application_no: ['', Validators.required],
+      identity_no: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/)]],
+      initials: ['', Validators.required],
+      surename: ['', Validators.required],
+      title: ['', Validators.required],
+      gender: ['', Validators.required],
+      ethnicity: ['', Validators.required],
+      address_1: ['', Validators.required],
+      address_2: [''],
+      address_3: [''],
+      city: ['', Validators.required],
+      district: ['', Validators.required],
+      telephone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
+      mobile: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12),
+        Validators.pattern(/^7|0|(?:\+94)[0-9]{9,10}$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      preference_1: ['', Validators.required],
+      preference_2: [''],
+      preference_3: [''],
+      stream: ['', Validators.required],
+      al_index_no: ['', Validators.required],
+      z_score: ['', [Validators.required, Validators.pattern(/^\d*\.?\d{0,2}$/)]],
+      al_ict: ['', Validators.required],
+      comm_and_media: ['', Validators.required],
+      general_english: ['', Validators.required],
+      general_common_test: ['', Validators.required],
+    });
   }
 
   ngOnInit() {
@@ -83,25 +115,37 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     );
   }
 
-  changeType(item) {
+  changeNvqType(item) {
     return this.nvqApplicantCreateForm.patchValue({
       student_type: item.srcElement.value.slice(3)
     });
   }
 
-  changeGender(item) {
+  changeAlType(item) {
+    return this.alApplicantCreateForm.patchValue({
+      student_type: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeNvqGender(item) {
     return this.nvqApplicantCreateForm.patchValue({
       gender: item.srcElement.value.slice(3)
     });
   }
 
-  changeCivil(item) {
+  changeAlGender(item) {
+    return this.alApplicantCreateForm.patchValue({
+      gender: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeNvqCivil(item) {
     return this.nvqApplicantCreateForm.patchValue({
       civil_status: item.srcElement.value.slice(3)
     });
   }
 
-  isInvalidField(formControl) {
+  isInvalidNvqField(formControl) {
     return (this.nvqApplicantCreateForm.controls[formControl].touched ||
       this.nvqApplicantCreateForm.controls[formControl].dirty) &&
       this.nvqApplicantCreateForm.controls[formControl].errors
@@ -109,8 +153,17 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       : false;
   }
 
-  createApplicant() {
+  isInvalidAlField(formControl) {
+    return (this.alApplicantCreateForm.controls[formControl].touched ||
+      this.alApplicantCreateForm.controls[formControl].dirty) &&
+      this.alApplicantCreateForm.controls[formControl].errors
+      ? true
+      : false;
+  }
+
+  createNvqApplicant() {
     console.log(this.nvqApplicantCreateForm);
+
     if (!this.nvqApplicantCreateForm.invalid) {
     this.nvqSubmitted = false;
     this.univoxService.createApplicant(this.nvqApplicantCreateForm.value).subscribe(
@@ -135,5 +188,48 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   onNvqReset() {
     this.nvqSubmitted = false;
     this.nvqApplicantCreateForm.reset();
+  }
+
+  onAlReset() {
+    this.alSubmitted = false;
+    this.alApplicantCreateForm.reset();
+  }
+
+  getAlAplicants() {
+    this.dtTrigger.unsubscribe();
+    this.dtTrigger = new Subject();
+    this.univoxService.getAlApplicant().subscribe(
+      res => {
+        this.alAplicantList = res.data;
+        this.alAplicantFilterList = res.data;
+        this.dtTrigger.next();
+        console.log(res.data);
+      },
+      error => {
+      }
+    );
+  }
+
+  createAlApplicant() {
+    console.log(this.alApplicantCreateForm);
+    if (!this.alApplicantCreateForm.invalid) {
+    this.alSubmitted = false;
+    this.univoxService.createApplicant(this.alApplicantCreateForm.value).subscribe(
+      res => {
+        this.alAplicantList = res.data;
+        this.alAplicantFilterList = res.data;
+        this.ngOnDestroy();
+        this.getAlAplicants();
+        this.dtTrigger.next();
+        this.notifier.notify('success', res.message);
+        console.log(res.data);
+      },
+      error => {
+        this.notifier.notify('error', error.error);
+      }
+    );
+    } else {
+      this.alSubmitted = true;
+    }
   }
 }
