@@ -55,8 +55,9 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       index_no: ['', Validators.required],
       diploma: ['', Validators.required],
       remarks: [''],
-      civil_status: ['', Validators.required],
+      marital_status: ['', Validators.required],
       permenent_address: ['', Validators.required],
+      batch_type: ['', Validators.required]
     });
     this.alApplicantCreateForm = this.fb.group({
       student_type: ['', Validators.required],
@@ -145,9 +146,15 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     });
   }
 
-  changeNvqCivil(item) {
+  changeNvqMarital(item) {
     return this.nvqApplicantCreateForm.patchValue({
-      civil_status: item.srcElement.value.slice(3)
+      marital_status: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeNvqBatchType(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      batch_type: item.srcElement.value.slice(3)
     });
   }
 
