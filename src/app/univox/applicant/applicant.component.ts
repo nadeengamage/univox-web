@@ -210,9 +210,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   }
 
   onBulkNvqSubmit() {
-    const formData = new FormData();
-    formData.append('file', this.uploadForm.get('profile').value);
-    this.univoxService.createNvqBulkApplicant(formData).subscribe(
+    this.univoxService.createNvqBulkApplicant(this.uploadForm.get('profile').value).subscribe(
       res => {
         console.log(res);
       },
