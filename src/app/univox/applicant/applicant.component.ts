@@ -222,27 +222,33 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   }
 
   onBulkNvqSubmit() {
-    const formData = new FormData();
-    formData.append('file', this.uploadNvqBulkForm.get('nvq_profile').value);
-    this.univoxService.createNvqBulkApplicant(formData).subscribe(
+    this.loading = true;
+    this.univoxService.createNvqBulkApplicant(this.uploadNvqBulkForm.get('nvq_profile').value).subscribe(
       res => {
         console.log(res);
+        this.loading = false;
+        this.notifier.notify('success', res.message);
       },
       error => {
         console.log(error);
+        this.loading = false;
+        this.notifier.notify('error', error.error);
       }
     );
   }
 
   onBulkAlSubmit() {
-    const formData = new FormData();
-    formData.append('file', this.uploadNvqBulkForm.get('al_profile').value);
-    this.univoxService.createAlBulkApplicant(formData).subscribe(
+    this.loading = true;
+    this.univoxService.createAlBulkApplicant(this.uploadAlBulkForm.get('al_profile').value).subscribe(
       res => {
         console.log(res);
+        this.loading = false;
+        this.notifier.notify('success', res.message);
       },
       error => {
         console.log(error);
+        this.loading = false;
+        this.notifier.notify('error', error.error);
       }
     );
   }

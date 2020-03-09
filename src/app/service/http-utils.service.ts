@@ -89,10 +89,7 @@ export class HttpUtilsService {
     const formData: FormData = new FormData();
     formData.append('files', body);
     return this.httpClient
-      .post(path, formData, {
-        headers: this.setHeadersMultiPart(),
-        params
-      })
+      .post(path, formData)
       .pipe(
         map(res => res),
         catchError(this.formatErrors)
