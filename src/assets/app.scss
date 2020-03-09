@@ -662,3 +662,29 @@ table.dataTable.no-footer {
 .ng-invalid.error-field {
   border-color: red;
 }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  font-size: 12px;
+  background: #ffd9b9;
+  border-color: #d8b292;
+  border-radius: 100px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  font-size: 12px;
+  background: #a7a7a7;
+  border-color: #a7a7a7;
+  border-radius: 100px;
+}
+
+.dataTables_wrapper.no-footer select {
+  height: calc(1em + .75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+}

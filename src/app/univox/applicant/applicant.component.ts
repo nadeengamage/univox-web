@@ -17,16 +17,16 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   nvqAplicantFilterList = [];
   alAplicantList = [];
   alAplicantFilterList = [];
-  showApplicantCreateForm = false;
-  applicantCreateForm: FormGroup;
-  submitted = false;
+  showNvqApplicantCreateForm = false;
+  nvqApplicantCreateForm: FormGroup;
+  nvqSubmitted = false;
 
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
     private notifier: NotifierService,
   ) {
-    this.applicantCreateForm = this.fb.group({
+    this.nvqApplicantCreateForm = this.fb.group({
       student_type: ['', Validators.required],
       application_no: ['', Validators.required],
       identity_no: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/)]],
@@ -84,36 +84,36 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   }
 
   changeType(item) {
-    return this.applicantCreateForm.patchValue({
+    return this.nvqApplicantCreateForm.patchValue({
       student_type: item.srcElement.value.slice(3)
     });
   }
 
   changeGender(item) {
-    return this.applicantCreateForm.patchValue({
+    return this.nvqApplicantCreateForm.patchValue({
       gender: item.srcElement.value.slice(3)
     });
   }
 
   changeCivil(item) {
-    return this.applicantCreateForm.patchValue({
+    return this.nvqApplicantCreateForm.patchValue({
       civil_status: item.srcElement.value.slice(3)
     });
   }
 
   isInvalidField(formControl) {
-    return (this.applicantCreateForm.controls[formControl].touched ||
-      this.applicantCreateForm.controls[formControl].dirty) &&
-      this.applicantCreateForm.controls[formControl].errors
+    return (this.nvqApplicantCreateForm.controls[formControl].touched ||
+      this.nvqApplicantCreateForm.controls[formControl].dirty) &&
+      this.nvqApplicantCreateForm.controls[formControl].errors
       ? true
       : false;
   }
 
   createApplicant() {
-    console.log(this.applicantCreateForm);
-    if (!this.applicantCreateForm.invalid) {
-    this.submitted = false;
-    this.univoxService.createApplicant(this.applicantCreateForm.value).subscribe(
+    console.log(this.nvqApplicantCreateForm);
+    if (!this.nvqApplicantCreateForm.invalid) {
+    this.nvqSubmitted = false;
+    this.univoxService.createApplicant(this.nvqApplicantCreateForm.value).subscribe(
       res => {
         this.nvqAplicantList = res.data;
         this.nvqAplicantFilterList = res.data;
@@ -128,12 +128,12 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       }
     );
     } else {
-      this.submitted = true;
+      this.nvqSubmitted = true;
     }
   }
 
-  onReset() {
-    this.submitted = false;
-    this.applicantCreateForm.reset();
+  onNvqReset() {
+    this.nvqSubmitted = false;
+    this.nvqApplicantCreateForm.reset();
   }
 }
