@@ -123,6 +123,7 @@ export class UsersComponent implements OnDestroy, OnInit {
     this.loading = true;
     this.univoxService.updateUserById(this.editUserId, this.editDetails).subscribe(res => {
       this.notifier.notify('success', res.message);
+      this.loading = false;
       this.getAllUsers();
     },
     error => {

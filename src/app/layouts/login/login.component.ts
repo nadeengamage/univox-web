@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    this.loading = true;
+    // this.loading = true;
     this.authService.signIn(this.signinForm.value);
-    this.loading = this.authService.hideLoading();
+    // this.loading = this.authService.hideLoading();
   }
 
 }
