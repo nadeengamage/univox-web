@@ -12,51 +12,63 @@ export const univoxNavItems = [
     canAccess: true
   },
   {
-    text: 'Students',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
+    text: 'Faculties',
+    icon: 'fas fa-user',
+    routerLink: '/univox/faculties',
     canAccess: true
   },
   {
-    text: 'Program',
+    text: 'Degrees',
     icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
+    routerLink: '/univox/degrees',
     canAccess: true
   },
   {
-    text: 'Exams',
+    text: 'Criterias',
     icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
+    routerLink: '/univox/criterias',
     canAccess: true
   },
   {
-    text: 'Reports',
+    text: 'Applicants',
     icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
+    routerLink: '/univox/applicant',
     canAccess: true
   },
-  {
-    text: 'Import/Export',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
-    canAccess: true
-  },
-  {
-    text: 'Calendar',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
-    canAccess: true
-  },
-  {
-    text: 'Help Center',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
-    canAccess: true
-  },
-  {
-    text: 'Settings',
-    icon: 'fas fa-sign-out-alt',
-    routerLink: '/univox',
-    canAccess: true
-  },
+  // {
+  //   text: 'Districts',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox/districts',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Cities',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox/cities',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Import/Export',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Calendar',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Help Center',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox',
+  //   canAccess: true
+  // },
+  // {
+  //   text: 'Settings',
+  //   icon: 'fas fa-sign-out-alt',
+  //   routerLink: '/univox',
+  //   canAccess: true
+  // },
 ];

@@ -5,6 +5,8 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from './user';
+import { NotifierService } from 'angular-notifier';
+import { error } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +14,14 @@ import { User } from './user';
 export class AuthService {
 
   endpoint = '/api/v1/auth';
+  userendpoint = '/api/v1/users';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
-  currentUser = {};
+  currentUser;
 
   constructor(
     private http: HttpClient,
-    public router: Router
+    public router: Router,
+    private notifier: NotifierService
   ) {
   }
 
@@ -34,11 +38,20 @@ export class AuthService {
   signIn(user: User) {
     return this.http.post<any>(`${this.endpoint}`, user)
       .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token);
-        this.getUserProfile(res.username).subscribe((response) => {
-          this.currentUser = response;
-          this.router.navigate(['user-profile/' + response.msg.username]);
+        localStorage.setItem('access_token', res.access_token);
+        this.getUserProfile(user).subscribe((response) => {
+            for (const element of response.data) {
+              if (element.username === user.username) {
+                this.currentUser = element.username;
+                this.router.navigate(['univox']);
+                this.notifier.notify('success', 'Welcome back! ' + this.currentUser);
+                break;
+              }
+            }
         });
+      },
+      res => {
+        this.notifier.notify('error', res.error.description);
       });
   }
 
@@ -54,13 +67,14 @@ export class AuthService {
   doLogout() {
     const removeToken = localStorage.removeItem('access_token');
     if (removeToken == null) {
-      this.router.navigate(['log-in']);
+      this.router.navigate(['signin']);
+      this.notifier.notify('default', 'See yaa! ' + this.currentUser);
     }
   }
 
   // User profile
-  getUserProfile(id): Observable<any> {
-    const api = `${this.endpoint}/user-profile/${id}`;
+  getUserProfile(username): Observable<any> {
+    const api = `${this.userendpoint}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res: Response) => {
         return res || {};
@@ -70,14 +84,14 @@ export class AuthService {
   }
 
   // Error
-  handleError(error: HttpErrorResponse) {
+  handleError(res: HttpErrorResponse) {
     let msg = '';
-    if (error.error instanceof ErrorEvent) {
+    if (res.error instanceof ErrorEvent) {
       // client-side error
-      msg = error.error.message;
+      msg = res.error.message;
     } else {
       // server-side error
-      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      msg = `Error Code: ${res.error.status}\nMessage: ${res.error.message}`;
     }
     return throwError(msg);
   }

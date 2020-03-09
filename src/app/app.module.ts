@@ -14,6 +14,11 @@ import { FooterComponent } from './layouts/full-layout/footer/footer.component';
 import { SideMenuComponent } from './univox/side-menu/side-menu.component';
 import { UnivoxComponent } from './univox/univox.component';
 import { UsersComponent } from './univox/users/users.component';
+import { FacultyComponent } from './univox/faculty/faculty.component';
+import { DegreeComponent } from './univox/degree/degree.component';
+import { CriteriaComponent } from './univox/criteria/criteria.component';
+import { ApplicantComponent } from './univox/applicant/applicant.component';
+import { DataTablesModule } from 'angular-datatables';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -65,7 +70,11 @@ const customNotifierOptions: NotifierOptions = {
     FooterComponent,
     SideMenuComponent,
     UnivoxComponent,
-    UsersComponent
+    UsersComponent,
+    FacultyComponent,
+    DegreeComponent,
+    CriteriaComponent,
+    ApplicantComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +82,7 @@ const customNotifierOptions: NotifierOptions = {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    DataTablesModule,
     NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [

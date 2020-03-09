@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../service/authentication.service';
-import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,19 +7,26 @@ import { NotifierService } from 'angular-notifier';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  public signInUser = sessionStorage.getItem('username');
+  signInUser;
+  isSignIn;
+  hideSignOut = false;
 
   constructor(
     private authService: AuthService,
-    private notifier: NotifierService
     ) { }
 
   ngOnInit() {
+    this.isSignIn = this.authService.getToken();
+    this.signInUser = this.authService.currentUser;
+    if (this.isSignIn !== null) {
+      this.hideSignOut = true;
+    } else {
+      this.hideSignOut = false;
+    }
   }
 
   logOut() {
-    sessionStorage.removeItem('username');
-    this.notifier.notify('default', 'See You Again!');
+    this.authService.doLogout();
   }
 
 }
