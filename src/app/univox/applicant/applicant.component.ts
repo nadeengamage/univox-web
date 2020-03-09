@@ -22,6 +22,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   nvqSubmitted = false;
   showAlApplicantCreateForm = false;
   alApplicantCreateForm: FormGroup;
+  uploadForm: FormGroup;
   alSubmitted = false;
 
   public loading = false;
@@ -58,6 +59,9 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       marital_status: ['', Validators.required],
       permenent_address: ['', Validators.required],
       batch_type: ['', Validators.required]
+    });
+    this.uploadForm = this.fb.group({
+      profile: ['']
     });
     this.alApplicantCreateForm = this.fb.group({
       student_type: ['', Validators.required],
@@ -196,6 +200,26 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     } else {
       this.nvqSubmitted = true;
     }
+  }
+
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.uploadForm.get('profile').setValue(file);
+    }
+  }
+
+  onBulkNvqSubmit() {
+    const formData = new FormData();
+    formData.append('file', this.uploadForm.get('profile').value);
+    this.univoxService.createNvqBulkApplicant(formData).subscribe(
+      res => {
+        console.log(res);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   onNvqReset() {
