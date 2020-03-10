@@ -98,8 +98,11 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Title<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="title"
-                              [ngClass]="nvqSubmitted || isInvalidNvqField('title') ? 'error-field' : ''">
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeNvqTitle($event)" formControlName="title" 
+                           [ngClass]="nvqSubmitted || isInvalidNvqField('title') ? 'error-field' : ''">
+                           <option ngValue="Mr">Mr.</option>
+                           <option ngValue="Ms">Ms.</option>
+                           </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('title')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.title.errors?.required">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -121,7 +124,7 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Ethnicity<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="ethnicity"
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="ethnicity"
                               [ngClass]="nvqSubmitted || isInvalidNvqField('ethnicity') ? 'error-field' : ''">
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('ethnicity')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.ethnicity.errors?.required">
@@ -159,8 +162,34 @@
                         </div>
                         <div class="form-group col-3">
                            <label>District<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="district"
-                              [ngClass]="nvqSubmitted || isInvalidNvqField('district') ? 'error-field' : ''">
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="district" (change)="changeNvqDistrict($event)" 
+                           [ngClass]="nvqSubmitted || isInvalidNvqField('district') ? 'error-field' : ''">
+                           <option ngValue="Anuradhapura">Anuradhapura</option>
+                           <option ngValue="Ampara">Ampara</option>
+                           <option ngValue="Badulla">Badulla</option>
+                           <option ngValue="Batticaloa">Batticaloa</option>
+                           <option ngValue="Colombo">Colombo</option>
+                           <option ngValue="Galle">Galle</option>
+                           <option ngValue="Gampaha">Gampaha</option>
+                           <option ngValue="Hambantota">Hambantota</option>
+                           <option ngValue="Jaffna">Jaffna</option>
+                           <option ngValue="Kilinochchi">Kilinochchi</option>
+                           <option ngValue="Kurunegala">Kurunegala</option>
+                           <option ngValue="Kalutara">Kalutara</option>
+                           <option ngValue="Kandy">Kandy</option>
+                           <option ngValue="Kegalle">Kegalle</option>
+                           <option ngValue="Mannar">Mannar</option>
+                           <option ngValue="Mullaitivu">Mullaitivu</option>
+                           <option ngValue="Matale">Matale</option>
+                           <option ngValue="Monaragala">Monaragala</option>
+                           <option ngValue="Matara">Matara</option>
+                           <option ngValue="Nuwara Eliya">Nuwara Eliya</option>
+                           <option ngValue="Polonnaruwa">Polonnaruwa</option>
+                           <option ngValue="Puttalam">Puttalam</option>
+                           <option ngValue="Ratnapura">Ratnapura</option>
+                           <option ngValue="Trincomalee">Trincomalee</option>
+                           <option ngValue="Vavuniya">Vavuniya</option>
+                           </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('district')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.district.errors?.required">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -196,7 +225,7 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 1<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="preference_1"
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="preference_1"
                               [ngClass]="nvqSubmitted || isInvalidNvqField('preference_1') ? 'error-field' : ''">
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_1')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_1.errors?.required">
@@ -206,15 +235,15 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 2</label>
-                           <input type="text" class="form-control" formControlName="preference_2">
+                           <input type="text" class="uppercase form-control" formControlName="preference_2">
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 3</label>
-                           <input type="text" class="form-control" formControlName="preference_3">
+                           <input type="text" class="uppercase form-control" formControlName="preference_3">
                         </div>
                         <div class="form-group col-3">
                            <label>Index No<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="index_no"
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="index_no"
                               [ngClass]="nvqSubmitted || isInvalidNvqField('index_no') ? 'error-field' : ''">
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('index_no')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.index_no.errors?.required">
@@ -224,7 +253,7 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Diploma<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="diploma"
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="diploma"
                               [ngClass]="nvqSubmitted || isInvalidNvqField('diploma') ? 'error-field' : ''">
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('diploma')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.diploma.errors?.required">
@@ -287,59 +316,59 @@
                   <thead>
                      <tr>
                         <th scope="col">Application No</th>
+                        <th scope="col">Student Type</th>
+                        <th scope="col">Identity Card No</th>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Initials</th>
+                        <th scope="col">Surename</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Ethnicity</th>
                         <th scope="col">Address Line 1</th>
                         <th scope="col">Address Line 2</th>
                         <th scope="col">Address Line 3</th>
                         <th scope="col">City</th>
                         <th scope="col">District</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Ethnicity</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Identity Card No</th>
-                        <th scope="col">Initials</th>
+                        <th scope="col">Telephone</th>
                         <th scope="col">Mobile No</th>
+                        <th scope="col">Email</th>
                         <th scope="col">Diploma</th>
-                        <th scope="col">Index No</th>
-                        <th scope="col">Permenent Address</th>
-                        <th scope="col">Remark</th>
                         <th scope="col">Preference 1</th>
                         <th scope="col">Preference 2</th>
                         <th scope="col">Preference 3</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Student Type</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Surename</th>
-                        <th scope="col">Telephone</th>
+                        <th scope="col">Remark</th>
+                        <th scope="col">Permenent Address</th>
                         <!-- <th scope="col" class="lastColumn"></th> -->
                      </tr>
                   </thead>
                   <tbody>
                      <tr *ngFor="let applicant of nvqAplicantFilterList">
                         <td>{{applicant.nvq_details.application_no}}</td>
+                        <td>{{applicant.student_type}}</td>
+                        <td>{{applicant.identity_no}}</td>
+                        <td>{{applicant.nvq_details.index_no}}</td>
+                        <td>{{applicant.title}}</td>
+                        <td>{{applicant.initials}}</td>
+                        <td>{{applicant.surename}}</td>
+                        <td *ngIf="applicant.status === true">Active</td>
+                        <td *ngIf="applicant.status === false">Deactive</td>
+                        <td>{{applicant.gender}}</td>
+                        <td>{{applicant.ethnicity}}</td>
                         <td>{{applicant.address_1}}</td>
                         <td>{{applicant.address_2}}</td>
                         <td>{{applicant.address_3}}</td>
                         <td>{{applicant.city}}</td>
                         <td>{{applicant.district}}</td>
-                        <td>{{applicant.email}}</td>
-                        <td>{{applicant.ethnicity}}</td>
-                        <td>{{applicant.gender}}</td>
-                        <td>{{applicant.identity_no}}</td>
-                        <td>{{applicant.initials}}</td>
+                        <td>{{applicant.telephone}}</td>
                         <td>{{applicant.mobile}}</td>
+                        <td>{{applicant.email}}</td>
                         <td>{{applicant.nvq_details.diploma}}</td>
-                        <td>{{applicant.nvq_details.index_no}}</td>
-                        <td>{{applicant.nvq_details.permenent_address}}</td>
-                        <td>{{applicant.nvq_details.remarks}}</td>
                         <td>{{applicant.preference_1}}</td>
                         <td>{{applicant.preference_2}}</td>
                         <td>{{applicant.preference_3}}</td>
-                        <td *ngIf="applicant.status === true">Active</td>
-                        <td *ngIf="applicant.status === false">Deactive</td>
-                        <td>{{applicant.student_type}}</td>
-                        <td>{{applicant.title}}</td>
-                        <td>{{applicant.surename}}</td>
-                        <td>{{applicant.telephone}}</td>
+                        <td>{{applicant.nvq_details.remarks}}</td>
+                        <td>{{applicant.nvq_details.permenent_address}}</td>
                         <!-- <td class="lastColumn">
                            <button class="btn btn-danger tableDelete" (click)="deleteApplicant(applicant.application_no)"><i class="far fa-trash-alt"></i></button>
                            <button class="btn btn-warning tableEdit" (click)="editApplicant(applicant)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
@@ -459,7 +488,7 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Ethnicity<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="ethnicity"
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="ethnicity"
                               [ngClass]="alSubmitted || isInvalidAlField('ethnicity') ? 'error-field' : ''">
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('ethnicity')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.ethnicity.errors?.required">
@@ -497,8 +526,34 @@
                         </div>
                         <div class="form-group col-3">
                            <label>District<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="district"
-                              [ngClass]="alSubmitted || isInvalidAlField('district') ? 'error-field' : ''">
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="district" (change)="changeAlDistrict($event)" 
+                           [ngClass]="alSubmitted || isInvalidAlField('district') ? 'error-field' : ''">
+                           <option ngValue="Anuradhapura">Anuradhapura</option>
+                           <option ngValue="Ampara">Ampara</option>
+                           <option ngValue="Badulla">Badulla</option>
+                           <option ngValue="Batticaloa">Batticaloa</option>
+                           <option ngValue="Colombo">Colombo</option>
+                           <option ngValue="Galle">Galle</option>
+                           <option ngValue="Gampaha">Gampaha</option>
+                           <option ngValue="Hambantota">Hambantota</option>
+                           <option ngValue="Jaffna">Jaffna</option>
+                           <option ngValue="Kilinochchi">Kilinochchi</option>
+                           <option ngValue="Kurunegala">Kurunegala</option>
+                           <option ngValue="Kalutara">Kalutara</option>
+                           <option ngValue="Kandy">Kandy</option>
+                           <option ngValue="Kegalle">Kegalle</option>
+                           <option ngValue="Mannar">Mannar</option>
+                           <option ngValue="Mullaitivu">Mullaitivu</option>
+                           <option ngValue="Matale">Matale</option>
+                           <option ngValue="Monaragala">Monaragala</option>
+                           <option ngValue="Matara">Matara</option>
+                           <option ngValue="Nuwara Eliya">Nuwara Eliya</option>
+                           <option ngValue="Polonnaruwa">Polonnaruwa</option>
+                           <option ngValue="Puttalam">Puttalam</option>
+                           <option ngValue="Ratnapura">Ratnapura</option>
+                           <option ngValue="Trincomalee">Trincomalee</option>
+                           <option ngValue="Vavuniya">Vavuniya</option>
+                           </select>
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('district')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.district.errors?.required">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -534,7 +589,7 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 1<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="preference_1"
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="preference_1"
                               [ngClass]="alSubmitted || isInvalidAlField('preference_1') ? 'error-field' : ''">
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('preference_1')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_1.errors?.required">
@@ -544,11 +599,11 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 2</label>
-                           <input type="text" class="form-control" formControlName="preference_2">
+                           <input type="text" class="uppercase form-control" formControlName="preference_2">
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 3</label>
-                           <input type="text" class="form-control" formControlName="preference_3">
+                           <input type="text" class="uppercase form-control" formControlName="preference_3">
                         </div>
                         <div class="form-group col-3">
                            <label>A/L Stream<span class="mandatory">*</span></label>
@@ -562,7 +617,7 @@
                         </div>
                         <div class="form-group col-3">
                            <label>A/L Index No<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="al_index_no"
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="al_index_no"
                               [ngClass]="alSubmitted || isInvalidAlField('al_index_no') ? 'error-field' : ''">
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('al_index_no')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.al_index_no.errors?.required">
@@ -634,66 +689,68 @@
                   <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover" id="tblApplicantData">
                   <thead>
                      <tr>
+                        <th scope="col">Application No</th>
+                        <th scope="col">Student Type</th>
+                        <th scope="col">Identity Card No</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Initials</th>
+                        <th scope="col">Surename</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Ethnicity</th>
                         <th scope="col">Address Line 1</th>
                         <th scope="col">Address Line 2</th>
                         <th scope="col">Address Line 3</th>
                         <th scope="col">City</th>
                         <th scope="col">District</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Ethnicity</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Identity Card No</th>
-                        <th scope="col">Initials</th>
+                        <th scope="col">Telephone</th>
                         <th scope="col">Mobile No</th>
-                        <th scope="col">A/L ICT</th>
-                        <th scope="col">A/L Index No</th>
-                        <th scope="col">Application No</th>
-                        <th scope="col">Comm & Media</th>
-                        <th scope="col">General Test</th>
-                        <th scope="col">General English</th>
+                        <th scope="col">Email</th>
                         <th scope="col">A/L Steam</th>
-                        <th scope="col">Maths</th>
+                        <th scope="col">A/L Index No</th>
+                        <th scope="col">Z-Score</th>
                         <th scope="col">Preference 1</th>
                         <th scope="col">Preference 2</th>
                         <th scope="col">Preference 3</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Student Type</th>
-                        <th scope="col">Title</th>
-                        <th scope="col">Surename</th>
-                        <th scope="col">Telephone</th>
+                        <th scope="col">A/L ICT</th>
+                        <th scope="col">Comm & Media</th>
+                        <th scope="col">General English</th>
+                        <th scope="col">General Test</th>
+                        <!-- <th scope="col">Maths</th> -->
                         <!-- <th scope="col" class="lastColumn"></th> -->
                      </tr>
                   </thead>
                   <tbody>
                      <tr *ngFor="let applicant of alAplicantFilterList">
+                        <td>{{applicant.al_details.application_no}}</td>
+                        <td>{{applicant.student_type}}</td>
+                        <td>{{applicant.identity_no}}</td>
+                        <td>{{applicant.title}}</td>
+                        <td>{{applicant.initials}}</td>
+                        <td>{{applicant.surename}}</td>
+                        <td *ngIf="applicant.status === true">Active</td>
+                        <td *ngIf="applicant.status === false">Deactive</td>
+                        <td>{{applicant.gender}}</td>
+                        <td>{{applicant.ethnicity}}</td>
                         <td>{{applicant.address_1}}</td>
                         <td>{{applicant.address_2}}</td>
                         <td>{{applicant.address_3}}</td>
                         <td>{{applicant.city}}</td>
                         <td>{{applicant.district}}</td>
-                        <td>{{applicant.email}}</td>
-                        <td>{{applicant.ethnicity}}</td>
-                        <td>{{applicant.gender}}</td>
-                        <td>{{applicant.identity_no}}</td>
-                        <td>{{applicant.initials}}</td>
+                        <td>{{applicant.telephone}}</td>
                         <td>{{applicant.mobile}}</td>
-                        <td>{{applicant.al_details.al_ict}}</td>
-                        <td>{{applicant.al_details.al_index_no}}</td>
-                        <td>{{applicant.al_details.application_no}}</td>
-                        <td>{{applicant.al_details.comm_and_media}}</td>
-                        <td>{{applicant.al_details.general_common_test}}</td>
-                        <td>{{applicant.al_details.general_english}}</td>
+                        <td>{{applicant.email}}</td>
                         <td>{{applicant.al_details.stream}}</td>
+                        <td>{{applicant.al_details.al_index_no}}</td>
                         <td>{{applicant.al_details.z_score}}</td>
                         <td>{{applicant.preference_1}}</td>
                         <td>{{applicant.preference_2}}</td>
                         <td>{{applicant.preference_3}}</td>
-                        <td *ngIf="applicant.status === true">Active</td>
-                        <td *ngIf="applicant.status === false">Deactive</td>
-                        <td>{{applicant.student_type}}</td>
-                        <td>{{applicant.title}}</td>
-                        <td>{{applicant.surename}}</td>
-                        <td>{{applicant.telephone}}</td>
+                        <td>{{applicant.al_details.al_ict}}</td>
+                        <td>{{applicant.al_details.comm_and_media}}</td>
+                        <td>{{applicant.al_details.general_english}}</td>
+                        <td>{{applicant.al_details.general_common_test}}</td>
+                        <!-- <td>{{applicant.al_details.general_common_test}}</td> -->
                         <!-- <td class="lastColumn">
                            <button class="btn btn-danger tableDelete" (click)="deleteApplicant(applicant.application_no)"><i class="far fa-trash-alt"></i></button>
                            <button class="btn btn-warning tableEdit" (click)="editApplicant(applicant)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>

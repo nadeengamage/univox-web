@@ -48,8 +48,8 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       address_3: [''],
       city: ['', Validators.required],
       district: ['', Validators.required],
-      telephone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
-      mobile: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12),
+      telephone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(12),
         Validators.pattern(/^7|0|(?:\+94)[0-9]{9,10}$/)]],
       email: ['', [Validators.required, Validators.email]],
       preference_1: ['', Validators.required],
@@ -82,8 +82,8 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       address_3: [''],
       city: ['', Validators.required],
       district: ['', Validators.required],
-      telephone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
-      mobile: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12),
+      telephone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(12),
         Validators.pattern(/^7|0|(?:\+94)[0-9]{9,10}$/)]],
       email: ['', [Validators.required, Validators.email]],
       preference_1: ['', Validators.required],
@@ -91,9 +91,9 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       preference_3: [''],
       stream: ['', Validators.required],
       al_index_no: ['', Validators.required],
-      z_score: ['', [Validators.required, Validators.pattern(/^\d*\.?\d{0,2}$/)]],
-      al_ict: ['', Validators.required],
-      comm_and_media: ['', Validators.required],
+      z_score: ['', [Validators.required, Validators.pattern(/^\d*\.?\d{0,5}$/)]],
+      al_ict: [''],
+      comm_and_media: [''],
       general_english: ['', Validators.required],
       general_common_test: ['', Validators.required],
     });
@@ -149,6 +149,24 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     });
   }
 
+  changeNvqTitle(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      title: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeNvqDistrict(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      district: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeAlDistrict(item) {
+    return this.alApplicantCreateForm.patchValue({
+      district: item.srcElement.value.slice(3)
+    });
+  }
+
   changeAlGender(item) {
     return this.alApplicantCreateForm.patchValue({
       gender: item.srcElement.value.slice(3)
@@ -194,6 +212,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
         this.nvqAplicantFilterList = res.data;
         this.ngOnDestroy();
         this.getNvqAplicants();
+        this.nvqApplicantCreateForm.reset();
         this.dtTrigger.next();
         this.notifier.notify('success', res.message);
         console.log(res.data);
@@ -293,6 +312,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
         this.alAplicantFilterList = res.data;
         this.ngOnDestroy();
         this.getAlAplicants();
+        this.alApplicantCreateForm.reset();
         this.dtTrigger.next();
         this.loading = false;
         this.notifier.notify('success', res.message);
