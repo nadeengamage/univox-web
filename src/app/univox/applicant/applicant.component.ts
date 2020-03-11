@@ -3,6 +3,7 @@ import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+declare var $: any;
 
 @Component({
   selector: 'app-applicant',
@@ -13,50 +14,114 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger = new Subject();
 
+  dtaOptions: DataTables.Settings = {};
+  dtaTrigger = new Subject();
+
   nvqAplicantList = [];
   nvqAplicantFilterList = [];
   alAplicantList = [];
   alAplicantFilterList = [];
-  showApplicantCreateForm = false;
-  applicantCreateForm: FormGroup;
-  submitted = false;
+  showNvqApplicantCreateForm = false;
+  nvqApplicantCreateForm: FormGroup;
+  nvqSubmitted = false;
+  showAlApplicantCreateForm = false;
+  alApplicantCreateForm: FormGroup;
+  uploadNvqBulkForm: FormGroup;
+  uploadAlBulkForm: FormGroup;
+  alSubmitted = false;
+  showNvqBulkUpload = false;
+  nvqStudentType = 'NVQ';
+  alStudentType = 'AL';
+
+  public loading = false;
 
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
     private notifier: NotifierService,
   ) {
-    this.applicantCreateForm = this.fb.group({
+    this.nvqApplicantCreateForm = this.fb.group({
       student_type: [''],
       application_no: ['', Validators.required],
       identity_no: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/)]],
-      initials: [''],
-      surename: [''],
-      title: [''],
-      gender: [''],
+      initials: ['', Validators.required],
+      surename: ['', Validators.required],
+      title: ['', Validators.required],
+      gender: ['', Validators.required],
       ethnicity: [''],
-      address_1: [''],
+      address_1: ['', Validators.required],
       address_2: [''],
       address_3: [''],
-      city: [''],
-      district: [''],
-      telephone: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12)]],
-      mobile: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12),
-        Validators.pattern(/^7|0|(?:\+94)[0-9]{9,10}$/)]],
-      email: ['', [Validators.required, Validators.email]],
-      preference_1: [''],
+      city: ['', Validators.required],
+      district: ['', Validators.required],
+      telephone: ['', [Validators.minLength(10), Validators.maxLength(12),
+        Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
+      mobile: ['', [Validators.minLength(10), Validators.maxLength(12),
+        Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
+      email: ['', [Validators.email,
+        Validators.pattern(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/)]],
+      preference_1: ['', Validators.required],
       preference_2: [''],
       preference_3: [''],
-      index_no: [''],
-      diploma: [''],
+      index_no: ['', Validators.required],
+      diploma: ['', Validators.required],
       remarks: [''],
-      civil_status: [''],
+      marital_status: ['', Validators.required],
       permenent_address: [''],
+      batch_type: ['', Validators.required],
+      permanent_district: [''],
     });
+    this.uploadNvqBulkForm = this.fb.group({
+      nvq_profile: ['']
+    });
+    this.uploadAlBulkForm = this.fb.group({
+      al_profile: ['']
+    });
+    this.alApplicantCreateForm = this.fb.group({
+      student_type: [''],
+      application_no: ['', Validators.required],
+      identity_no: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^([0-9]{9}[x|X|v|V]|[0-9]{12})$/)]],
+      initials: ['', Validators.required],
+      surename: ['', Validators.required],
+      title: ['', Validators.required],
+      gender: ['', Validators.required],
+      ethnicity: [''],
+      address_1: ['', Validators.required],
+      address_2: [''],
+      address_3: [''],
+      city: ['', Validators.required],
+      district: ['', Validators.required],
+      telephone: ['', [Validators.minLength(10), Validators.maxLength(12),
+        Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
+      mobile: ['', [Validators.minLength(10), Validators.maxLength(12),
+        Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
+      email: ['', [Validators.email,
+        Validators.pattern(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/)]],
+      preference_1: ['', Validators.required],
+      preference_2: [''],
+      preference_3: [''],
+      stream: ['', Validators.required],
+      al_index_no: ['', Validators.required],
+      z_score: ['', [Validators.required, Validators.pattern(/^\d*\.?\d{0,5}$/)]],
+      al_ict: [''],
+      comm_and_media: [''],
+      general_english: [''],
+      general_common_test: ['', Validators.required],
+      permanent_district: [''],
+    });
+    // this.alApplicantCreateForm.patchValue({
+    //   student_type: 'AL'
+    // });
   }
 
   ngOnInit() {
     this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      responsive: true,
+      scrollX: true
+    };
+    this.dtaOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       responsive: true,
@@ -68,58 +133,190 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   ngOnDestroy() {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+    this.dtaTrigger.unsubscribe();
   }
 
   getNvqAplicants() {
+    const table = $('#tblNvqApplicantData').DataTable();
+    table.clear().destroy();
+    this.loading = true;
     this.univoxService.getNvqApplicant().subscribe(
       res => {
         this.nvqAplicantList = res.data;
         this.nvqAplicantFilterList = res.data;
         this.dtTrigger.next();
+        this.loading = false;
+        this.nvqApplicantCreateForm.reset();
         console.log(res.data);
       },
       error => {
+        this.loading = false;
+        this.notifier.notify('success', error.message);
       }
     );
   }
 
-  changeType(item) {
-    return this.applicantCreateForm.patchValue({
+  changeNvqType(item) {
+    return this.nvqApplicantCreateForm.patchValue({
       student_type: item.srcElement.value.slice(3)
     });
   }
 
-  changeGender(item) {
-    return this.applicantCreateForm.patchValue({
+  changeAlType(item) {
+    return this.alApplicantCreateForm.patchValue({
+      student_type: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeNvqGender(item) {
+    this.nvqApplicantCreateForm.patchValue({
+      student_type: this.nvqStudentType
+    });
+    return this.nvqApplicantCreateForm.patchValue({
       gender: item.srcElement.value.slice(3)
     });
   }
 
-  changeCivil(item) {
-    return this.applicantCreateForm.patchValue({
-      civil_status: item.srcElement.value.slice(3)
+  changeNvqTitle(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      title: item.srcElement.value.slice(3)
     });
   }
 
-  isInvalidField(formControl) {
-    return (this.applicantCreateForm.controls[formControl].touched ||
-      this.applicantCreateForm.controls[formControl].dirty) &&
-      this.applicantCreateForm.controls[formControl].errors
+  changeNvqDistrict(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      district: item.srcElement.value
+    });
+  }
+
+  changeNvqDiploma(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      diploma: item.srcElement.value
+    });
+  }
+
+  changeNvqPreferenceOne(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      preference_1: item.srcElement.value
+    });
+  }
+  changeNvqPreferenceTwo(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      preference_2: item.srcElement.value
+    });
+  }
+  changeNvqPreferenceThree(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      preference_3: item.srcElement.value
+    });
+  }
+
+  changeAlPreferenceOne(item) {
+    return this.alApplicantCreateForm.patchValue({
+      preference_1: item.srcElement.value
+    });
+  }
+  changeAlPreferenceTwo(item) {
+    return this.alApplicantCreateForm.patchValue({
+      preference_2: item.srcElement.value
+    });
+  }
+  changeAlPreferenceThree(item) {
+    return this.alApplicantCreateForm.patchValue({
+      preference_3: item.srcElement.value
+    });
+  }
+
+  changeAlDistrict(item) {
+    return this.alApplicantCreateForm.patchValue({
+      district: item.srcElement.value
+    });
+  }
+
+  changeAlPermanantDistrict(item) {
+    return this.alApplicantCreateForm.patchValue({
+      permanent_district: item.srcElement.value
+    });
+  }
+
+  changeNvqPermanantDistrict(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      permanent_district: item.srcElement.value
+    });
+  }
+
+  changeAlGender(item) {
+    this.alApplicantCreateForm.patchValue({
+      student_type: this.alStudentType
+    });
+    return this.alApplicantCreateForm.patchValue({
+      gender: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeAlSteam(item) {
+    return this.alApplicantCreateForm.patchValue({
+      stream: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeNvqMarital(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      marital_status: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeNvqBatchType(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      batch_type: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeAlTitle(item) {
+    return this.alApplicantCreateForm.patchValue({
+      title: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeAlEthnicity(item) {
+    return this.alApplicantCreateForm.patchValue({
+      ethnicity: item.srcElement.value.slice(3)
+    });
+  }
+
+  changeNvqEthnicity(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      ethnicity: item.srcElement.value.slice(3)
+    });
+  }
+
+  isInvalidNvqField(formControl) {
+    return (this.nvqApplicantCreateForm.controls[formControl].touched ||
+      this.nvqApplicantCreateForm.controls[formControl].dirty) &&
+      this.nvqApplicantCreateForm.controls[formControl].errors
       ? true
       : false;
   }
 
-  createApplicant() {
-    console.log(this.applicantCreateForm);
-    if (!this.applicantCreateForm.invalid) {
-    this.submitted = false;
-    this.univoxService.createApplicant(this.applicantCreateForm.value).subscribe(
+  isInvalidAlField(formControl) {
+    return (this.alApplicantCreateForm.controls[formControl].touched ||
+      this.alApplicantCreateForm.controls[formControl].dirty) &&
+      this.alApplicantCreateForm.controls[formControl].errors
+      ? true
+      : false;
+  }
+
+  createNvqApplicant() {
+    console.log(this.nvqApplicantCreateForm);
+
+    if (!this.nvqApplicantCreateForm.invalid) {
+    this.nvqSubmitted = false;
+    this.univoxService.createApplicant(this.nvqApplicantCreateForm.value).subscribe(
       res => {
         this.nvqAplicantList = res.data;
         this.nvqAplicantFilterList = res.data;
-        this.ngOnDestroy();
         this.getNvqAplicants();
-        this.dtTrigger.next();
+        this.nvqApplicantCreateForm.reset();
         this.notifier.notify('success', res.message);
         console.log(res.data);
       },
@@ -128,12 +325,108 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       }
     );
     } else {
-      this.submitted = true;
+      this.nvqSubmitted = true;
     }
   }
 
-  onReset() {
-    this.submitted = false;
-    this.applicantCreateForm.reset();
+  onNvqFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.uploadNvqBulkForm.get('nvq_profile').setValue(file);
+    }
+  }
+
+  onAlFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.uploadAlBulkForm.get('al_profile').setValue(file);
+    }
+  }
+
+  onBulkNvqSubmit() {
+    this.loading = true;
+    this.univoxService.createNvqBulkApplicant(this.uploadNvqBulkForm.get('nvq_profile').value).subscribe(
+      res => {
+        console.log(res);
+        this.loading = false;
+        this.notifier.notify('success', res.message);
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+        this.notifier.notify('error', error.error);
+      }
+    );
+  }
+
+  onBulkAlSubmit() {
+    this.loading = true;
+    this.univoxService.createAlBulkApplicant(this.uploadAlBulkForm.get('al_profile').value).subscribe(
+      res => {
+        console.log(res);
+        this.loading = false;
+        this.notifier.notify('success', res.message);
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+        this.notifier.notify('error', error.error);
+      }
+    );
+  }
+
+  onNvqReset() {
+    this.nvqSubmitted = false;
+    this.nvqApplicantCreateForm.reset();
+  }
+
+  onAlReset() {
+    this.alSubmitted = false;
+    this.alApplicantCreateForm.reset();
+  }
+
+  getAlAplicants() {
+    const table = $('#tblAlApplicantData').DataTable();
+    table.clear().destroy();
+    this.loading = true;
+    this.univoxService.getAlApplicant().subscribe(
+      res => {
+        this.alAplicantList = res.data;
+        this.alAplicantFilterList = res.data;
+        this.dtaTrigger.next();
+        this.alApplicantCreateForm.reset();
+        this.loading = false;
+        console.log(res.data);
+      },
+      error => {
+        this.loading = false;
+        this.notifier.notify('success', error.message);
+      }
+    );
+  }
+
+  createAlApplicant() {
+    console.log(this.alApplicantCreateForm);
+    if (!this.alApplicantCreateForm.invalid) {
+    this.alSubmitted = false;
+    this.loading = true;
+    this.univoxService.createApplicant(this.alApplicantCreateForm.value).subscribe(
+      res => {
+        this.alAplicantList = res.data;
+        this.alAplicantFilterList = res.data;
+        this.getAlAplicants();
+        this.alApplicantCreateForm.reset();
+        this.loading = false;
+        this.notifier.notify('success', res.message);
+        console.log(res.data);
+      },
+      error => {
+        this.loading = false;
+        this.notifier.notify('error', error.error);
+      }
+    );
+    } else {
+      this.alSubmitted = true;
+    }
   }
 }

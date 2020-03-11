@@ -1,236 +1,1010 @@
 <div class="card">
-  <div class="card-header">
-     <h5 class="card-title">Applicants</h5>
-  </div>
-  <div class="card-body">
-   <ul class="nav nav-tabs" id="applicantTab" role="tablist">
-      <li class="nav-item" (click)="ngOnDestroy()">
-        <a class="nav-link active" id="nvq-tab" data-toggle="tab" href="#nvq" role="tab" aria-controls="nvq" aria-selected="true">NVQ Steam</a>
-      </li>
-      <li class="nav-item" (click)="getAlAplicants()">
-        <a class="nav-link" id="al-tab" data-toggle="tab" href="#al" role="tab" aria-controls="al" aria-selected="false">A/L Steam</a>
-      </li>
-    </ul>
-    <div class="tab-content" id="applicantTabContent">
-      <div class="tab-pane fade show active" id="nvq" role="tabpanel" aria-labelledby="nvq-tab">
-      <div class="d-flex flex-row-start">
-         <button class="btn btn-success" (click)="showApplicantCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>
-      </div>
-      <div class="" *ngIf="showApplicantCreateForm">
-         <div class="card secondary-card">
-            <div class="card-header d-flex">
-               <h6 class="card-title">Create Applicant</h6>
+   <div class="card-header">
+      <h5 class="card-title">Applicants</h5>
+   </div>
+   <div class="card-body">
+      <ul class="nav nav-tabs" id="applicantTab" role="tablist">
+         <li class="nav-item" (click)="ngOnDestroy()">
+            <a class="nav-link active" id="nvq-tab" data-toggle="tab" href="#nvq" role="tab" aria-controls="nvq" aria-selected="true">NVQ Steam</a>
+         </li>
+         <li class="nav-item" (click)="getAlAplicants();">
+            <a class="nav-link" id="al-tab" data-toggle="tab" href="#al" role="tab" aria-controls="al" aria-selected="false">A/L Steam</a>
+         </li>
+      </ul>
+      <div class="tab-content" id="applicantTabContent">
+         <div class="tab-pane fade show active" id="nvq" role="tabpanel" aria-labelledby="nvq-tab">
+            <div class="d-flex flex-row-start">
+               <button class="btn btn-info" (click)="showNvqApplicantCreateForm = true; onNvqReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
+               <button class="btn btn-warning" (click)="showNvqBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
             </div>
-            <div class="card-body">
-               <form [formGroup]="applicantCreateForm" (ngSubmit)="createApplicant()">
-                  <div class="row">
-                     <div class="form-group col-3">
-                        <label>Student Type</label>
-                        <select class="form-control" (change)="changeType($event)" formControlName="student_type" >
-                           <option ngValue="NVQ">NVQ</option>
-                         </select>
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Application No<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="application_no"
-                        [ngClass]="submitted || isInvalidField('application_no') ? 'error-field' : ''">
-                        <div class="err-lbl" *ngIf="submitted || isInvalidField('application_no')">
-                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.application_no.errors?.required">
-                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                           </span>
-                         </div>
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Identity No<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="submitted || isInvalidField('identity_no') ? 'error-field' : ''" formControlName="identity_no">
-                        <div class="err-lbl" *ngIf="submitted || isInvalidField('identity_no')">
-                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.identity_no.errors?.required || applicantCreateForm.controls.identity_no.errors?.pattern">
-                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                           </span>
-                         </div>
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Initials<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="initials">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Surename<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="surename">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Title<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="title">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Gender<span class="mandatory">*</span></label>
-                        <select class="form-control" formControlName="gender" (change)="changeGender($event)" >
+            <div class="createForm" *ngIf="showNvqBulkUpload">
+               <div class="card secondary-card">
+                  <div class="card-header d-flex">
+                     <h6 class="card-title">Bulk Applicant</h6>
+                  </div>
+                  <div class="card-body">
+                     <form [formGroup]="uploadNvqBulkForm" (ngSubmit)="onBulkNvqSubmit()">
+                        <div class="d-inline-flex align-items-center">
+                           <div class="d-inline-flex flex-row-start">
+                              <input type="file" class="custom-file-input" name="nvq_profile" (change)="onNvqFileSelect($event)" />
+                           </div>
+                           <div class="d-inline-flex flex-row-reverse">
+                              <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp;Upload</button>&nbsp;
+                              <button class="btn btn-warning" (click)="showNvqBulkUpload = false"><i class="fa fa-reply"></i>&nbsp; Cancel</button>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="createForm" *ngIf="showNvqApplicantCreateForm">
+               <div class="card secondary-card">
+                  <div class="card-header d-flex">
+                     <h6 class="card-title">Create Applicant</h6>
+                  </div>
+                  <div class="card-body">
+                     <form [formGroup]="nvqApplicantCreateForm" (ngSubmit)="createNvqApplicant()">
+                     <div class="row">
+                        <div class="form-group col-3">
+                           <label>Student Type</label>
+                           <input type="text" class="form-control" disabled value="NVQ">
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Application No<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="application_no"
+                              [ngClass]="nvqSubmitted || isInvalidNvqField('application_no') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('application_no')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.application_no.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Identity No<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="nvqSubmitted || isInvalidNvqField('identity_no') ? 'error-field' : ''" formControlName="identity_no">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('identity_no')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.identity_no.errors?.required || nvqApplicantCreateForm.controls.identity_no.errors?.pattern">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Initials<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="initials"
+                              [ngClass]="nvqSubmitted || isInvalidNvqField('initials') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('initials')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.initials.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Surename<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="surename"
+                              [ngClass]="nvqSubmitted || isInvalidNvqField('surename') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('surename')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.surename.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Title<span class="mandatory">*</span></label>
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeNvqTitle($event)" formControlName="title" 
+                           [ngClass]="nvqSubmitted || isInvalidNvqField('title') ? 'error-field' : ''">
+                           <option ngValue="Mr" selected>Mr</option>
+                           <option ngValue="Ms" selected>Ms</option>
+                           <option ngValue="Mrs" selected>Mrs</option>
+                           <option ngValue="Rev" selected>Rev</option>
+                           <option ngValue="Ven" selected>Ven</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('title')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.title.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Gender<span class="mandatory">*</span></label>
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="gender" (change)="changeNvqGender($event)" 
+                           [ngClass]="nvqSubmitted || isInvalidNvqField('gender') ? 'error-field' : ''">
                            <option ngValue="M">Male</option>
                            <option ngValue="F">Female</option>
-                         </select>
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Ethnicity<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="ethnicity">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Address 1<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="address_1">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Address 2</label>
-                        <input type="text" class="form-control" formControlName="address_2">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Address 3</label>
-                        <input type="text" class="form-control" formControlName="address_3">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>City<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="city">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>District<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="district">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Telephone<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="submitted || isInvalidField('telephone') ? 'error-field' : ''" formControlName="telephone">
-                        <div class="err-lbl" *ngIf="submitted || isInvalidField('telephone')">
-                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.telephone.errors?.required || applicantCreateForm.controls.telephone.errors?.minlength || applicantCreateForm.controls.telephone.errors?.maxlength">
-                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                           </span>
-                         </div>
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Mobile<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="submitted || isInvalidField('mobile') ? 'error-field' : ''" formControlName="mobile">
-                        <div class="err-lbl" *ngIf="submitted || isInvalidField('mobile')">
-                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.mobile.errors?.required || applicantCreateForm.controls.mobile.errors?.pattern || applicantCreateForm.controls.telephone.errors?.minlength || applicantCreateForm.controls.telephone.errors?.maxlength">
-                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                           </span>
-                         </div>
-                     </div>
-                     <div class="form-group col-3">
-                        <label>E-mail<span class="mandatory">*</span></label>
-                        <input type="email" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="submitted || isInvalidField('email') ? 'error-field' : ''" formControlName="email">
-                        <div class="err-lbl" *ngIf="submitted || isInvalidField('email')">
-                           <span class="field-msg error-msg" *ngIf="applicantCreateForm.controls.email.errors?.required || applicantCreateForm.controls.email.errors?.pattern">
-                             <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                           </span>
-                         </div>
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Preference 1<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="preference_1">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Preference 2</label>
-                        <input type="text" class="form-control" formControlName="preference_2">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Preference 3</label>
-                        <input type="text" class="form-control" formControlName="preference_3">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Index No<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="index_no">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Diploma<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="diploma">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Remarks</label>
-                        <input type="text" class="form-control" formControlName="remarks">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Permenent Address<span class="mandatory">*</span></label>
-                        <input type="text" class="form-control" formControlName="permenent_address">
-                     </div>
-                     <div class="form-group col-3">
-                        <label>Civil Status<span class="mandatory">*</span></label>
-                        <select class="form-control" (change)="changeCivil($event)" formControlName="civil_status" >
+                           </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('gender')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.gender.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Ethnicity<span class="mandatory">*</span></label>
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeNvqEthnicity($event)" formControlName="ethnicity" 
+                           [ngClass]="nvqSubmitted || isInvalidAlField('ethnicity') ? 'error-field' : ''">
+                           <option ngValue="Sinhala" selected>Sinhala</option>
+                           <option ngValue="Tamil" selected>Tamil</option>
+                           <option ngValue="Hindu" selected>Hindu</option>
+                           <option ngValue="Muslim" selected>Muslim</option>
+                           <option ngValue="Other" selected>Other</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('ethnicity')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.ethnicity.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Address 1<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="address_1"
+                              [ngClass]="nvqSubmitted || isInvalidNvqField('address_1') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('address_1')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.address_1.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Address 2</label>
+                           <input type="text" class="form-control" formControlName="address_2">
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Address 3</label>
+                           <input type="text" class="form-control" formControlName="address_3">
+                        </div>
+                        <div class="form-group col-3">
+                           <label>City<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="city"
+                              [ngClass]="nvqSubmitted || isInvalidNvqField('city') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('city')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.city.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>District<span class="mandatory">*</span></label>
+                           <select class="form-control" (change)="changeNvqDistrict($event)">
+                              <option value="" disabled selected>Please Select</option>
+                           <option ngValue="Anuradhapura">Anuradhapura</option>
+                           <option ngValue="Ampara">Ampara</option>
+                           <option ngValue="Badulla">Badulla</option>
+                           <option ngValue="Batticaloa">Batticaloa</option>
+                           <option ngValue="Colombo">Colombo</option>
+                           <option ngValue="Galle">Galle</option>
+                           <option ngValue="Gampaha">Gampaha</option>
+                           <option ngValue="Hambantota">Hambantota</option>
+                           <option ngValue="Jaffna">Jaffna</option>
+                           <option ngValue="Kilinochchi">Kilinochchi</option>
+                           <option ngValue="Kurunegala">Kurunegala</option>
+                           <option ngValue="Kalutara">Kalutara</option>
+                           <option ngValue="Kandy">Kandy</option>
+                           <option ngValue="Kegalle">Kegalle</option>
+                           <option ngValue="Mannar">Mannar</option>
+                           <option ngValue="Mullaitivu">Mullaitivu</option>
+                           <option ngValue="Matale">Matale</option>
+                           <option ngValue="Monaragala">Monaragala</option>
+                           <option ngValue="Matara">Matara</option>
+                           <option ngValue="Nuwara Eliya">Nuwara Eliya</option>
+                           <option ngValue="Polonnaruwa">Polonnaruwa</option>
+                           <option ngValue="Puttalam">Puttalam</option>
+                           <option ngValue="Ratnapura">Ratnapura</option>
+                           <option ngValue="Trincomalee">Trincomalee</option>
+                           <option ngValue="Vavuniya">Vavuniya</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('district')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.district.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Permanant District<span class="mandatory">*</span></label>
+                           <select class="form-control" (change)="changeNvqPermanantDistrict($event)">
+                           <option value="" disabled selected>Please Select</option>
+                           <option value="Anuradhapura">Anuradhapura</option>
+                           <option value="Ampara">Ampara</option>
+                           <option value="Badulla">Badulla</option>
+                           <option value="Batticaloa">Batticaloa</option>
+                           <option value="Colombo">Colombo</option>
+                           <option value="Galle">Galle</option>
+                           <option value="Gampaha">Gampaha</option>
+                           <option value="Hambantota">Hambantota</option>
+                           <option value="Jaffna">Jaffna</option>
+                           <option value="Kilinochchi">Kilinochchi</option>
+                           <option value="Kurunegala">Kurunegala</option>
+                           <option value="Kalutara">Kalutara</option>
+                           <option value="Kandy">Kandy</option>
+                           <option value="Kegalle">Kegalle</option>
+                           <option value="Mannar">Mannar</option>
+                           <option value="Mullaitivu">Mullaitivu</option>
+                           <option value="Matale">Matale</option>
+                           <option value="Monaragala">Monaragala</option>
+                           <option value="Matara">Matara</option>
+                           <option value="Nuwara Eliya">Nuwara Eliya</option>
+                           <option value="Polonnaruwa">Polonnaruwa</option>
+                           <option value="Puttalam">Puttalam</option>
+                           <option value="Ratnapura">Ratnapura</option>
+                           <option value="Trincomalee">Trincomalee</option>
+                           <option value="Vavuniya">Vavuniya</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidAlField('permanent_district')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.permanent_district.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Telephone<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="nvqSubmitted || isInvalidNvqField('telephone') ? 'error-field' : ''" formControlName="telephone">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('telephone')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.telephone.errors?.required || nvqApplicantCreateForm.controls.telephone.errors?.minlength || nvqApplicantCreateForm.controls.telephone.errors?.maxlength">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Mobile<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="nvqSubmitted || isInvalidNvqField('mobile') ? 'error-field' : ''" formControlName="mobile">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('mobile')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.mobile.errors?.required || nvqApplicantCreateForm.controls.mobile.errors?.pattern || nvqApplicantCreateForm.controls.telephone.errors?.minlength || nvqApplicantCreateForm.controls.telephone.errors?.maxlength">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>E-mail<span class="mandatory">*</span></label>
+                           <input type="email" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="nvqSubmitted || isInvalidNvqField('email') ? 'error-field' : ''" formControlName="email">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('email')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.email.errors?.required || nvqApplicantCreateForm.controls.email.errors?.pattern">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Preference 1<span class="mandatory">*</span></label>
+                           <select title="hint - Filed" class="form-control" (change)="changeNvqPreferenceOne($event)">
+                              <option ngValue="" disabled selected>Please Select</option>
+                              <option ngValue="BST">BST</option>
+                              <option ngValue="CTRM">CTRM</option>
+                              <option ngValue="MAN">MAN</option>
+                              <option ngValue="MEC">MEC</option>
+                              <option ngValue="FPT">FPT</option>
+                              <option ngValue="BED">BED</option>
+                              <option ngValue="IM">IM</option>
+                              <option ngValue="SOF">SOF</option>
+                              <option ngValue="NET">NET</option>
+                              <option ngValue="MMW">MMW</option>
+                              <option ngValue="ELT">ELT</option>
+                              <option ngValue="FTPT">FTPT</option>
+                              <option ngValue="MAPT">MAPT</option>
+                              <option ngValue="QS">QS</option>
+                              <option ngValue="HM">HM</option>
+                              </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_1')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_1.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Preference 2</label>
+                           <select title="hint - Filed" class="form-control" (change)="changeNvqPreferenceTwo($event)">
+                              <option ngValue="" disabled selected>Please Select</option>
+                              <option ngValue="BST">BST</option>
+                              <option ngValue="CTRM">CTRM</option>
+                              <option ngValue="MAN">MAN</option>
+                              <option ngValue="MEC">MEC</option>
+                              <option ngValue="FPT">FPT</option>
+                              <option ngValue="BED">BED</option>
+                              <option ngValue="IM">IM</option>
+                              <option ngValue="SOF">SOF</option>
+                              <option ngValue="NET">NET</option>
+                              <option ngValue="MMW">MMW</option>
+                              <option ngValue="ELT">ELT</option>
+                              <option ngValue="FTPT">FTPT</option>
+                              <option ngValue="MAPT">MAPT</option>
+                              <option ngValue="QS">QS</option>
+                              <option ngValue="HM">HM</option>
+                              </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_2')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_2.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                              </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Preference 3</label>
+                           <select title="hint - Filed" class="form-control" (change)="changeNvqPreferenceThree($event)">
+                              <option ngValue="" disabled selected>Please Select</option>
+                              <option ngValue="BST">BST</option>
+                              <option ngValue="CTRM">CTRM</option>
+                              <option ngValue="MAN">MAN</option>
+                              <option ngValue="MEC">MEC</option>
+                              <option ngValue="FPT">FPT</option>
+                              <option ngValue="BED">BED</option>
+                              <option ngValue="IM">IM</option>
+                              <option ngValue="SOF">SOF</option>
+                              <option ngValue="NET">NET</option>
+                              <option ngValue="MMW">MMW</option>
+                              <option ngValue="ELT">ELT</option>
+                              <option ngValue="FTPT">FTPT</option>
+                              <option ngValue="MAPT">MAPT</option>
+                              <option ngValue="QS">QS</option>
+                              <option ngValue="HM">HM</option>
+                              </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_3')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_3.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                              </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Index No<span class="mandatory">*</span></label>
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="index_no"
+                              [ngClass]="nvqSubmitted || isInvalidNvqField('index_no') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('index_no')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.index_no.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Diploma<span class="mandatory">*</span></label>
+                           <!-- <select class="form-control" (change)="changeNvqDiploma($event)">
+                           <option ngValue="" disabled selected>Please Select</option>
+                           <option ngValue="HNDE">Sri Lanka Institute of Advanced Technology Education (SLIATE)</option>
+                           <option ngValue="HNDIT">Sri Lanka Institute of Advanced Technology Education (SLIATE)</option>
+                           <option ngValue="NDES">Institute of Engineering Technology (IET)</option>
+                           <option ngValue="NDET">National Institute of Technical Education (NITESL)</option>
+                           <option ngValue="NDICT">NAITA/VTA/DTET/NYSC</option>
+                           <option ngValue="NDNLE">National Institute of Technical Education (NITESL)</option>
+                           <option ngValue="NDQS">DTET/VTA/NITESL/University of Vocational Technology</option>
+                           <option ngValue="NDT">Institute of Technology,University of Moratuwa(ITUM)</option>
+                           <option ngValue="NDTT(ELT)">National Institute of Technical Education (NITESL)</option>
+                           <option ngValue="NDVPT">National Institute of Technical Education (NITESL)</option>
+                           </select> -->
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="diploma"
+                              [ngClass]="nvqSubmitted || isInvalidNvqField('diploma') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('diploma')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.diploma.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Remarks</label>
+                           <input type="text" class="form-control" formControlName="remarks">
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Permenent Address<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="permenent_address"
+                              [ngClass]="nvqSubmitted || isInvalidNvqField('permenent_address') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('permenent_address')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.permenent_address.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Marital Status<span class="mandatory">*</span></label>
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeNvqMarital($event)" formControlName="marital_status" 
+                           [ngClass]="nvqSubmitted || isInvalidNvqField('marital_status') ? 'error-field' : ''">
                            <option ngValue="S">Un-Married</option>
                            <option ngValue="M">Married</option>
-                         </select>
+                           </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('marital_status')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.marital_status.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Batch Type<span class="mandatory">*</span></label>
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeNvqBatchType($event)" formControlName="batch_type" 
+                           [ngClass]="nvqSubmitted || isInvalidNvqField('batch_type') ? 'error-field' : ''">
+                           <option ngValue="B1">B1</option>
+                           <option ngValue="B2">B2</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('batch_type')">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.batch_type.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-12 d-flex flex-row-reverse">
+                           <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp; Save Applicant</button>&nbsp;
+                           <button class="btn btn-warning" (click)="showNvqApplicantCreateForm = false"><i class="fa fa-reply"></i>&nbsp; Cancel</button>
+                        </div>
                      </div>
-                     <div class="form-group col-3 d-flex align-items-center">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Add Applicant</button>
-                       </div>
+                     </form>
                   </div>
-               </form>
+               </div>
+            </div>
+            <div class="col-md-12 table_outer">
+               <div class="row">
+                  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover" id="tblNvqApplicantData">
+                  <thead>
+                     <tr>
+                        <th scope="col">Application No</th>
+                        <th scope="col">Student Type</th>
+                        <th scope="col">Identity Card No</th>
+                        <th scope="col">Index No</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Initials</th>
+                        <th scope="col">Surename</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Ethnicity</th>
+                        <th scope="col">Address Line 1</th>
+                        <th scope="col">Address Line 2</th>
+                        <th scope="col">Address Line 3</th>
+                        <th scope="col">City</th>
+                        <th scope="col">District</th>
+                        <th scope="col">Telephone</th>
+                        <th scope="col">Mobile No</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Diploma</th>
+                        <th scope="col">Preference 1</th>
+                        <th scope="col">Preference 2</th>
+                        <th scope="col">Preference 3</th>
+                        <th scope="col">Remark</th>
+                        <th scope="col">Permenent Address</th>
+                        <th scope="col">Permanent District</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let applicant of nvqAplicantFilterList">
+                        <td>{{applicant.nvq_details.application_no}}</td>
+                        <td>{{applicant.student_type}}</td>
+                        <td>{{applicant.identity_no}}</td>
+                        <td>{{applicant.nvq_details.index_no}}</td>
+                        <td>{{applicant.title}}</td>
+                        <td>{{applicant.initials}}</td>
+                        <td>{{applicant.surename}}</td>
+                        <td *ngIf="applicant.status === true">Active</td>
+                        <td *ngIf="applicant.status === false">Deactive</td>
+                        <td>{{applicant.gender}}</td>
+                        <td>{{applicant.ethnicity}}</td>
+                        <td>{{applicant.address_1}}</td>
+                        <td>{{applicant.address_2}}</td>
+                        <td>{{applicant.address_3}}</td>
+                        <td>{{applicant.city}}</td>
+                        <td>{{applicant.district}}</td>
+                        <td>{{applicant.telephone}}</td>
+                        <td>{{applicant.mobile}}</td>
+                        <td>{{applicant.email}}</td>
+                        <td>{{applicant.nvq_details.diploma}}</td>
+                        <td>{{applicant.preference_1}}</td>
+                        <td>{{applicant.preference_2}}</td>
+                        <td>{{applicant.preference_3}}</td>
+                        <td>{{applicant.nvq_details.remarks}}</td>
+                        <td>{{applicant.nvq_details.permenent_address}}</td>
+                        <td>{{applicant.permanent_district}}</td>
+                        <!-- <td class="lastColumn">
+                           <button class="btn btn-danger tableDelete" (click)="deleteApplicant(applicant.application_no)"><i class="far fa-trash-alt"></i></button>
+                           <button class="btn btn-warning tableEdit" (click)="editApplicant(applicant)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
+                           </td> -->
+                     </tr>
+                  </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+         <div class="tab-pane fade" id="al" role="tabpanel" aria-labelledby="al-tab">
+            <div class="d-flex flex-row-start">
+               <button class="btn btn-info" (click)="showAlApplicantCreateForm = true; onAlReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
+               <button class="btn btn-warning" (click)="showAlBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
+            </div>
+            <div class="createForm" *ngIf="showAlBulkUpload">
+               <div class="card secondary-card">
+                  <div class="card-header d-flex">
+                     <h6 class="card-title">Bulk Applicant</h6>
+                  </div>
+                  <div class="card-body">
+                     <form [formGroup]="uploadAlBulkForm" (ngSubmit)="onBulkAlSubmit()">
+                        <div class="d-inline-flex align-items-center">
+                           <div class="d-inline-flex flex-row-start">
+                              <input type="file" class="custom-file-input" name="al_profile" (change)="onAlFileSelect($event)" />
+                           </div>
+                           <div class="d-inline-flex flex-row-reverse">
+                              <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp;Upload</button>&nbsp;
+                              <button class="btn btn-warning" (click)="showAlBulkUpload = false"><i class="fa fa-reply"></i>&nbsp; Cancel</button>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="createForm" *ngIf="showAlApplicantCreateForm">
+               <div class="card secondary-card">
+                  <div class="card-header d-flex">
+                     <h6 class="card-title">Create Applicant</h6>
+                  </div>
+                  <div class="card-body">
+                     <form [formGroup]="alApplicantCreateForm" (ngSubmit)="createAlApplicant()">
+                     <div class="row">
+                        <div class="form-group col-3">
+                           <label>Student Type</label>
+                           <!-- <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeAlType($event)" formControlName="student_type" 
+                           [ngClass]="alSubmitted || isInvalidAlField('student_type') ? 'error-field' : ''">
+                           <option ngValue="AL" selected>A/L</option>
+                           </select> 
+                        <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('student_type')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.student_type.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>-->
+                           <input type="text" class="form-control" disabled value="AL">
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Application No<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="application_no"
+                              [ngClass]="alSubmitted || isInvalidAlField('application_no') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('application_no')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.application_no.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Identity No<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="alSubmitted || isInvalidAlField('identity_no') ? 'error-field' : ''" formControlName="identity_no">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('identity_no')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.identity_no.errors?.required || alApplicantCreateForm.controls.identity_no.errors?.pattern">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Initials<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="initials"
+                              [ngClass]="alSubmitted || isInvalidAlField('initials') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('initials')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.initials.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Surename<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="surename"
+                              [ngClass]="alSubmitted || isInvalidAlField('surename') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('surename')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.surename.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Title<span class="mandatory">*</span></label>
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeAlTitle($event)" formControlName="title" 
+                           [ngClass]="alSubmitted || isInvalidAlField('title') ? 'error-field' : ''">
+                           <option ngValue="Mr" selected>Mr</option>
+                           <option ngValue="Ms" selected>Ms</option>
+                           <option ngValue="Mrs" selected>Mrs</option>
+                           <option ngValue="Rev" selected>Rev</option>
+                           <option ngValue="Ven" selected>Ven</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('title')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.title.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Gender<span class="mandatory">*</span></label>
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="gender" (change)="changeAlGender($event)" 
+                           [ngClass]="alSubmitted || isInvalidAlField('gender') ? 'error-field' : ''">
+                           <option ngValue="M">Male</option>
+                           <option ngValue="F">Female</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('gender')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.gender.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Ethnicity<span class="mandatory">*</span></label>
+                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeAlEthnicity($event)" formControlName="ethnicity" 
+                           [ngClass]="alSubmitted || isInvalidAlField('ethnicity') ? 'error-field' : ''">
+                           <option ngValue="Sinhala" selected>Sinhala</option>
+                           <option ngValue="Tamil" selected>Tamil</option>
+                           <option ngValue="Hindu" selected>Hindu</option>
+                           <option ngValue="Muslim" selected>Muslim</option>
+                           <option ngValue="Other" selected>Other</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('ethnicity')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.ethnicity.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Address 1<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="address_1"
+                              [ngClass]="alSubmitted || isInvalidAlField('address_1') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('address_1')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.address_1.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Address 2</label>
+                           <input type="text" class="form-control" formControlName="address_2">
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Address 3</label>
+                           <input type="text" class="form-control" formControlName="address_3">
+                        </div>
+                        <div class="form-group col-3">
+                           <label>City<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="city"
+                              [ngClass]="alSubmitted || isInvalidAlField('city') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('city')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.city.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>District<span class="mandatory">*</span></label>
+                           <select class="form-control" (change)="changeAlDistrict($event)">
+                           <option value="" disabled selected>Please Select</option>
+                           <option value="Anuradhapura">Anuradhapura</option>
+                           <option value="Ampara">Ampara</option>
+                           <option value="Badulla">Badulla</option>
+                           <option value="Batticaloa">Batticaloa</option>
+                           <option value="Colombo">Colombo</option>
+                           <option value="Galle">Galle</option>
+                           <option value="Gampaha">Gampaha</option>
+                           <option value="Hambantota">Hambantota</option>
+                           <option value="Jaffna">Jaffna</option>
+                           <option value="Kilinochchi">Kilinochchi</option>
+                           <option value="Kurunegala">Kurunegala</option>
+                           <option value="Kalutara">Kalutara</option>
+                           <option value="Kandy">Kandy</option>
+                           <option value="Kegalle">Kegalle</option>
+                           <option value="Mannar">Mannar</option>
+                           <option value="Mullaitivu">Mullaitivu</option>
+                           <option value="Matale">Matale</option>
+                           <option value="Monaragala">Monaragala</option>
+                           <option value="Matara">Matara</option>
+                           <option value="Nuwara Eliya">Nuwara Eliya</option>
+                           <option value="Polonnaruwa">Polonnaruwa</option>
+                           <option value="Puttalam">Puttalam</option>
+                           <option value="Ratnapura">Ratnapura</option>
+                           <option value="Trincomalee">Trincomalee</option>
+                           <option value="Vavuniya">Vavuniya</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('district')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.district.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Permanant District<span class="mandatory">*</span></label>
+                           <select class="form-control" (change)="changeAlPermanantDistrict($event)">
+                           <option value="" disabled selected>Please Select</option>
+                           <option value="Anuradhapura">Anuradhapura</option>
+                           <option value="Ampara">Ampara</option>
+                           <option value="Badulla">Badulla</option>
+                           <option value="Batticaloa">Batticaloa</option>
+                           <option value="Colombo">Colombo</option>
+                           <option value="Galle">Galle</option>
+                           <option value="Gampaha">Gampaha</option>
+                           <option value="Hambantota">Hambantota</option>
+                           <option value="Jaffna">Jaffna</option>
+                           <option value="Kilinochchi">Kilinochchi</option>
+                           <option value="Kurunegala">Kurunegala</option>
+                           <option value="Kalutara">Kalutara</option>
+                           <option value="Kandy">Kandy</option>
+                           <option value="Kegalle">Kegalle</option>
+                           <option value="Mannar">Mannar</option>
+                           <option value="Mullaitivu">Mullaitivu</option>
+                           <option value="Matale">Matale</option>
+                           <option value="Monaragala">Monaragala</option>
+                           <option value="Matara">Matara</option>
+                           <option value="Nuwara Eliya">Nuwara Eliya</option>
+                           <option value="Polonnaruwa">Polonnaruwa</option>
+                           <option value="Puttalam">Puttalam</option>
+                           <option value="Ratnapura">Ratnapura</option>
+                           <option value="Trincomalee">Trincomalee</option>
+                           <option value="Vavuniya">Vavuniya</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('permanent_district')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.permanent_district.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Telephone<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="alSubmitted || isInvalidAlField('telephone') ? 'error-field' : ''" formControlName="telephone">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('telephone')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.telephone.errors?.required || alApplicantCreateForm.controls.telephone.errors?.minlength || alApplicantCreateForm.controls.telephone.errors?.maxlength">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Mobile<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="alSubmitted || isInvalidAlField('mobile') ? 'error-field' : ''" formControlName="mobile">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('mobile')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.mobile.errors?.required || alApplicantCreateForm.controls.mobile.errors?.pattern || alApplicantCreateForm.controls.telephone.errors?.minlength || alApplicantCreateForm.controls.telephone.errors?.maxlength">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>E-mail<span class="mandatory">*</span></label>
+                           <input type="email" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="alSubmitted || isInvalidAlField('email') ? 'error-field' : ''" formControlName="email">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('email')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.email.errors?.required || alApplicantCreateForm.controls.email.errors?.pattern">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Preference 1<span class="mandatory">*</span></label>
+                           <select title="hint - Filed" class="form-control" (change)="changeAlPreferenceOne($event)">
+                           <option ngValue="" disabled selected>Please Select</option>
+                           <option ngValue="BST">BST</option>
+                           <option ngValue="CTRM">CTRM</option>
+                           <option ngValue="MAN">MAN</option>
+                           <option ngValue="MEC">MEC</option>
+                           <option ngValue="FPT">FPT</option>
+                           <option ngValue="BED">BED</option>
+                           <option ngValue="IM">IM</option>
+                           <option ngValue="SOF">SOF</option>
+                           <option ngValue="NET">NET</option>
+                           <option ngValue="MMW">MMW</option>
+                           <option ngValue="ELT">ELT</option>
+                           <option ngValue="MAPT">MAPT</option>
+                           <option ngValue="QS">QS</option>
+                           <option ngValue="HM">HM</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('preference_1')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_1.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Preference 2</label>
+                           <select title="hint - Filed" class="form-control" (change)="changeAlPreferenceTwo($event)">
+                              <option ngValue="" disabled selected>Please Select</option>
+                              <option ngValue="BST">BST</option>
+                              <option ngValue="CTRM">CTRM</option>
+                              <option ngValue="MAN">MAN</option>
+                              <option ngValue="MEC">MEC</option>
+                              <option ngValue="FPT">FPT</option>
+                              <option ngValue="BED">BED</option>
+                              <option ngValue="IM">IM</option>
+                              <option ngValue="SOF">SOF</option>
+                              <option ngValue="NET">NET</option>
+                              <option ngValue="MMW">MMW</option>
+                              <option ngValue="ELT">ELT</option>
+                              <option ngValue="FTPT">FTPT</option>
+                              <option ngValue="QS">QS</option>
+                              </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_2')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_2.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                              </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Preference 3</label>
+                           <select title="hint - Filed" class="form-control" (change)="changeAlPreferenceThree($event)">
+                              <option ngValue="" disabled selected>Please Select</option>
+                              <option ngValue="BST">BST</option>
+                              <option ngValue="CTRM">CTRM</option>
+                              <option ngValue="MAN">MAN</option>
+                              <option ngValue="MEC">MEC</option>
+                              <option ngValue="FPT">FPT</option>
+                              <option ngValue="BED">BED</option>
+                              <option ngValue="IM">IM</option>
+                              <option ngValue="SOF">SOF</option>
+                              <option ngValue="NET">NET</option>
+                              <option ngValue="MMW">MMW</option>
+                              <option ngValue="ELT">ELT</option>
+                              <option ngValue="FTPT">FTPT</option>
+                              <option ngValue="QS">QS</option>
+                              </select>
+                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_3')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_3.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                              </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>A/L Stream<span class="mandatory">*</span></label>
+                           <select title="A/L Steam" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeAlSteam($event)" formControlName="stream" 
+                           [ngClass]="alSubmitted || isInvalidAlField('stream') ? 'error-field' : ''">
+                           <option ngValue="Sinhala">Sinhala</option>
+                           <option ngValue="Accounting">Accounting</option>
+                           <option ngValue="Bio Systems Technology">Bio Systems Technology</option>
+                           <option ngValue="Biology">Biology</option>
+                           <option ngValue="Buddhist Civilization">Buddhist Civilization</option>
+                           <option ngValue="Business Studies">Business Studies</option>
+                           <option ngValue="Chemistry">Chemistry</option>
+                           <option ngValue="Combined Mathematics">Combined Mathematics</option>
+                           <option ngValue="Commerce stream">Commerce stream</option>
+                           <option ngValue="Economics">Economics</option>
+                           <option ngValue="Engineering Technology">Engineering Technology</option>
+                           <option ngValue="Geography">Geography</option>
+                           <option ngValue="History">History</option>
+                           <option ngValue="Logic">Logic</option>
+                           <option ngValue="Music">Music</option>
+                           <option ngValue="Physics">Physics</option>
+                           <option ngValue="Political Science">Political Science</option>
+                           <option ngValue="Science for Technology">Science for Technology</option>
+                           <option ngValue="Statistics">Statistics</option>
+                           </select>
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('stream')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.stream.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>A/L Index No<span class="mandatory">*</span></label>
+                           <input type="text" class="uppercase form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="al_index_no"
+                              [ngClass]="alSubmitted || isInvalidAlField('al_index_no') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('al_index_no')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.al_index_no.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Z-Core<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" min="0" max="10" formControlName="z_score"
+                              [ngClass]="alSubmitted || isInvalidAlField('z_score') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('z_score')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.z_score.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>A/L ICT<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="al_ict"
+                              [ngClass]="alSubmitted || isInvalidAlField('al_ict') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('al_ict')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.al_ict.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Comm & Media<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="comm_and_media"
+                              [ngClass]="alSubmitted || isInvalidAlField('comm_and_media') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('comm_and_media')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.comm_and_media.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>General English<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="general_english"
+                              [ngClass]="alSubmitted || isInvalidAlField('general_english') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('general_english')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.general_english.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-3">
+                           <label>General Test<span class="mandatory">*</span></label>
+                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="general_common_test"
+                              [ngClass]="alSubmitted || isInvalidAlField('general_common_test') ? 'error-field' : ''">
+                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('general_common_test')">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.general_common_test.errors?.required">
+                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                              </span>
+                           </div>
+                        </div>
+                        <div class="form-group col-12 d-flex flex-row-reverse">
+                           <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp; Save Applicant</button>&nbsp;
+                           <button class="btn btn-warning" (click)="showAlApplicantCreateForm = false"><i class="fa fa-reply"></i>&nbsp; Cancel</button>
+                        </div>
+                     </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-12 table_outer">
+               <div class="row">
+                  <table datatable [dtOptions]="dtaOptions" [dtTrigger]="dtaTrigger" class="table table-striped table-bordered row-border hover" id="tblAlApplicantData">
+                  <thead>
+                     <tr>
+                        <th scope="col">Application No</th>
+                        <th scope="col">Student Type</th>
+                        <th scope="col">Identity Card No</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Initials</th>
+                        <th scope="col">Surename</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Ethnicity</th>
+                        <th scope="col">Address Line 1</th>
+                        <th scope="col">Address Line 2</th>
+                        <th scope="col">Address Line 3</th>
+                        <th scope="col">City</th>
+                        <th scope="col">District</th>
+                        <th scope="col">Telephone</th>
+                        <th scope="col">Mobile No</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">A/L Steam</th>
+                        <th scope="col">A/L Index No</th>
+                        <th scope="col">Z-Score</th>
+                        <th scope="col">Preference 1</th>
+                        <th scope="col">Preference 2</th>
+                        <th scope="col">Preference 3</th>
+                        <th scope="col">A/L ICT</th>
+                        <th scope="col">Comm & Media</th>
+                        <th scope="col">General English</th>
+                        <th scope="col">General Test</th>
+                        <!-- <th scope="col">Maths</th> -->
+                        <!-- <th scope="col" class="lastColumn"></th> -->
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let applicant of alAplicantFilterList">
+                        <td>{{applicant.al_details.application_no}}</td>
+                        <td>{{applicant.student_type}}</td>
+                        <td>{{applicant.identity_no}}</td>
+                        <td>{{applicant.title}}</td>
+                        <td>{{applicant.initials}}</td>
+                        <td>{{applicant.surename}}</td>
+                        <td *ngIf="applicant.status === true">Active</td>
+                        <td *ngIf="applicant.status === false">Deactive</td>
+                        <td>{{applicant.gender}}</td>
+                        <td>{{applicant.ethnicity}}</td>
+                        <td>{{applicant.address_1}}</td>
+                        <td>{{applicant.address_2}}</td>
+                        <td>{{applicant.address_3}}</td>
+                        <td>{{applicant.city}}</td>
+                        <td>{{applicant.district}}</td>
+                        <td>{{applicant.telephone}}</td>
+                        <td>{{applicant.mobile}}</td>
+                        <td>{{applicant.email}}</td>
+                        <td>{{applicant.al_details.stream}}</td>
+                        <td>{{applicant.al_details.al_index_no}}</td>
+                        <td>{{applicant.al_details.z_score}}</td>
+                        <td>{{applicant.preference_1}}</td>
+                        <td>{{applicant.preference_2}}</td>
+                        <td>{{applicant.preference_3}}</td>
+                        <td>{{applicant.al_details.al_ict}}</td>
+                        <td>{{applicant.al_details.comm_and_media}}</td>
+                        <td>{{applicant.al_details.general_english}}</td>
+                        <td>{{applicant.al_details.general_common_test}}</td>
+                        <!-- <td>{{applicant.al_details.general_common_test}}</td> -->
+                        <!-- <td class="lastColumn">
+                           <button class="btn btn-danger tableDelete" (click)="deleteApplicant(applicant.application_no)"><i class="far fa-trash-alt"></i></button>
+                           <button class="btn btn-warning tableEdit" (click)="editApplicant(applicant)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
+                           </td> -->
+                     </tr>
+                  </tbody>
+                  </table>
+               </div>
             </div>
          </div>
       </div>
-      <div class="col-md-12 table_outer">
-         <div class="row">
-      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover" id="tblApplicantData">
-         <thead>
-            <tr>
-               <th scope="col">Application No</th>
-               <th scope="col">Address Line 1</th>
-               <th scope="col">Address Line 2</th>
-               <th scope="col">Address Line 3</th>
-               <th scope="col">City</th>
-               <th scope="col">District</th>
-               <th scope="col">Email</th>
-               <th scope="col">Ethnicity</th>
-               <th scope="col">Gender</th>
-               <th scope="col">Identity Card No</th>
-               <th scope="col">Initials</th>
-               <th scope="col">Mobile No</th>
-               <th scope="col">Diploma</th>
-               <th scope="col">Index No</th>
-               <th scope="col">Permenent Address</th>
-               <th scope="col">Remark</th>
-               <th scope="col">Preference 1</th>
-               <th scope="col">Preference 2</th>
-               <th scope="col">Preference 3</th>
-               <th scope="col">Status</th>
-               <th scope="col">Student Type</th>
-               <th scope="col">Title</th>
-               <th scope="col">Surename</th>
-               <th scope="col">Telephone</th>
-               <th scope="col" class="lastColumn"></th>
-            </tr>
-         </thead>
-         <tbody>
-            <tr *ngFor="let applicant of nvqAplicantFilterList">
-               <td>{{applicant.application_no}}</td>
-               <td>{{applicant.address_1}}</td>
-               <td>{{applicant.address_2}}</td>
-               <td>{{applicant.address_3}}</td>
-               <td>{{applicant.city}}</td>
-               <td>{{applicant.district}}</td>
-               <td>{{applicant.email}}</td>
-               <td>{{applicant.ethnicity}}</td>
-               <td>{{applicant.gender}}</td>
-               <td>{{applicant.identity_no}}</td>
-               <td>{{applicant.initials}}</td>
-               <td>{{applicant.mobile}}</td>
-               <td>{{applicant.nvq_details.diploma}}</td>
-               <td>{{applicant.nvq_details.index_no}}</td>
-               <td>{{applicant.nvq_details.permenent_address}}</td>
-               <td>{{applicant.nvq_details.remarks}}</td>
-               <td>{{applicant.preference_1}}</td>
-               <td>{{applicant.preference_2}}</td>
-               <td>{{applicant.preference_3}}</td>
-               <td *ngIf="applicant.status === true">Active</td>
-               <td *ngIf="applicant.status === false">Deactive</td>
-               <td>{{applicant.student_type}}</td>
-               <td>{{applicant.title}}</td>
-               <td>{{applicant.surename}}</td>
-               <td>{{applicant.telephone}}</td>
-               <td class="lastColumn">
-                  <button class="btn btn-danger tableDelete" (click)="deleteApplicant(applicant.application_no)"><i class="far fa-trash-alt"></i></button>
-                 <button class="btn btn-warning tableEdit" (click)="editApplicant(applicant)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
-               </td>
-            </tr>
-         </tbody>
-      </table>
-   </div></div>
-      </div>
-      <div class="tab-pane fade" id="al" role="tabpanel" aria-labelledby="al-tab">AL</div>
-    </div>
-  </div>
+   </div>
 </div>
+
+<ng-template #customLoadingTemplate>
+   <div class="custom-class">
+       <h3>
+           Please Wait...
+       </h3>
+   </div>
+</ng-template>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>

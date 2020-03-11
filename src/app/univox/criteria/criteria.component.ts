@@ -30,6 +30,8 @@ export class CriteriaComponent implements OnDestroy, OnInit {
   editCriteriaId;
   criteriaCreateForm: FormGroup;
 
+  public loading = false;
+
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
@@ -61,19 +63,23 @@ export class CriteriaComponent implements OnDestroy, OnInit {
   }
 
   getAllCriterias() {
+    this.loading = true;
     this.univoxService.getAllCriterias().subscribe(
       res => {
         this.criteriaList = res.data;
         this.filterCriteriaData = res.data;
         this.dtTrigger.next();
+        this.loading = false;
         console.log(res.data);
       },
       error => {
+        this.loading = false;
       }
     );
   }
 
   createCriteria() {
+    this.loading = true;
     this.univoxService.createCriteria(this.criteriaCreateForm.value).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.showCriteriaCreateForm = false;
@@ -90,17 +96,20 @@ export class CriteriaComponent implements OnDestroy, OnInit {
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
 
   deleteCriteria(id) {
+    this.loading = true;
     this.univoxService.deleteCriteria(id).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.getAllCriterias();
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
@@ -120,7 +129,7 @@ export class CriteriaComponent implements OnDestroy, OnInit {
   }
 
   updateCriteria() {
-
+      this.loading = true;
       this.univoxService.getAllDegrees().subscribe(
         res => {
           const degreeList = res.data;
@@ -140,9 +149,11 @@ export class CriteriaComponent implements OnDestroy, OnInit {
               );
               }
             }
+          this.loading = false;
           },
         error => {
           this.notifier.notify('error', error.error);
+          this.loading = false;
         }
       );
   }

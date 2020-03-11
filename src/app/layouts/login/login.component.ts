@@ -13,6 +13,9 @@ export class LoginComponent implements OnInit {
 
   invalidLogin = false;
   signinForm: FormGroup;
+  isActive = true;
+
+  public loading = false;
 
   constructor(
     public fb: FormBuilder,
@@ -30,7 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
+    // this.loading = true;
     this.authService.signIn(this.signinForm.value);
+    // this.loading = this.authService.hideLoading();
   }
 
 }

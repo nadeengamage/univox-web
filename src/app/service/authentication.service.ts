@@ -17,6 +17,7 @@ export class AuthService {
   userendpoint = '/api/v1/users';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser;
+  loading = false;
 
   constructor(
     private http: HttpClient,
@@ -45,6 +46,7 @@ export class AuthService {
                 this.currentUser = element.username;
                 this.router.navigate(['univox']);
                 this.notifier.notify('success', 'Welcome back! ' + this.currentUser);
+                this.hideLoading();
                 break;
               }
             }
@@ -53,6 +55,12 @@ export class AuthService {
       res => {
         this.notifier.notify('error', res.error.description);
       });
+  }
+
+  hideLoading() {
+    if (this.currentUser !== null) {
+      return true;
+    }
   }
 
   getToken() {

@@ -35,6 +35,8 @@ export class UnivoxService {
   private getNvqApplicantEndPoint: string;
   private getAlApplicantEndPoint: string;
   private createApplicantEndPoint: string;
+  private createNvqBulkApplicantEndPoint: string;
+  private createAlBulkApplicantEndPoint: string;
 
   constructor(private http: HttpUtilsService) {
     // USERS
@@ -69,6 +71,8 @@ export class UnivoxService {
     this.getNvqApplicantEndPoint = this.mainUrl + '/applicants/nvq/details';
     this.getAlApplicantEndPoint = this.mainUrl + '/applicants/al/details';
     this.createApplicantEndPoint = this.mainUrl + '/applicants';
+    this.createNvqBulkApplicantEndPoint = this.mainUrl + '/applicants/transform/nvq_students';
+    this.createAlBulkApplicantEndPoint = this.mainUrl + '/applicants/transform/al_students';
 
   }
 
@@ -176,12 +180,20 @@ export class UnivoxService {
     const get = this.getNvqApplicantEndPoint;
     return this.http.get(get);
   }
-  public getAlNvqApplicant() {
+  public getAlApplicant() {
     const get = this.getAlApplicantEndPoint;
     return this.http.get(get);
   }
   public createApplicant(data) {
     const create = this.createApplicantEndPoint;
     return this.http.post(create, data);
+  }
+  public createNvqBulkApplicant(data) {
+    const create = this.createNvqBulkApplicantEndPoint;
+    return this.http.multiPart(create, data);
+  }
+  public createAlBulkApplicant(data) {
+    const create = this.createAlBulkApplicantEndPoint;
+    return this.http.multiPart(create, data);
   }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+declare var $: any;
 
 @Component({
   selector: 'app-faculty',
@@ -24,6 +25,9 @@ export class FacultyComponent implements OnDestroy, OnInit {
   };
   editFacultyId;
   facultyCreateForm: FormGroup;
+  submitted = false;
+
+  public loading = false;
 
   constructor(
     public fb: FormBuilder,
@@ -31,9 +35,8 @@ export class FacultyComponent implements OnDestroy, OnInit {
     private notifier: NotifierService
   ) {
     this.facultyCreateForm = this.fb.group({
-      faculty_code: [''],
-      faculty_name: [''],
-      status: ['']
+      faculty_code: ['', Validators.required],
+      faculty_name: ['', Validators.required]
     });
   }
 
@@ -52,11 +55,15 @@ export class FacultyComponent implements OnDestroy, OnInit {
   }
 
   getAllFaculty() {
+    const table = $('#tblFacultyData').DataTable();
+    table.clear().destroy();
+    this.loading = true;
     this.univoxService.getAllFaculties().subscribe(
       res => {
         this.facultyList = res.data;
         this.filterFacultyData = res.data;
         this.dtTrigger.next();
+        this.loading = false;
         console.log(res.data);
       },
       error => {
@@ -65,29 +72,47 @@ export class FacultyComponent implements OnDestroy, OnInit {
   }
 
   createFaculty() {
+    console.log(this.facultyCreateForm);
+
+    if (!this.facultyCreateForm.invalid) {
+    this.loading = true;
     this.univoxService.createFaculty(this.facultyCreateForm.value).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.showFacultyCreateForm = false;
-      this.facultyCreateForm = this.fb.group({
-        faculty_code: [''],
-        faculty_name: [''],
-        status: ['']
-      });
+      this.facultyCreateForm.reset();
       this.getAllFaculty();
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
+  } else {
+    this.submitted = true;
+  }
+  }
+
+  changeStatusEdit(status) {
+    this.editDetails.status = parseInt(status.srcElement.value, 0);
+  }
+
+  isInvalidField(formControl) {
+    return (this.facultyCreateForm.controls[formControl].touched ||
+      this.facultyCreateForm.controls[formControl].dirty) &&
+      this.facultyCreateForm.controls[formControl].errors
+      ? true
+      : false;
   }
 
   deleteFaculty(id) {
+    this.loading = true;
     this.univoxService.deleteFaculty(id).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.getAllFaculty();
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
@@ -103,12 +128,14 @@ export class FacultyComponent implements OnDestroy, OnInit {
   }
 
   updateFaculty() {
+    this.loading = true;
     this.univoxService.updateFacultyById(this.editFacultyId, this.editDetails).subscribe(res => {
       this.getAllFaculty();
       this.notifier.notify('success', res.message);
     },
     error => {
       this.notifier.notify('error', error.error);
+      this.loading = false;
     }
     );
   }
