@@ -48,17 +48,17 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       surename: ['', Validators.required],
       title: ['', Validators.required],
       gender: ['', Validators.required],
-      ethnicity: ['', Validators.required],
+      ethnicity: [''],
       address_1: ['', Validators.required],
       address_2: [''],
       address_3: [''],
       city: ['', Validators.required],
       district: ['', Validators.required],
-      telephone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(12),
+      telephone: ['', [Validators.minLength(10), Validators.maxLength(12),
         Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
-      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(12),
+      mobile: ['', [Validators.minLength(10), Validators.maxLength(12),
         Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
-      email: ['', [Validators.required, Validators.email,
+      email: ['', [Validators.email,
         Validators.pattern(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/)]],
       preference_1: ['', Validators.required],
       preference_2: [''],
@@ -67,9 +67,9 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       diploma: ['', Validators.required],
       remarks: [''],
       marital_status: ['', Validators.required],
-      permenent_address: ['', Validators.required],
+      permenent_address: [''],
       batch_type: ['', Validators.required],
-      permanent_district: ['', Validators.required],
+      permanent_district: [''],
     });
     this.uploadNvqBulkForm = this.fb.group({
       nvq_profile: ['']
@@ -85,17 +85,17 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       surename: ['', Validators.required],
       title: ['', Validators.required],
       gender: ['', Validators.required],
-      ethnicity: ['', Validators.required],
+      ethnicity: [''],
       address_1: ['', Validators.required],
       address_2: [''],
       address_3: [''],
       city: ['', Validators.required],
       district: ['', Validators.required],
-      telephone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(12),
+      telephone: ['', [Validators.minLength(10), Validators.maxLength(12),
         Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
-      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(12),
+      mobile: ['', [Validators.minLength(10), Validators.maxLength(12),
         Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
-      email: ['', [Validators.required, Validators.email,
+      email: ['', [Validators.email,
         Validators.pattern(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/)]],
       preference_1: ['', Validators.required],
       preference_2: [''],
@@ -107,7 +107,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       comm_and_media: [''],
       general_english: [''],
       general_common_test: ['', Validators.required],
-      permanent_district: ['', Validators.required],
+      permanent_district: [''],
     });
     // this.alApplicantCreateForm.patchValue({
     //   student_type: 'AL'
@@ -200,10 +200,30 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       preference_1: item.srcElement.value
     });
   }
+  changeNvqPreferenceTwo(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      preference_2: item.srcElement.value
+    });
+  }
+  changeNvqPreferenceThree(item) {
+    return this.nvqApplicantCreateForm.patchValue({
+      preference_3: item.srcElement.value
+    });
+  }
 
   changeAlPreferenceOne(item) {
     return this.alApplicantCreateForm.patchValue({
       preference_1: item.srcElement.value
+    });
+  }
+  changeAlPreferenceTwo(item) {
+    return this.alApplicantCreateForm.patchValue({
+      preference_2: item.srcElement.value
+    });
+  }
+  changeAlPreferenceThree(item) {
+    return this.alApplicantCreateForm.patchValue({
+      preference_3: item.srcElement.value
     });
   }
 
