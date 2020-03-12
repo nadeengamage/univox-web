@@ -450,6 +450,7 @@
                         <th scope="col">Remark</th>
                         <th scope="col">Permenent Address</th>
                         <th scope="col">Permanent District</th>
+                        <th scope="col" style="width: 80px;"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -480,10 +481,10 @@
                         <td>{{applicant.nvq_details.remarks}}</td>
                         <td>{{applicant.nvq_details.permenent_address}}</td>
                         <td>{{applicant.permanent_district}}</td>
-                        <!-- <td class="lastColumn">
-                           <button class="btn btn-danger tableDelete" (click)="deleteApplicant(applicant.application_no)"><i class="far fa-trash-alt"></i></button>
-                           <button class="btn btn-warning tableEdit" (click)="editApplicant(applicant)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
-                           </td> -->
+                        <td class="lastColumn">
+                           <!-- <button class="btn btn-warning tableEdit" (click)="editNvqApplicant(applicant)" data-toggle="modal" data-target="#nvqApplicantEditModal"><i class="far fa-edit"></i></button> -->
+                           <button class="btn btn-warning tableEdit" (click)="editNvqApplicant(applicant)"><i class="far fa-edit"></i></button>
+                        </td>
                      </tr>
                   </tbody>
                   </table>
@@ -822,8 +823,7 @@
                         </div>
                         <div class="form-group col-3">
                            <label>A/L Stream<span class="mandatory">*</span></label>
-                           <select title="A/L Steam" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeAlSteam($event)" formControlName="stream" 
-                           [ngClass]="alSubmitted || isInvalidAlField('stream') ? 'error-field' : ''">
+                           <select title="A/L Steam" class="form-control" (change)="changeAlSteam($event)">
                            <option ngValue="Sinhala">Sinhala</option>
                            <option ngValue="Accounting">Accounting</option>
                            <option ngValue="Bio Systems Technology">Bio Systems Technology</option>
@@ -995,6 +995,25 @@
                   </table>
                </div>
             </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal fade" id="nvqApplicantEditModal" tabindex="-1" role="dialog" aria-labelledby="nvqApplicantEditModalModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Edit Details - {{modalTitle}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="updateNvqApplicant()">Update Applicant</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          </div>
       </div>
    </div>

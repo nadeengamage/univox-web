@@ -256,7 +256,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
 
   changeAlSteam(item) {
     return this.alApplicantCreateForm.patchValue({
-      stream: item.srcElement.value.slice(3)
+      stream: item.srcElement.value
     });
   }
 
@@ -428,5 +428,65 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     } else {
       this.alSubmitted = true;
     }
+  }
+
+  editNvqApplicant(applicant) {
+    this.nvqApplicantCreateForm = this.fb.group({
+      student_type: [''],
+      application_no: [''],
+      identity_no: [''],
+      initials: [''],
+      surename: [''],
+      title: [''],
+      gender: [''],
+      ethnicity: [''],
+      address_1: [''],
+      address_2: [''],
+      address_3: [''],
+      city: [''],
+      district: [''],
+      telephone: [''],
+      mobile: [''],
+      email: [''],
+      preference_1: [''],
+      preference_2: [''],
+      preference_3: [''],
+      index_no: [''],
+      diploma: [''],
+      remarks: [''],
+      marital_status: [''],
+      permenent_address: [''],
+      batch_type: [''],
+      permanent_district: [''],
+    });
+    this.nvqApplicantCreateForm.patchValue({
+      student_type: applicant.student_type,
+      application_no: applicant.nvq_details.application_no,
+      identity_no: applicant.identity_no,
+      initials: applicant.initials,
+      surename: applicant.surename,
+      title: applicant.title,
+      gender: applicant.gender,
+      ethnicity: applicant.ethnicity,
+      address_1: [''],
+      address_2: applicant.address_2,
+      address_3: applicant.address_3,
+      city: applicant.city,
+      district: applicant.district,
+      telephone: applicant.telephone,
+      mobile: applicant.mobile,
+      email: applicant.email,
+      preference_1: applicant.preference_1,
+      preference_2: applicant.preference_2,
+      preference_3: applicant.preference_3,
+      index_no: applicant.nvq_details.index_no,
+      diploma: applicant.nvq_details.diploma,
+      remarks: applicant.nvq_details.remarks,
+      marital_status: [''],
+      permenent_address: applicant.permenent_address,
+      batch_type: applicant.batch_type,
+      permanent_district: applicant.nvq_details.permanent_district
+    });
+    this.showNvqApplicantCreateForm = true;
   }
 }
