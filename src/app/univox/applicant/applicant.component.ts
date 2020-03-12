@@ -156,30 +156,18 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     );
   }
 
-  changeNvqType(item) {
-    return this.nvqApplicantCreateForm.patchValue({
-      student_type: item.srcElement.value.slice(3)
-    });
-  }
-
-  changeAlType(item) {
-    return this.alApplicantCreateForm.patchValue({
-      student_type: item.srcElement.value.slice(3)
-    });
-  }
-
   changeNvqGender(item) {
     this.nvqApplicantCreateForm.patchValue({
       student_type: this.nvqStudentType
     });
     return this.nvqApplicantCreateForm.patchValue({
-      gender: item.srcElement.value.slice(3)
+      gender: item.srcElement.value
     });
   }
 
   changeNvqTitle(item) {
     return this.nvqApplicantCreateForm.patchValue({
-      title: item.srcElement.value.slice(3)
+      title: item.srcElement.value
     });
   }
 
@@ -250,43 +238,43 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       student_type: this.alStudentType
     });
     return this.alApplicantCreateForm.patchValue({
-      gender: item.srcElement.value.slice(3)
+      gender: item.srcElement.value
     });
   }
 
   changeAlSteam(item) {
     return this.alApplicantCreateForm.patchValue({
-      stream: item.srcElement.value.slice(3)
+      stream: item.srcElement.value
     });
   }
 
   changeNvqMarital(item) {
     return this.nvqApplicantCreateForm.patchValue({
-      marital_status: item.srcElement.value.slice(3)
+      marital_status: item.srcElement.value
     });
   }
 
   changeNvqBatchType(item) {
     return this.nvqApplicantCreateForm.patchValue({
-      batch_type: item.srcElement.value.slice(3)
+      batch_type: item.srcElement.value
     });
   }
 
   changeAlTitle(item) {
     return this.alApplicantCreateForm.patchValue({
-      title: item.srcElement.value.slice(3)
+      title: item.srcElement.value
     });
   }
 
   changeAlEthnicity(item) {
     return this.alApplicantCreateForm.patchValue({
-      ethnicity: item.srcElement.value.slice(3)
+      ethnicity: item.srcElement.value
     });
   }
 
   changeNvqEthnicity(item) {
     return this.nvqApplicantCreateForm.patchValue({
-      ethnicity: item.srcElement.value.slice(3)
+      ethnicity: item.srcElement.value
     });
   }
 
@@ -317,6 +305,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
         this.nvqAplicantFilterList = res.data;
         this.getNvqAplicants();
         this.nvqApplicantCreateForm.reset();
+        this.showNvqApplicantCreateForm = false;
         this.notifier.notify('success', res.message);
         console.log(res.data);
       },
@@ -349,6 +338,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       res => {
         console.log(res);
         this.loading = false;
+        this.getNvqAplicants();
         this.notifier.notify('success', res.message);
       },
       error => {
@@ -365,6 +355,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       res => {
         console.log(res);
         this.loading = false;
+        this.getAlAplicants();
         this.notifier.notify('success', res.message);
       },
       error => {
@@ -416,6 +407,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
         this.alAplicantFilterList = res.data;
         this.getAlAplicants();
         this.alApplicantCreateForm.reset();
+        this.showAlApplicantCreateForm = false;
         this.loading = false;
         this.notifier.notify('success', res.message);
         console.log(res.data);
@@ -428,5 +420,65 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     } else {
       this.alSubmitted = true;
     }
+  }
+
+  editNvqApplicant(applicant) {
+    this.nvqApplicantCreateForm = this.fb.group({
+      student_type: [''],
+      application_no: [''],
+      identity_no: [''],
+      initials: [''],
+      surename: [''],
+      title: [''],
+      gender: [''],
+      ethnicity: [''],
+      address_1: [''],
+      address_2: [''],
+      address_3: [''],
+      city: [''],
+      district: [''],
+      telephone: [''],
+      mobile: [''],
+      email: [''],
+      preference_1: [''],
+      preference_2: [''],
+      preference_3: [''],
+      index_no: [''],
+      diploma: [''],
+      remarks: [''],
+      marital_status: [''],
+      permenent_address: [''],
+      batch_type: [''],
+      permanent_district: [''],
+    });
+    this.nvqApplicantCreateForm.patchValue({
+      student_type: applicant.student_type,
+      application_no: applicant.nvq_details.application_no,
+      identity_no: applicant.identity_no,
+      initials: applicant.initials,
+      surename: applicant.surename,
+      title: applicant.title,
+      gender: applicant.gender,
+      ethnicity: applicant.ethnicity,
+      address_1: [''],
+      address_2: applicant.address_2,
+      address_3: applicant.address_3,
+      city: applicant.city,
+      district: applicant.district,
+      telephone: applicant.telephone,
+      mobile: applicant.mobile,
+      email: applicant.email,
+      preference_1: applicant.preference_1,
+      preference_2: applicant.preference_2,
+      preference_3: applicant.preference_3,
+      index_no: applicant.nvq_details.index_no,
+      diploma: applicant.nvq_details.diploma,
+      remarks: applicant.nvq_details.remarks,
+      marital_status: [''],
+      permenent_address: applicant.permenent_address,
+      batch_type: applicant.batch_type,
+      permanent_district: applicant.nvq_details.permanent_district
+    });
+    this.showNvqApplicantCreateForm = true;
   }
 }

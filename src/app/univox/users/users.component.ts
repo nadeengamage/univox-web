@@ -59,6 +59,11 @@ export class UsersComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+  showCreate() {
+    this.userCreateForm.reset();
+    this.submitted = false;
+  }
+
   getAllUsers() {
     const table = $('#tblUserData').DataTable();
     table.clear().destroy();
@@ -82,7 +87,7 @@ export class UsersComponent implements OnDestroy, OnInit {
   }
 
   changeRoleEdit(role) {
-    this.editDetails.role = '1';
+    this.editDetails.role = role.srcElement.value;
     console.log(this.editDetails.role);
   }
 
@@ -96,7 +101,7 @@ export class UsersComponent implements OnDestroy, OnInit {
 
   changeRole(item) {
     return this.userCreateForm.patchValue({
-      role: item.srcElement.value.slice(3)
+      role: item.srcElement.value
     });
   }
 
@@ -139,24 +144,30 @@ export class UsersComponent implements OnDestroy, OnInit {
       username: user.username,
       firstname: user.firstname,
       lastname: user.lastname,
-      role: '1',
-      status: 0
+      role: user.role_code,
+      status: user.status,
     };
     this.editUserId = user.x_id;
     this.modalTitle = user.username;
   }
 
   updateUser() {
-    this.loading = true;
-    this.univoxService.updateUserById(this.editUserId, this.editDetails).subscribe(res => {
-      this.notifier.notify('success', res.message);
-      this.loading = false;
-      this.getAllUsers();
-    },
-    error => {
-      this.notifier.notify('error', error.error);
-      this.loading = false;
+    if (this.editDetails.username !== '' && this.editDetails.firstname !== '' &&
+      this.editDetails.lastname !== '' &&
+      this.editDetails.role !== '') {
+      this.loading = true;
+      this.univoxService.updateUserById(this.editUserId, this.editDetails).subscribe(res => {
+        this.notifier.notify('success', res.message);
+        this.loading = false;
+        this.getAllUsers();
+      },
+      error => {
+        this.notifier.notify('error', error.error);
+        this.loading = false;
+      }
+      );
+    } else {
+      this.notifier.notify('info', 'Cannot proceed!, Filed Empty!');
     }
-    );
   }
 }

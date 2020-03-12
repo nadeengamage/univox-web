@@ -90,13 +90,13 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Title<span class="mandatory">*</span></label>
-                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeNvqTitle($event)" formControlName="title" 
-                           [ngClass]="nvqSubmitted || isInvalidNvqField('title') ? 'error-field' : ''">
-                           <option ngValue="Mr" selected>Mr</option>
-                           <option ngValue="Ms" selected>Ms</option>
-                           <option ngValue="Mrs" selected>Mrs</option>
-                           <option ngValue="Rev" selected>Rev</option>
-                           <option ngValue="Ven" selected>Ven</option>
+                           <select class="form-control" (change)="changeNvqTitle($event)">
+                           <option value="" selected disabled>Please Select</option>
+                           <option value="Mr">Mr</option>
+                           <option value="Ms">Ms</option>
+                           <option value="Mrs">Mrs</option>
+                           <option value="Rev">Rev</option>
+                           <option value="Ven">Ven</option>
                            </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('title')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.title.errors?.required">
@@ -106,10 +106,10 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Gender<span class="mandatory">*</span></label>
-                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="gender" (change)="changeNvqGender($event)" 
-                           [ngClass]="nvqSubmitted || isInvalidNvqField('gender') ? 'error-field' : ''">
-                           <option ngValue="M">Male</option>
-                           <option ngValue="F">Female</option>
+                           <select class="form-control" (change)="changeNvqGender($event)">
+                           <option value="" selected disabled>Please Select</option>
+                           <option value="M">Male</option>
+                           <option value="F">Female</option>
                            </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('gender')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.gender.errors?.required">
@@ -119,13 +119,13 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Ethnicity<span class="mandatory">*</span></label>
-                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeNvqEthnicity($event)" formControlName="ethnicity" 
-                           [ngClass]="nvqSubmitted || isInvalidAlField('ethnicity') ? 'error-field' : ''">
-                           <option ngValue="Sinhala" selected>Sinhala</option>
-                           <option ngValue="Tamil" selected>Tamil</option>
-                           <option ngValue="Hindu" selected>Hindu</option>
-                           <option ngValue="Muslim" selected>Muslim</option>
-                           <option ngValue="Other" selected>Other</option>
+                           <select class="form-control" (change)="changeNvqEthnicity($event)">
+                              <option value="" selected disabled>Please Select</option>
+                           <option value="Sinhala" >Sinhala</option>
+                           <option value="Tamil" >Tamil</option>
+                           <option value="Hindu" >Hindu</option>
+                           <option value="Muslim" >Muslim</option>
+                           <option value="Other" >Other</option>
                            </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('ethnicity')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.ethnicity.errors?.required">
@@ -165,31 +165,31 @@
                            <label>District<span class="mandatory">*</span></label>
                            <select class="form-control" (change)="changeNvqDistrict($event)">
                               <option value="" disabled selected>Please Select</option>
-                           <option ngValue="Anuradhapura">Anuradhapura</option>
-                           <option ngValue="Ampara">Ampara</option>
-                           <option ngValue="Badulla">Badulla</option>
-                           <option ngValue="Batticaloa">Batticaloa</option>
-                           <option ngValue="Colombo">Colombo</option>
-                           <option ngValue="Galle">Galle</option>
-                           <option ngValue="Gampaha">Gampaha</option>
-                           <option ngValue="Hambantota">Hambantota</option>
-                           <option ngValue="Jaffna">Jaffna</option>
-                           <option ngValue="Kilinochchi">Kilinochchi</option>
-                           <option ngValue="Kurunegala">Kurunegala</option>
-                           <option ngValue="Kalutara">Kalutara</option>
-                           <option ngValue="Kandy">Kandy</option>
-                           <option ngValue="Kegalle">Kegalle</option>
-                           <option ngValue="Mannar">Mannar</option>
-                           <option ngValue="Mullaitivu">Mullaitivu</option>
-                           <option ngValue="Matale">Matale</option>
-                           <option ngValue="Monaragala">Monaragala</option>
-                           <option ngValue="Matara">Matara</option>
-                           <option ngValue="Nuwara Eliya">Nuwara Eliya</option>
-                           <option ngValue="Polonnaruwa">Polonnaruwa</option>
-                           <option ngValue="Puttalam">Puttalam</option>
-                           <option ngValue="Ratnapura">Ratnapura</option>
-                           <option ngValue="Trincomalee">Trincomalee</option>
-                           <option ngValue="Vavuniya">Vavuniya</option>
+                           <option value="Anuradhapura">Anuradhapura</option>
+                           <option value="Ampara">Ampara</option>
+                           <option value="Badulla">Badulla</option>
+                           <option value="Batticaloa">Batticaloa</option>
+                           <option value="Colombo">Colombo</option>
+                           <option value="Galle">Galle</option>
+                           <option value="Gampaha">Gampaha</option>
+                           <option value="Hambantota">Hambantota</option>
+                           <option value="Jaffna">Jaffna</option>
+                           <option value="Kilinochchi">Kilinochchi</option>
+                           <option value="Kurunegala">Kurunegala</option>
+                           <option value="Kalutara">Kalutara</option>
+                           <option value="Kandy">Kandy</option>
+                           <option value="Kegalle">Kegalle</option>
+                           <option value="Mannar">Mannar</option>
+                           <option value="Mullaitivu">Mullaitivu</option>
+                           <option value="Matale">Matale</option>
+                           <option value="Monaragala">Monaragala</option>
+                           <option value="Matara">Matara</option>
+                           <option value="Nuwara Eliya">Nuwara Eliya</option>
+                           <option value="Polonnaruwa">Polonnaruwa</option>
+                           <option value="Puttalam">Puttalam</option>
+                           <option value="Ratnapura">Ratnapura</option>
+                           <option value="Trincomalee">Trincomalee</option>
+                           <option value="Vavuniya">Vavuniya</option>
                            </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('district')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.district.errors?.required">
@@ -263,22 +263,22 @@
                         <div class="form-group col-3">
                            <label>Preference 1<span class="mandatory">*</span></label>
                            <select title="hint - Filed" class="form-control" (change)="changeNvqPreferenceOne($event)">
-                              <option ngValue="" disabled selected>Please Select</option>
-                              <option ngValue="BST">BST</option>
-                              <option ngValue="CTRM">CTRM</option>
-                              <option ngValue="MAN">MAN</option>
-                              <option ngValue="MEC">MEC</option>
-                              <option ngValue="FPT">FPT</option>
-                              <option ngValue="BED">BED</option>
-                              <option ngValue="IM">IM</option>
-                              <option ngValue="SOF">SOF</option>
-                              <option ngValue="NET">NET</option>
-                              <option ngValue="MMW">MMW</option>
-                              <option ngValue="ELT">ELT</option>
-                              <option ngValue="FTPT">FTPT</option>
-                              <option ngValue="MAPT">MAPT</option>
-                              <option ngValue="QS">QS</option>
-                              <option ngValue="HM">HM</option>
+                              <option value="" disabled selected>Please Select</option>
+                              <option value="BST">BST</option>
+                              <option value="CTRM">CTRM</option>
+                              <option value="MAN">MAN</option>
+                              <option value="MEC">MEC</option>
+                              <option value="FPT">FPT</option>
+                              <option value="BED">BED</option>
+                              <option value="IM">IM</option>
+                              <option value="SOF">SOF</option>
+                              <option value="NET">NET</option>
+                              <option value="MMW">MMW</option>
+                              <option value="ELT">ELT</option>
+                              <option value="FTPT">FTPT</option>
+                              <option value="MAPT">MAPT</option>
+                              <option value="QS">QS</option>
+                              <option value="HM">HM</option>
                               </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_1')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_1.errors?.required">
@@ -289,22 +289,22 @@
                         <div class="form-group col-3">
                            <label>Preference 2</label>
                            <select title="hint - Filed" class="form-control" (change)="changeNvqPreferenceTwo($event)">
-                              <option ngValue="" disabled selected>Please Select</option>
-                              <option ngValue="BST">BST</option>
-                              <option ngValue="CTRM">CTRM</option>
-                              <option ngValue="MAN">MAN</option>
-                              <option ngValue="MEC">MEC</option>
-                              <option ngValue="FPT">FPT</option>
-                              <option ngValue="BED">BED</option>
-                              <option ngValue="IM">IM</option>
-                              <option ngValue="SOF">SOF</option>
-                              <option ngValue="NET">NET</option>
-                              <option ngValue="MMW">MMW</option>
-                              <option ngValue="ELT">ELT</option>
-                              <option ngValue="FTPT">FTPT</option>
-                              <option ngValue="MAPT">MAPT</option>
-                              <option ngValue="QS">QS</option>
-                              <option ngValue="HM">HM</option>
+                              <option value="" disabled selected>Please Select</option>
+                              <option value="BST">BST</option>
+                              <option value="CTRM">CTRM</option>
+                              <option value="MAN">MAN</option>
+                              <option value="MEC">MEC</option>
+                              <option value="FPT">FPT</option>
+                              <option value="BED">BED</option>
+                              <option value="IM">IM</option>
+                              <option value="SOF">SOF</option>
+                              <option value="NET">NET</option>
+                              <option value="MMW">MMW</option>
+                              <option value="ELT">ELT</option>
+                              <option value="FTPT">FTPT</option>
+                              <option value="MAPT">MAPT</option>
+                              <option value="QS">QS</option>
+                              <option value="HM">HM</option>
                               </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_2')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_2.errors?.required">
@@ -315,22 +315,22 @@
                         <div class="form-group col-3">
                            <label>Preference 3</label>
                            <select title="hint - Filed" class="form-control" (change)="changeNvqPreferenceThree($event)">
-                              <option ngValue="" disabled selected>Please Select</option>
-                              <option ngValue="BST">BST</option>
-                              <option ngValue="CTRM">CTRM</option>
-                              <option ngValue="MAN">MAN</option>
-                              <option ngValue="MEC">MEC</option>
-                              <option ngValue="FPT">FPT</option>
-                              <option ngValue="BED">BED</option>
-                              <option ngValue="IM">IM</option>
-                              <option ngValue="SOF">SOF</option>
-                              <option ngValue="NET">NET</option>
-                              <option ngValue="MMW">MMW</option>
-                              <option ngValue="ELT">ELT</option>
-                              <option ngValue="FTPT">FTPT</option>
-                              <option ngValue="MAPT">MAPT</option>
-                              <option ngValue="QS">QS</option>
-                              <option ngValue="HM">HM</option>
+                              <option value="" disabled selected>Please Select</option>
+                              <option value="BST">BST</option>
+                              <option value="CTRM">CTRM</option>
+                              <option value="MAN">MAN</option>
+                              <option value="MEC">MEC</option>
+                              <option value="FPT">FPT</option>
+                              <option value="BED">BED</option>
+                              <option value="IM">IM</option>
+                              <option value="SOF">SOF</option>
+                              <option value="NET">NET</option>
+                              <option value="MMW">MMW</option>
+                              <option value="ELT">ELT</option>
+                              <option value="FTPT">FTPT</option>
+                              <option value="MAPT">MAPT</option>
+                              <option value="QS">QS</option>
+                              <option value="HM">HM</option>
                               </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_3')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_3.errors?.required">
@@ -387,10 +387,10 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Marital Status<span class="mandatory">*</span></label>
-                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeNvqMarital($event)" formControlName="marital_status" 
-                           [ngClass]="nvqSubmitted || isInvalidNvqField('marital_status') ? 'error-field' : ''">
-                           <option ngValue="S">Un-Married</option>
-                           <option ngValue="M">Married</option>
+                           <select class="form-control" (change)="changeNvqMarital($event)">
+                           <option value="" selected disabled>Please Select</option>
+                           <option value="S">Un-Married</option>
+                           <option value="M">Married</option>
                            </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('marital_status')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.marital_status.errors?.required">
@@ -400,10 +400,10 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Batch Type<span class="mandatory">*</span></label>
-                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeNvqBatchType($event)" formControlName="batch_type" 
-                           [ngClass]="nvqSubmitted || isInvalidNvqField('batch_type') ? 'error-field' : ''">
-                           <option ngValue="B1">B1</option>
-                           <option ngValue="B2">B2</option>
+                           <select class="form-control" (change)="changeNvqBatchType($event)">
+                           <option value="" selected disabled>Please Select</option>
+                           <option value="B1">B1</option>
+                           <option value="B2">B2</option>
                            </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('batch_type')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.batch_type.errors?.required">
@@ -450,6 +450,7 @@
                         <th scope="col">Remark</th>
                         <th scope="col">Permenent Address</th>
                         <th scope="col">Permanent District</th>
+                        <th scope="col" style="width: 80px;"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -480,10 +481,10 @@
                         <td>{{applicant.nvq_details.remarks}}</td>
                         <td>{{applicant.nvq_details.permenent_address}}</td>
                         <td>{{applicant.permanent_district}}</td>
-                        <!-- <td class="lastColumn">
-                           <button class="btn btn-danger tableDelete" (click)="deleteApplicant(applicant.application_no)"><i class="far fa-trash-alt"></i></button>
-                           <button class="btn btn-warning tableEdit" (click)="editApplicant(applicant)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
-                           </td> -->
+                        <td class="lastColumn">
+                           <!-- <button class="btn btn-warning tableEdit" (click)="editNvqApplicant(applicant)" data-toggle="modal" data-target="#nvqApplicantEditModal"><i class="far fa-edit"></i></button> -->
+                           <!-- <button class="btn btn-warning tableEdit" (click)="editNvqApplicant(applicant)"><i class="far fa-edit"></i></button> -->
+                        </td>
                      </tr>
                   </tbody>
                   </table>
@@ -577,13 +578,13 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Title<span class="mandatory">*</span></label>
-                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeAlTitle($event)" formControlName="title" 
-                           [ngClass]="alSubmitted || isInvalidAlField('title') ? 'error-field' : ''">
-                           <option ngValue="Mr" selected>Mr</option>
-                           <option ngValue="Ms" selected>Ms</option>
-                           <option ngValue="Mrs" selected>Mrs</option>
-                           <option ngValue="Rev" selected>Rev</option>
-                           <option ngValue="Ven" selected>Ven</option>
+                           <select class="form-control" (change)="changeAlTitle($event)">
+                           <option value="" selected disabled>Please Select</option>
+                           <option value="Mr" >Mr</option>
+                           <option value="Ms" >Ms</option>
+                           <option value="Mrs" >Mrs</option>
+                           <option value="Rev" >Rev</option>
+                           <option value="Ven" >Ven</option>
                            </select>
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('title')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.title.errors?.required">
@@ -593,10 +594,10 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Gender<span class="mandatory">*</span></label>
-                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="gender" (change)="changeAlGender($event)" 
-                           [ngClass]="alSubmitted || isInvalidAlField('gender') ? 'error-field' : ''">
-                           <option ngValue="M">Male</option>
-                           <option ngValue="F">Female</option>
+                           <select class="form-control" (change)="changeAlGender($event)">
+                           <option value="" selected disabled>Please Select</option>
+                           <option value="M">Male</option>
+                           <option value="F">Female</option>
                            </select>
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('gender')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.gender.errors?.required">
@@ -606,13 +607,13 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Ethnicity<span class="mandatory">*</span></label>
-                           <select class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeAlEthnicity($event)" formControlName="ethnicity" 
-                           [ngClass]="alSubmitted || isInvalidAlField('ethnicity') ? 'error-field' : ''">
-                           <option ngValue="Sinhala" selected>Sinhala</option>
-                           <option ngValue="Tamil" selected>Tamil</option>
-                           <option ngValue="Hindu" selected>Hindu</option>
-                           <option ngValue="Muslim" selected>Muslim</option>
-                           <option ngValue="Other" selected>Other</option>
+                           <select class="form-control" (change)="changeAlEthnicity($event)">
+                           <option value="" selected disabled>Please Select</option>
+                           <option value="Sinhala" selected>Sinhala</option>
+                           <option value="Tamil" selected>Tamil</option>
+                           <option value="Hindu" selected>Hindu</option>
+                           <option value="Muslim" selected>Muslim</option>
+                           <option value="Other" selected>Other</option>
                            </select>
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('ethnicity')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.ethnicity.errors?.required">
@@ -750,21 +751,22 @@
                         <div class="form-group col-3">
                            <label>Preference 1<span class="mandatory">*</span></label>
                            <select title="hint - Filed" class="form-control" (change)="changeAlPreferenceOne($event)">
-                           <option ngValue="" disabled selected>Please Select</option>
-                           <option ngValue="BST">BST</option>
-                           <option ngValue="CTRM">CTRM</option>
-                           <option ngValue="MAN">MAN</option>
-                           <option ngValue="MEC">MEC</option>
-                           <option ngValue="FPT">FPT</option>
-                           <option ngValue="BED">BED</option>
-                           <option ngValue="IM">IM</option>
-                           <option ngValue="SOF">SOF</option>
-                           <option ngValue="NET">NET</option>
-                           <option ngValue="MMW">MMW</option>
-                           <option ngValue="ELT">ELT</option>
-                           <option ngValue="MAPT">MAPT</option>
-                           <option ngValue="QS">QS</option>
-                           <option ngValue="HM">HM</option>
+                           <option value="" disabled selected>Please Select</option>
+                           <option value="BST">BST</option>
+                           <option value="CTRM">CTRM</option>
+                           <option value="MAN">MAN</option>
+                           <option value="MEC">MEC</option>
+                           <option value="FPT">FPT</option>
+                           <option value="BED">BED</option>
+                           <option value="IM">IM</option>
+                           <option value="SOF">SOF</option>
+                           <option value="NET">NET</option>
+                           <option value="MMW">MMW</option>
+                           <option value="ELT">ELT</option>
+                           <option value="FTPT">FTPT</option>
+                           <option value="MAPT">MAPT</option>
+                           <option value="QS">QS</option>
+                           <option value="HM">HM</option>
                            </select>
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('preference_1')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_1.errors?.required">
@@ -775,20 +777,22 @@
                         <div class="form-group col-3">
                            <label>Preference 2</label>
                            <select title="hint - Filed" class="form-control" (change)="changeAlPreferenceTwo($event)">
-                              <option ngValue="" disabled selected>Please Select</option>
-                              <option ngValue="BST">BST</option>
-                              <option ngValue="CTRM">CTRM</option>
-                              <option ngValue="MAN">MAN</option>
-                              <option ngValue="MEC">MEC</option>
-                              <option ngValue="FPT">FPT</option>
-                              <option ngValue="BED">BED</option>
-                              <option ngValue="IM">IM</option>
-                              <option ngValue="SOF">SOF</option>
-                              <option ngValue="NET">NET</option>
-                              <option ngValue="MMW">MMW</option>
-                              <option ngValue="ELT">ELT</option>
-                              <option ngValue="FTPT">FTPT</option>
-                              <option ngValue="QS">QS</option>
+                              <option value="" disabled selected>Please Select</option>
+                              <option value="BST">BST</option>
+                              <option value="CTRM">CTRM</option>
+                              <option value="MAN">MAN</option>
+                              <option value="MEC">MEC</option>
+                              <option value="FPT">FPT</option>
+                              <option value="BED">BED</option>
+                              <option value="IM">IM</option>
+                              <option value="SOF">SOF</option>
+                              <option value="NET">NET</option>
+                              <option value="MMW">MMW</option>
+                              <option value="ELT">ELT</option>
+                              <option value="FTPT">FTPT</option>
+                              <option value="MAPT">MAPT</option>
+                              <option value="QS">QS</option>
+                              <option value="HM">HM</option>
                               </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_2')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_2.errors?.required">
@@ -799,20 +803,22 @@
                         <div class="form-group col-3">
                            <label>Preference 3</label>
                            <select title="hint - Filed" class="form-control" (change)="changeAlPreferenceThree($event)">
-                              <option ngValue="" disabled selected>Please Select</option>
-                              <option ngValue="BST">BST</option>
-                              <option ngValue="CTRM">CTRM</option>
-                              <option ngValue="MAN">MAN</option>
-                              <option ngValue="MEC">MEC</option>
-                              <option ngValue="FPT">FPT</option>
-                              <option ngValue="BED">BED</option>
-                              <option ngValue="IM">IM</option>
-                              <option ngValue="SOF">SOF</option>
-                              <option ngValue="NET">NET</option>
-                              <option ngValue="MMW">MMW</option>
-                              <option ngValue="ELT">ELT</option>
-                              <option ngValue="FTPT">FTPT</option>
-                              <option ngValue="QS">QS</option>
+                              <option value="" disabled selected>Please Select</option>
+                              <option value="BST">BST</option>
+                              <option value="CTRM">CTRM</option>
+                              <option value="MAN">MAN</option>
+                              <option value="MEC">MEC</option>
+                              <option value="FPT">FPT</option>
+                              <option value="BED">BED</option>
+                              <option value="IM">IM</option>
+                              <option value="SOF">SOF</option>
+                              <option value="NET">NET</option>
+                              <option value="MMW">MMW</option>
+                              <option value="ELT">ELT</option>
+                              <option value="FTPT">FTPT</option>
+                              <option value="MAPT">MAPT</option>
+                              <option value="QS">QS</option>
+                              <option value="HM">HM</option>
                               </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_3')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_3.errors?.required">
@@ -822,27 +828,27 @@
                         </div>
                         <div class="form-group col-3">
                            <label>A/L Stream<span class="mandatory">*</span></label>
-                           <select title="A/L Steam" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeAlSteam($event)" formControlName="stream" 
-                           [ngClass]="alSubmitted || isInvalidAlField('stream') ? 'error-field' : ''">
-                           <option ngValue="Sinhala">Sinhala</option>
-                           <option ngValue="Accounting">Accounting</option>
-                           <option ngValue="Bio Systems Technology">Bio Systems Technology</option>
-                           <option ngValue="Biology">Biology</option>
-                           <option ngValue="Buddhist Civilization">Buddhist Civilization</option>
-                           <option ngValue="Business Studies">Business Studies</option>
-                           <option ngValue="Chemistry">Chemistry</option>
-                           <option ngValue="Combined Mathematics">Combined Mathematics</option>
-                           <option ngValue="Commerce stream">Commerce stream</option>
-                           <option ngValue="Economics">Economics</option>
-                           <option ngValue="Engineering Technology">Engineering Technology</option>
-                           <option ngValue="Geography">Geography</option>
-                           <option ngValue="History">History</option>
-                           <option ngValue="Logic">Logic</option>
-                           <option ngValue="Music">Music</option>
-                           <option ngValue="Physics">Physics</option>
-                           <option ngValue="Political Science">Political Science</option>
-                           <option ngValue="Science for Technology">Science for Technology</option>
-                           <option ngValue="Statistics">Statistics</option>
+                           <select title="A/L Steam" class="form-control" (change)="changeAlSteam($event)">
+                              <option value="" disabled selected>Please Select</option>
+                           <option value="Sinhala">Sinhala</option>
+                           <option value="Accounting">Accounting</option>
+                           <option value="Bio Systems Technology">Bio Systems Technology</option>
+                           <option value="Biology">Biology</option>
+                           <option value="Buddhist Civilization">Buddhist Civilization</option>
+                           <option value="Business Studies">Business Studies</option>
+                           <option value="Chemistry">Chemistry</option>
+                           <option value="Combined Mathematics">Combined Mathematics</option>
+                           <option value="Commerce stream">Commerce stream</option>
+                           <option value="Economics">Economics</option>
+                           <option value="Engineering Technology">Engineering Technology</option>
+                           <option value="Geography">Geography</option>
+                           <option value="History">History</option>
+                           <option value="Logic">Logic</option>
+                           <option value="Music">Music</option>
+                           <option value="Physics">Physics</option>
+                           <option value="Political Science">Political Science</option>
+                           <option value="Science for Technology">Science for Technology</option>
+                           <option value="Statistics">Statistics</option>
                            </select>
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('stream')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.stream.errors?.required">
@@ -995,6 +1001,25 @@
                   </table>
                </div>
             </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="modal fade" id="nvqApplicantEditModal" tabindex="-1" role="dialog" aria-labelledby="nvqApplicantEditModalModalLabel" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Edit Details - {{modalTitle}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+         </div>
+         <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="updateNvqApplicant()">Update Applicant</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
          </div>
       </div>
    </div>
