@@ -821,3 +821,7 @@ ngx-loading .custom-class {
 .modal-dialog {
   max-width: 800px;
 }
+
+.backdrop {
+  position: fixed !important;
+}

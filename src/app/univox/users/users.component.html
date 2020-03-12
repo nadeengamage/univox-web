@@ -60,8 +60,8 @@
                      <label>Role</label>
                      <select title="User Role" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" (change)="changeRole($event)" formControlName="role" 
                      [ngClass]="submitted || isInvalidField('role') ? 'error-field' : ''">
-                     <option ngValue="3" disabled>DATAENTRY</option>
-                     <option ngValue="2" disabled>ADMIN</option>
+                     <option ngValue="3">DATAENTRY</option>
+                     <option ngValue="2">ADMIN</option>
                      <option ngValue="1">SUPERADMIN</option>
                      </select>
                      <div class="err-lbl" *ngIf="submitted || isInvalidField('role')">

@@ -35,6 +35,8 @@ export class UnivoxService {
   private getNvqApplicantEndPoint: string;
   private getAlApplicantEndPoint: string;
   private createApplicantEndPoint: string;
+  private updateNvqApplicantEndPoint: string;
+  private updateAlApplicantEndPoint: string;
   private createNvqBulkApplicantEndPoint: string;
   private createAlBulkApplicantEndPoint: string;
 
@@ -71,6 +73,8 @@ export class UnivoxService {
     this.getNvqApplicantEndPoint = this.mainUrl + '/applicants/nvq/details';
     this.getAlApplicantEndPoint = this.mainUrl + '/applicants/al/details';
     this.createApplicantEndPoint = this.mainUrl + '/applicants';
+    this.updateNvqApplicantEndPoint = this.mainUrl + '/applicants';
+    this.updateAlApplicantEndPoint = this.mainUrl + '/applicants/{applicationNo}';
     this.createNvqBulkApplicantEndPoint = this.mainUrl + '/applicants/transform/nvq_students';
     this.createAlBulkApplicantEndPoint = this.mainUrl + '/applicants/transform/al_students';
 
@@ -195,5 +199,15 @@ export class UnivoxService {
   public createAlBulkApplicant(data) {
     const create = this.createAlBulkApplicantEndPoint;
     return this.http.multiPart(create, data);
+  }
+  public updateNvqApplicant(data) {
+    const updateNvqApplicant = this.updateAlApplicantEndPoint;
+    return this.http.put(updateNvqApplicant, data);
+  }
+  public updateAlApplicant(applicationNo, data) {
+    const updateAlApplicant = this.updateAlApplicantEndPoint.replace(
+      '{applicationNo}', applicationNo
+    );
+    return this.http.put(updateAlApplicant, data);
   }
 }
