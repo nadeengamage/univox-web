@@ -305,6 +305,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
         this.nvqAplicantFilterList = res.data;
         this.getNvqAplicants();
         this.nvqApplicantCreateForm.reset();
+        this.showNvqApplicantCreateForm = false;
         this.notifier.notify('success', res.message);
         console.log(res.data);
       },
@@ -337,6 +338,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       res => {
         console.log(res);
         this.loading = false;
+        this.getNvqAplicants();
         this.notifier.notify('success', res.message);
       },
       error => {
@@ -353,6 +355,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       res => {
         console.log(res);
         this.loading = false;
+        this.getAlAplicants();
         this.notifier.notify('success', res.message);
       },
       error => {
@@ -404,6 +407,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
         this.alAplicantFilterList = res.data;
         this.getAlAplicants();
         this.alApplicantCreateForm.reset();
+        this.showAlApplicantCreateForm = false;
         this.loading = false;
         this.notifier.notify('success', res.message);
         console.log(res.data);
