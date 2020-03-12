@@ -2,7 +2,7 @@
    <div class="card-header">
       <h5 class="card-title">Users</h5>
       <div class="d-flex flex-row-reverse">
-         <button class="btn btn-success" (click)="showUserCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create User</button>&nbsp;
+         <button class="btn btn-success" (click)="showUserCreateForm = true; showCreate()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create User</button>&nbsp;
          <!-- <button class="btn btn-warning" (click)="showCreateUserFrom = true"><i class="fas fa-redo-alt"></i>&nbsp;&nbsp;Update User</button>&nbsp; -->
          <!-- <button class="btn btn-danger" (click)="showCreateUserFrom = true"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Remove User</button> -->
       </div>
@@ -59,9 +59,10 @@
                   <div class="form-group col-3">
                      <label>Role</label>
                      <select title="User Role" class="form-control" (change)="changeRole($event)">
-                     <option ngValue="3">DATAENTRY</option>
-                     <option ngValue="2">ADMIN</option>
-                     <option ngValue="1">SUPERADMIN</option>
+                     <option value="" selected disabled>Please Select</option>
+                     <option value="DATAENTRY">DATAENTRY</option>
+                     <option value="ADMIN">ADMIN</option>
+                     <option value="SUPERADMIN">SUPERADMIN</option>
                      </select>
                      <div class="err-lbl" *ngIf="submitted || isInvalidField('role')">
                         <span class="field-msg error-msg" *ngIf="userCreateForm.controls.role.errors?.required">
@@ -98,7 +99,7 @@
             </thead>
             <tbody>
                <tr *ngFor="let user of filterUserData">
-                  <td>{{user.role_id}}</td>
+                  <td>{{user.role_code}}</td>
                   <td>{{user.firstname}}</td>
                   <td>{{user.lastname}}</td>
                   <td *ngIf="user.status === true">Active</td>
@@ -107,7 +108,7 @@
                   <td>{{user.roles.role_name}}</td>
                   <td>
                      <button *ngIf="user.status === true" class="btn btn-danger tableDelete" (click)="deleteUser(user.x_id)"><i class="fa fa-lock"></i></button>
-                     <button class="btn btn-warning tableEdit" (click)="editUser(user)" data-toggle="modal" data-target="#userModal"><i class="far fa-edit"></i></button>
+                     <!-- <button class="btn btn-warning tableEdit" (click)="editUser(user)" data-toggle="modal" data-target="#userModal"><i class="far fa-edit"></i></button> -->
                   </td>
                </tr>
             </tbody>
@@ -143,6 +144,7 @@
                   <div class="form-group col-4">
                      <label>Role</label><sup>*</sup>
                      <select title="User Role" class="form-control" (change)="changeRoleEdit($event)">
+                        <option value="" selected disabled>Please Select</option>
                         <option value="3">DATAENTRY</option>
                         <option value="2">ADMIN</option>
                         <option value="1">SUPERADMIN</option>
@@ -151,7 +153,8 @@
                   <div class="form-group col-4">
                      <label>Status</label><sup>*</sup>
                      <select title="User Active/Deactive" class="form-control" (change)="changeStatusEdit($event)">
-                        <option value=1 selected>ACTIVE</option>
+                        <option value="" selected disabled>Please Select</option>
+                        <option value=1>ACTIVE</option>
                         <option value=0>DEACTIVE</option>
                      </select>
                   </div>
