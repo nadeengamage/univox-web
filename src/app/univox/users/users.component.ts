@@ -82,7 +82,7 @@ export class UsersComponent implements OnDestroy, OnInit {
   }
 
   changeRoleEdit(role) {
-    this.editDetails.role = '1';
+    this.editDetails.role = role.srcElement.value;
     console.log(this.editDetails.role);
   }
 
@@ -96,7 +96,7 @@ export class UsersComponent implements OnDestroy, OnInit {
 
   changeRole(item) {
     return this.userCreateForm.patchValue({
-      role: item.srcElement.value.slice(3)
+      role: item.srcElement.value
     });
   }
 
