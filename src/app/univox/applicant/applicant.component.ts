@@ -156,30 +156,18 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     );
   }
 
-  changeNvqType(item) {
-    return this.nvqApplicantCreateForm.patchValue({
-      student_type: item.srcElement.value.slice(3)
-    });
-  }
-
-  changeAlType(item) {
-    return this.alApplicantCreateForm.patchValue({
-      student_type: item.srcElement.value.slice(3)
-    });
-  }
-
   changeNvqGender(item) {
     this.nvqApplicantCreateForm.patchValue({
       student_type: this.nvqStudentType
     });
     return this.nvqApplicantCreateForm.patchValue({
-      gender: item.srcElement.value.slice(3)
+      gender: item.srcElement.value
     });
   }
 
   changeNvqTitle(item) {
     return this.nvqApplicantCreateForm.patchValue({
-      title: item.srcElement.value.slice(3)
+      title: item.srcElement.value
     });
   }
 
@@ -250,7 +238,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       student_type: this.alStudentType
     });
     return this.alApplicantCreateForm.patchValue({
-      gender: item.srcElement.value.slice(3)
+      gender: item.srcElement.value
     });
   }
 
@@ -262,31 +250,31 @@ export class ApplicantComponent implements OnDestroy, OnInit {
 
   changeNvqMarital(item) {
     return this.nvqApplicantCreateForm.patchValue({
-      marital_status: item.srcElement.value.slice(3)
+      marital_status: item.srcElement.value
     });
   }
 
   changeNvqBatchType(item) {
     return this.nvqApplicantCreateForm.patchValue({
-      batch_type: item.srcElement.value.slice(3)
+      batch_type: item.srcElement.value
     });
   }
 
   changeAlTitle(item) {
     return this.alApplicantCreateForm.patchValue({
-      title: item.srcElement.value.slice(3)
+      title: item.srcElement.value
     });
   }
 
   changeAlEthnicity(item) {
     return this.alApplicantCreateForm.patchValue({
-      ethnicity: item.srcElement.value.slice(3)
+      ethnicity: item.srcElement.value
     });
   }
 
   changeNvqEthnicity(item) {
     return this.nvqApplicantCreateForm.patchValue({
-      ethnicity: item.srcElement.value.slice(3)
+      ethnicity: item.srcElement.value
     });
   }
 
