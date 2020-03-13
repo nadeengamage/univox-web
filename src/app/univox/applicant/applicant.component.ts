@@ -102,7 +102,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       preference_3: [''],
       stream: ['', Validators.required],
       al_index_no: ['', Validators.required],
-      z_score: ['', [Validators.required, Validators.pattern(/^\d*\.?\d{0,5}$/)]],
+      z_score: ['', [Validators.required]],
       al_ict: [''],
       comm_and_media: [''],
       general_english: [''],
