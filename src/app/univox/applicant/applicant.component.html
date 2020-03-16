@@ -118,7 +118,7 @@
                            </div>
                         </div>
                         <div class="form-group col-3">
-                           <label>Ethnicity<span class="mandatory">*</span></label>
+                           <label>Ethnicity</label>
                            <select class="form-control" (change)="changeNvqEthnicity($event)">
                               <option value="" selected disabled>Please Select</option>
                            <option value="Sinhala" >Sinhala</option>
@@ -127,11 +127,6 @@
                            <option value="Muslim" >Muslim</option>
                            <option value="Other" >Other</option>
                            </select>
-                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('ethnicity')">
-                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.ethnicity.errors?.required">
-                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                              </span>
-                           </div>
                         </div>
                         <div class="form-group col-3">
                            <label>Address 1<span class="mandatory">*</span></label>
@@ -146,10 +141,6 @@
                         <div class="form-group col-3">
                            <label>Address 2</label>
                            <input type="text" class="form-control" formControlName="address_2">
-                        </div>
-                        <div class="form-group col-3">
-                           <label>Address 3</label>
-                           <input type="text" class="form-control" formControlName="address_3">
                         </div>
                         <div class="form-group col-3">
                            <label>City<span class="mandatory">*</span></label>
@@ -198,43 +189,7 @@
                            </div>
                         </div>
                         <div class="form-group col-3">
-                           <label>Permanant District<span class="mandatory">*</span></label>
-                           <select class="form-control" (change)="changeNvqPermanantDistrict($event)">
-                           <option value="" disabled selected>Please Select</option>
-                           <option value="Anuradhapura">Anuradhapura</option>
-                           <option value="Ampara">Ampara</option>
-                           <option value="Badulla">Badulla</option>
-                           <option value="Batticaloa">Batticaloa</option>
-                           <option value="Colombo">Colombo</option>
-                           <option value="Galle">Galle</option>
-                           <option value="Gampaha">Gampaha</option>
-                           <option value="Hambantota">Hambantota</option>
-                           <option value="Jaffna">Jaffna</option>
-                           <option value="Kilinochchi">Kilinochchi</option>
-                           <option value="Kurunegala">Kurunegala</option>
-                           <option value="Kalutara">Kalutara</option>
-                           <option value="Kandy">Kandy</option>
-                           <option value="Kegalle">Kegalle</option>
-                           <option value="Mannar">Mannar</option>
-                           <option value="Mullaitivu">Mullaitivu</option>
-                           <option value="Matale">Matale</option>
-                           <option value="Monaragala">Monaragala</option>
-                           <option value="Matara">Matara</option>
-                           <option value="Nuwara Eliya">Nuwara Eliya</option>
-                           <option value="Polonnaruwa">Polonnaruwa</option>
-                           <option value="Puttalam">Puttalam</option>
-                           <option value="Ratnapura">Ratnapura</option>
-                           <option value="Trincomalee">Trincomalee</option>
-                           <option value="Vavuniya">Vavuniya</option>
-                           </select>
-                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidAlField('permanent_district')">
-                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.permanent_district.errors?.required">
-                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                              </span>
-                           </div>
-                        </div>
-                        <div class="form-group col-3">
-                           <label>Telephone<span class="mandatory">*</span></label>
+                           <label>Telephone</label>
                            <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="nvqSubmitted || isInvalidNvqField('telephone') ? 'error-field' : ''" formControlName="telephone">
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('telephone')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.telephone.errors?.required || nvqApplicantCreateForm.controls.telephone.errors?.minlength || nvqApplicantCreateForm.controls.telephone.errors?.maxlength">
@@ -243,16 +198,16 @@
                            </div>
                         </div>
                         <div class="form-group col-3">
-                           <label>Mobile<span class="mandatory">*</span></label>
+                           <label>Mobile</label>
                            <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="nvqSubmitted || isInvalidNvqField('mobile') ? 'error-field' : ''" formControlName="mobile">
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('mobile')">
-                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.mobile.errors?.required || nvqApplicantCreateForm.controls.mobile.errors?.pattern || nvqApplicantCreateForm.controls.telephone.errors?.minlength || nvqApplicantCreateForm.controls.telephone.errors?.maxlength">
+                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.mobile.errors?.required || nvqApplicantCreateForm.controls.mobile.errors?.pattern || nvqApplicantCreateForm.controls.mobile.errors?.minlength || nvqApplicantCreateForm.controls.mobile.errors?.maxlength">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
                               </span>
                            </div>
                         </div>
                         <div class="form-group col-3">
-                           <label>E-mail<span class="mandatory">*</span></label>
+                           <label>E-mail</label>
                            <input type="email" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="nvqSubmitted || isInvalidNvqField('email') ? 'error-field' : ''" formControlName="email">
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('email')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.email.errors?.required || nvqApplicantCreateForm.controls.email.errors?.pattern">
@@ -376,14 +331,8 @@
                            <input type="text" class="form-control" formControlName="remarks">
                         </div>
                         <div class="form-group col-3">
-                           <label>Permenent Address<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="permenent_address"
-                              [ngClass]="nvqSubmitted || isInvalidNvqField('permenent_address') ? 'error-field' : ''">
-                           <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('permenent_address')">
-                              <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.permenent_address.errors?.required">
-                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                              </span>
-                           </div>
+                           <label>Permanent Address</label>
+                           <input type="text" class="form-control" formControlName="permenent_address">
                         </div>
                         <div class="form-group col-3">
                            <label>Marital Status<span class="mandatory">*</span></label>
@@ -437,7 +386,6 @@
                         <th scope="col">Ethnicity</th>
                         <th scope="col">Address Line 1</th>
                         <th scope="col">Address Line 2</th>
-                        <th scope="col">Address Line 3</th>
                         <th scope="col">City</th>
                         <th scope="col">District</th>
                         <th scope="col">Telephone</th>
@@ -449,7 +397,6 @@
                         <th scope="col">Preference 3</th>
                         <th scope="col">Remark</th>
                         <th scope="col">Permenent Address</th>
-                        <th scope="col">Permanent District</th>
                         <th scope="col" style="width: 80px;"></th>
                      </tr>
                   </thead>
@@ -468,7 +415,6 @@
                         <td>{{applicant.ethnicity}}</td>
                         <td>{{applicant.address_1}}</td>
                         <td>{{applicant.address_2}}</td>
-                        <td>{{applicant.address_3}}</td>
                         <td>{{applicant.city}}</td>
                         <td>{{applicant.district}}</td>
                         <td>{{applicant.telephone}}</td>
@@ -480,7 +426,6 @@
                         <td>{{applicant.preference_3}}</td>
                         <td>{{applicant.nvq_details.remarks}}</td>
                         <td>{{applicant.nvq_details.permenent_address}}</td>
-                        <td>{{applicant.permanent_district}}</td>
                         <td class="lastColumn">
                            <!-- <button class="btn btn-warning tableEdit" (click)="editNvqApplicant(applicant)" data-toggle="modal" data-target="#nvqApplicantEditModal"><i class="far fa-edit"></i></button> -->
                            <!-- <button class="btn btn-warning tableEdit" (click)="editNvqApplicant(applicant)"><i class="far fa-edit"></i></button> -->
@@ -606,7 +551,7 @@
                            </div>
                         </div>
                         <div class="form-group col-3">
-                           <label>Ethnicity<span class="mandatory">*</span></label>
+                           <label>Ethnicity</label>
                            <select class="form-control" (change)="changeAlEthnicity($event)">
                            <option value="" selected disabled>Please Select</option>
                            <option value="Sinhala" selected>Sinhala</option>
@@ -615,11 +560,6 @@
                            <option value="Muslim" selected>Muslim</option>
                            <option value="Other" selected>Other</option>
                            </select>
-                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('ethnicity')">
-                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.ethnicity.errors?.required">
-                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                              </span>
-                           </div>
                         </div>
                         <div class="form-group col-3">
                            <label>Address 1<span class="mandatory">*</span></label>
@@ -634,10 +574,6 @@
                         <div class="form-group col-3">
                            <label>Address 2</label>
                            <input type="text" class="form-control" formControlName="address_2">
-                        </div>
-                        <div class="form-group col-3">
-                           <label>Address 3</label>
-                           <input type="text" class="form-control" formControlName="address_3">
                         </div>
                         <div class="form-group col-3">
                            <label>City<span class="mandatory">*</span></label>
@@ -686,43 +622,7 @@
                            </div>
                         </div>
                         <div class="form-group col-3">
-                           <label>Permanant District<span class="mandatory">*</span></label>
-                           <select class="form-control" (change)="changeAlPermanantDistrict($event)">
-                           <option value="" disabled selected>Please Select</option>
-                           <option value="Anuradhapura">Anuradhapura</option>
-                           <option value="Ampara">Ampara</option>
-                           <option value="Badulla">Badulla</option>
-                           <option value="Batticaloa">Batticaloa</option>
-                           <option value="Colombo">Colombo</option>
-                           <option value="Galle">Galle</option>
-                           <option value="Gampaha">Gampaha</option>
-                           <option value="Hambantota">Hambantota</option>
-                           <option value="Jaffna">Jaffna</option>
-                           <option value="Kilinochchi">Kilinochchi</option>
-                           <option value="Kurunegala">Kurunegala</option>
-                           <option value="Kalutara">Kalutara</option>
-                           <option value="Kandy">Kandy</option>
-                           <option value="Kegalle">Kegalle</option>
-                           <option value="Mannar">Mannar</option>
-                           <option value="Mullaitivu">Mullaitivu</option>
-                           <option value="Matale">Matale</option>
-                           <option value="Monaragala">Monaragala</option>
-                           <option value="Matara">Matara</option>
-                           <option value="Nuwara Eliya">Nuwara Eliya</option>
-                           <option value="Polonnaruwa">Polonnaruwa</option>
-                           <option value="Puttalam">Puttalam</option>
-                           <option value="Ratnapura">Ratnapura</option>
-                           <option value="Trincomalee">Trincomalee</option>
-                           <option value="Vavuniya">Vavuniya</option>
-                           </select>
-                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('permanent_district')">
-                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.permanent_district.errors?.required">
-                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                              </span>
-                           </div>
-                        </div>
-                        <div class="form-group col-3">
-                           <label>Telephone<span class="mandatory">*</span></label>
+                           <label>Telephone</label>
                            <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="alSubmitted || isInvalidAlField('telephone') ? 'error-field' : ''" formControlName="telephone">
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('telephone')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.telephone.errors?.required || alApplicantCreateForm.controls.telephone.errors?.minlength || alApplicantCreateForm.controls.telephone.errors?.maxlength">
@@ -731,16 +631,16 @@
                            </div>
                         </div>
                         <div class="form-group col-3">
-                           <label>Mobile<span class="mandatory">*</span></label>
+                           <label>Mobile</label>
                            <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="alSubmitted || isInvalidAlField('mobile') ? 'error-field' : ''" formControlName="mobile">
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('mobile')">
-                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.mobile.errors?.required || alApplicantCreateForm.controls.mobile.errors?.pattern || alApplicantCreateForm.controls.telephone.errors?.minlength || alApplicantCreateForm.controls.telephone.errors?.maxlength">
+                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.mobile.errors?.required || alApplicantCreateForm.controls.mobile.errors?.pattern || alApplicantCreateForm.controls.mobile.errors?.minlength || alApplicantCreateForm.controls.mobile.errors?.maxlength">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
                               </span>
                            </div>
                         </div>
                         <div class="form-group col-3">
-                           <label>E-mail<span class="mandatory">*</span></label>
+                           <label>E-mail</label>
                            <input type="email" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" [ngClass]="alSubmitted || isInvalidAlField('email') ? 'error-field' : ''" formControlName="email">
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('email')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.email.errors?.required || alApplicantCreateForm.controls.email.errors?.pattern">
@@ -877,44 +777,20 @@
                            </div>
                         </div>
                         <div class="form-group col-3">
-                           <label>A/L ICT<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="al_ict"
-                              [ngClass]="alSubmitted || isInvalidAlField('al_ict') ? 'error-field' : ''">
-                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('al_ict')">
-                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.al_ict.errors?.required">
-                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                              </span>
-                           </div>
+                           <label>A/L ICT</label>
+                           <input type="text" class="form-control" formControlName="al_ict">
                         </div>
                         <div class="form-group col-3">
-                           <label>Comm & Media<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="comm_and_media"
-                              [ngClass]="alSubmitted || isInvalidAlField('comm_and_media') ? 'error-field' : ''">
-                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('comm_and_media')">
-                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.comm_and_media.errors?.required">
-                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                              </span>
-                           </div>
+                           <label>Comm & Media</label>
+                           <input type="text" class="form-control" formControlName="comm_and_media">
                         </div>
                         <div class="form-group col-3">
-                           <label>General English<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="general_english"
-                              [ngClass]="alSubmitted || isInvalidAlField('general_english') ? 'error-field' : ''">
-                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('general_english')">
-                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.general_english.errors?.required">
-                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                              </span>
-                           </div>
+                           <label>General English</label>
+                           <input type="text" class="form-control" formControlName="general_english">
                         </div>
                         <div class="form-group col-3">
-                           <label>General Test<span class="mandatory">*</span></label>
-                           <input type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="general_common_test"
-                              [ngClass]="alSubmitted || isInvalidAlField('general_common_test') ? 'error-field' : ''">
-                           <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('general_common_test')">
-                              <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.general_common_test.errors?.required">
-                              <i class="fa fa-times-circle"></i>&nbsp;Invalid
-                              </span>
-                           </div>
+                           <label>General Test</label>
+                           <input type="text" class="form-control" formControlName="general_common_test">
                         </div>
                         <div class="form-group col-12 d-flex flex-row-reverse">
                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp; Save Applicant</button>&nbsp;
@@ -941,7 +817,6 @@
                         <th scope="col">Ethnicity</th>
                         <th scope="col">Address Line 1</th>
                         <th scope="col">Address Line 2</th>
-                        <th scope="col">Address Line 3</th>
                         <th scope="col">City</th>
                         <th scope="col">District</th>
                         <th scope="col">Telephone</th>
@@ -975,7 +850,6 @@
                         <td>{{applicant.ethnicity}}</td>
                         <td>{{applicant.address_1}}</td>
                         <td>{{applicant.address_2}}</td>
-                        <td>{{applicant.address_3}}</td>
                         <td>{{applicant.city}}</td>
                         <td>{{applicant.district}}</td>
                         <td>{{applicant.telephone}}</td>
