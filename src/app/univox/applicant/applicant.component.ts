@@ -51,7 +51,6 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       ethnicity: [''],
       address_1: ['', Validators.required],
       address_2: [''],
-      address_3: [''],
       city: ['', Validators.required],
       district: ['', Validators.required],
       telephone: ['', [Validators.minLength(10), Validators.maxLength(12),
@@ -68,8 +67,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       remarks: [''],
       marital_status: ['', Validators.required],
       permenent_address: [''],
-      batch_type: ['', Validators.required],
-      permanent_district: [''],
+      batch_type: ['', Validators.required]
     });
     this.uploadNvqBulkForm = this.fb.group({
       nvq_profile: ['']
@@ -88,7 +86,6 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       ethnicity: [''],
       address_1: ['', Validators.required],
       address_2: [''],
-      address_3: [''],
       city: ['', Validators.required],
       district: ['', Validators.required],
       telephone: ['', [Validators.minLength(10), Validators.maxLength(12),
@@ -106,8 +103,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       al_ict: [''],
       comm_and_media: [''],
       general_english: [''],
-      general_common_test: ['', Validators.required],
-      permanent_district: [''],
+      general_common_test: ['']
     });
     // this.alApplicantCreateForm.patchValue({
     //   student_type: 'AL'
@@ -218,18 +214,6 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   changeAlDistrict(item) {
     return this.alApplicantCreateForm.patchValue({
       district: item.srcElement.value
-    });
-  }
-
-  changeAlPermanantDistrict(item) {
-    return this.alApplicantCreateForm.patchValue({
-      permanent_district: item.srcElement.value
-    });
-  }
-
-  changeNvqPermanantDistrict(item) {
-    return this.nvqApplicantCreateForm.patchValue({
-      permanent_district: item.srcElement.value
     });
   }
 
@@ -423,34 +407,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   }
 
   editNvqApplicant(applicant) {
-    this.nvqApplicantCreateForm = this.fb.group({
-      student_type: [''],
-      application_no: [''],
-      identity_no: [''],
-      initials: [''],
-      surename: [''],
-      title: [''],
-      gender: [''],
-      ethnicity: [''],
-      address_1: [''],
-      address_2: [''],
-      address_3: [''],
-      city: [''],
-      district: [''],
-      telephone: [''],
-      mobile: [''],
-      email: [''],
-      preference_1: [''],
-      preference_2: [''],
-      preference_3: [''],
-      index_no: [''],
-      diploma: [''],
-      remarks: [''],
-      marital_status: [''],
-      permenent_address: [''],
-      batch_type: [''],
-      permanent_district: [''],
-    });
+    this.nvqApplicantCreateForm.reset();
     this.nvqApplicantCreateForm.patchValue({
       student_type: applicant.student_type,
       application_no: applicant.nvq_details.application_no,
@@ -462,7 +419,6 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       ethnicity: applicant.ethnicity,
       address_1: [''],
       address_2: applicant.address_2,
-      address_3: applicant.address_3,
       city: applicant.city,
       district: applicant.district,
       telephone: applicant.telephone,
@@ -476,8 +432,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       remarks: applicant.nvq_details.remarks,
       marital_status: [''],
       permenent_address: applicant.permenent_address,
-      batch_type: applicant.batch_type,
-      permanent_district: applicant.nvq_details.permanent_district
+      batch_type: applicant.batch_type
     });
     this.showNvqApplicantCreateForm = true;
   }
