@@ -60,8 +60,8 @@
                   <td>{{faculty.faculty_code}}</td>
                   <td>{{faculty.faculty_name}}</td>
                   <td>
-                     <button class="btn btn-danger tableDelete" (click)="deleteFaculty(faculty.faculty_code)"><i class="far fa-trash-alt"></i></button>
-                     <button class="btn btn-warning tableEdit" (click)="editFaculty(faculty)" data-toggle="modal" data-target="#facultyModal"><i class="far fa-edit"></i></button>
+                     <button class="btn btn-danger tableAction" (click)="deleteFaculty(faculty.faculty_code)"><i class="far fa-trash-alt"></i></button>
+                     <button class="btn btn-warning tableAction" (click)="editFaculty(faculty)" data-toggle="modal" data-target="#facultyModal"><i class="far fa-edit"></i></button>
                   </td>
                </tr>
             </tbody>
@@ -93,8 +93,9 @@
                   <div class="form-group col-4">
                      <label>Status</label><sup>*</sup>
                      <select title="User Active/Deactive" class="form-control" (change)="changeStatusEdit($event)">
-                        <option value=1 selected>ACTIVE</option>
-                        <option value=0>DEACTIVE</option>
+                        <option value='' selected disabled>Please select</option>
+                        <option value='1'>ACTIVE</option>
+                        <option value='0'>DEACTIVE</option>
                      </select>
                   </div>
                </div>

@@ -60,13 +60,18 @@ export class FacultyComponent implements OnDestroy, OnInit {
     this.loading = true;
     this.univoxService.getAllFaculties().subscribe(
       res => {
-        this.facultyList = res.data;
-        this.filterFacultyData = res.data;
-        this.dtTrigger.next();
+        if (res.status === 200) {
+          this.facultyList = res.data;
+          this.filterFacultyData = res.data;
+          this.dtTrigger.next();
+        } else {
+          this.notifier.notify('warning', res.msg);
+        }
         this.loading = false;
-        console.log(res.data);
       },
       error => {
+        this.notifier.notify('error', error.error);
+        this.loading = false;
       }
     );
   }

@@ -13,7 +13,7 @@ export const univoxNavItems = [
   },
   {
     text: 'Faculties',
-    icon: 'fas fa-user',
+    icon: 'fas fa-sign-out-alt',
     routerLink: '/univox/faculties',
     canAccess: true
   },
@@ -21,13 +21,13 @@ export const univoxNavItems = [
     text: 'Degrees',
     icon: 'fas fa-sign-out-alt',
     routerLink: '/univox/degrees',
-    canAccess: false
+    canAccess: true
   },
   {
     text: 'Criterias',
     icon: 'fas fa-sign-out-alt',
     routerLink: '/univox/criterias',
-    canAccess: false
+    canAccess: true
   },
   {
     text: 'Applicants',
