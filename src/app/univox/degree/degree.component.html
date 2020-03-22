@@ -45,7 +45,7 @@
               <th scope="col">Degree Name</th>
               <th scope="col">Faculty Code</th>
               <th scope="col">Faculty Name</th>
-              <th scope="col"></th>
+              <th scope="col" style="width: 100px;"></th>
            </tr>
         </thead>
         <tbody>
@@ -55,8 +55,8 @@
               <td>{{degree.faculty.faculty_code}}</td>
               <td>{{degree.faculty.faculty_name}}</td>
               <td>
-                 <button class="btn btn-danger tableDelete" (click)="deleteDegree(degree.degree_code)"><i class="far fa-trash-alt"></i></button>
-                 <button class="btn btn-warning tableEdit" (click)="editDegree(degree)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
+                 <button class="btn btn-danger tableAction" (click)="deleteDegree(degree.degree_code)"><i class="far fa-trash-alt"></i></button>
+                 <button class="btn btn-warning tableAction" (click)="editDegree(degree)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
               </td>
            </tr>
            <tr *ngIf="!(degreeList.length > 0);" class="nodata">

@@ -16,31 +16,31 @@
             <div class="row">
                <div class="form-group col-3">
                   <label>Degree Code</label>
-                  <input type="text" class="form-control" formControlName="degree_code" placeholder="Enter User Name">
+                  <input type="text" class="form-control" formControlName="degree_code">
                </div>
                <div class="form-group col-3">
                   <label>Batch One Student Per Program</label>
-                  <input type="text" class="form-control" formControlName="btch_one_stud_per_program" placeholder="Enter Batch One Student Per Program">
+                  <input type="text" class="form-control" formControlName="btch_one_stud_per_program">
                </div>
                <div class="form-group col-3">
                   <label>Batch Two Student Per Program</label>
-                  <input type="text" class="form-control" formControlName="btch_two_stud_per_program" placeholder="Enter Batch Two Student Per Program">
+                  <input type="text" class="form-control" formControlName="btch_two_stud_per_program">
                </div>
                <div class="form-group col-3">
                   <label>First Exam Paper Mark</label>
-                  <input type="text" class="form-control" formControlName="first_exam_paper_mark" placeholder="Enter First Exam Paper Mark">
+                  <input type="text" class="form-control" formControlName="first_exam_paper_mark">
                </div>
                <div class="form-group col-3">
                   <label>Second Exam Paper Mark</label>
-                  <input type="text" class="form-control" formControlName="second_exam_paper_mark" placeholder="Enter Second Exam Paper Mark">
+                  <input type="text" class="form-control" formControlName="second_exam_paper_mark">
                </div>
                <div class="form-group col-3">
                   <label>Batch One Cut Off Mark</label>
-                  <input type="text" class="form-control" formControlName="btch_one_cut_off_mark" placeholder="Enter Batch One Cut Off Mark">
+                  <input type="text" class="form-control" formControlName="btch_one_cut_off_mark">
                </div>
                <div class="form-group col-3">
                   <label>Batch Two Cut Off Mark</label>
-                  <input type="text" class="form-control" formControlName="btch_two_cut_off_mark" placeholder="Enter Batch One Cut Off Mark">
+                  <input type="text" class="form-control" formControlName="btch_two_cut_off_mark">
                </div>
                <div class="form-group col-3 d-flex align-items-center">
                 <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Add Criteria</button>
@@ -64,7 +64,7 @@
               <th scope="col">First Exam Paper Mark</th>
               <th scope="col">Second Exam Paper Mark</th>
               <th scope="col">Status</th>
-              <th scope="col"></th>
+              <th scope="col" style="width: 100px;"></th>
            </tr>
         </thead>
         <tbody>
@@ -80,8 +80,8 @@
               <td *ngIf="criteria.status === true">Active</td>
               <td *ngIf="criteria.status === false">Deactive</td>
               <td>
-                <!-- <button class="btn btn-danger tableDelete" (click)="deleteCriteria(criteria.x_id)"><i class="far fa-trash-alt"></i></button> -->
-                <button class="btn btn-warning tableEdit" (click)="editCriteria(criteria)" data-toggle="modal" data-target="#criteriaModal"><i class="far fa-edit"></i></button>
+                <button class="btn btn-danger tableAction" (click)="deleteCriteria(criteria.x_id)"><i class="far fa-trash-alt"></i></button>
+                <button class="btn btn-warning tableAction" (click)="editCriteria(criteria)" data-toggle="modal" data-target="#criteriaModal"><i class="far fa-edit"></i></button>
               </td>
            </tr>
            <tr *ngIf="!(criteriaList.length > 0);" class="nodata">

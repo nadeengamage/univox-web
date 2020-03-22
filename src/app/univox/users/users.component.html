@@ -2,7 +2,7 @@
    <div class="card-header">
       <h5 class="card-title">Users</h5>
       <div class="d-flex flex-row-reverse">
-         <button class="btn btn-success" (click)="showUserCreateForm = true; showCreate()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create User</button>&nbsp;
+         <button *ngIf="canUserAdd" class="btn btn-success" (click)="showUserCreateForm = true; showCreate()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create User</button>&nbsp;
          <!-- <button class="btn btn-warning" (click)="showCreateUserFrom = true"><i class="fas fa-redo-alt"></i>&nbsp;&nbsp;Update User</button>&nbsp; -->
          <!-- <button class="btn btn-danger" (click)="showCreateUserFrom = true"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Remove User</button> -->
       </div>
@@ -94,7 +94,7 @@
                   <th scope="col">Status</th>
                   <th scope="col">User Name</th>
                   <th scope="col">Role Name</th>
-                  <th scope="col" style="width: 100px;"></th>
+                  <th scope="col" style="width: 120px;"></th>
                </tr>
             </thead>
             <tbody>
@@ -107,8 +107,8 @@
                   <td>{{user.username}}</td>
                   <td>{{user.roles.role_name}}</td>
                   <td>
-                     <button *ngIf="user.status === true" class="btn btn-danger btn-sm tableDelete" (click)="deleteUser(user.x_id)">Deactivate</button>
-                     <!-- <button class="btn btn-warning tableEdit" (click)="editUser(user)" data-toggle="modal" data-target="#userModal"><i class="far fa-edit"></i></button> -->
+                     <button *ngIf="user.status === true && canUserDelete" class="btn btn-danger btn-sm tableDelete" (click)="deleteUser(user.x_id)">Deactivate</button>
+                     <button *ngIf="canUserEdit" class="btn btn-warning tableAction" (click)="editUser(user)" data-toggle="modal" data-target="#userModal"><i class="far fa-edit"></i></button>
                   </td>
                </tr>
             </tbody>
@@ -145,9 +145,9 @@
                      <label>Role</label><sup>*</sup>
                      <select title="User Role" class="form-control" (change)="changeRoleEdit($event)">
                         <option value="" selected disabled>Please Select</option>
-                        <option value="3">DATAENTRY</option>
-                        <option value="2">ADMIN</option>
-                        <option value="1">SUPERADMIN</option>
+                        <option value="DATAENTRY">DATAENTRY</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="SUPERADMIN">SUPERADMIN</option>
                      </select>
                   </div>
                   <div class="form-group col-4">

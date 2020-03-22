@@ -24,7 +24,7 @@ export const univoxNavItems = [
     canAccess: true
   },
   {
-    text: 'Criterias',
+    text: 'Criteria',
     icon: 'fas fa-sign-out-alt',
     routerLink: '/univox/criterias',
     canAccess: true
