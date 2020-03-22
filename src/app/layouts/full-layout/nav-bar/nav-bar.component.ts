@@ -17,7 +17,14 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
     this.isSignIn = this.authService.getToken();
-    this.signInUser = this.authService.currentUser;
+    const user = JSON.parse(
+      window.atob(
+        localStorage.getItem('user_details')
+        ? localStorage.getItem('user_details')
+        : 'e30='
+      )
+    );
+    this.signInUser = user.username;
     if (this.isSignIn !== null) {
       this.hideSignOut = true;
     } else {

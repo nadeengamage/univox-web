@@ -12,7 +12,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (authToken !== null) {
         req = req.clone({
             setHeaders: {
-                Authorization: 'JWT ' + authToken
+                Authorization: 'Bearer ' + authToken
             }
         });
         return next.handle(req);
