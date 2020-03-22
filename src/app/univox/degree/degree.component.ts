@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { DegreePermissionService } from '../../service/permissions/degree-permission-service';
 import { UserDetailsService } from '../../service/user-details-service';
+declare var $: any;
 
 @Component({
   selector: 'app-degree',
@@ -27,6 +28,7 @@ export class DegreeComponent implements OnDestroy, OnInit {
   };
   editDegreeId;
   degreeCreateForm: FormGroup;
+  submitted = false;
   canDegreeAdd: boolean;
   canDegreeEdit: boolean;
   canDegreeDelete: boolean;
@@ -41,9 +43,9 @@ export class DegreeComponent implements OnDestroy, OnInit {
     private degreePermissionService: DegreePermissionService
   ) {
     this.degreeCreateForm = this.fb.group({
-      faculty_code: [''],
-      degree_code: [''],
-      degree_name: ['']
+      faculty_code: ['', Validators.required],
+      degree_code: ['', Validators.required],
+      degree_name: ['', Validators.required]
     });
   }
 
@@ -70,15 +72,26 @@ export class DegreeComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+  onDegreeReset() {
+    this.submitted = false;
+    this.degreeCreateForm.reset();
+  }
+
   getAllDegree() {
+    const table = $('#tblDegreeData').DataTable();
+    table.clear().destroy();
     this.loading = true;
     this.univoxService.getAllDegrees().subscribe(
       res => {
+        if (res.status === 200) {
         this.degreeList = res.data;
         this.filterDegreeData = res.data;
         this.dtTrigger.next();
-        this.loading = false;
         console.log(res.data);
+        } else {
+          this.notifier.notify('warning', res.msg);
+        }
+        this.loading = false;
       },
       error => {
       }
@@ -86,15 +99,12 @@ export class DegreeComponent implements OnDestroy, OnInit {
   }
 
   createDegree() {
+    if (!this.degreeCreateForm.invalid) {
     this.loading = true;
     this.univoxService.createDegree(this.degreeCreateForm.value).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.showDegreeCreateForm = false;
-      this.degreeCreateForm = this.fb.group({
-        faculty_code: [''],
-        degree_code: [''],
-        degree_name: [''],
-      });
+      this.degreeCreateForm.reset();
       this.getAllDegree();
     },
     error => {
@@ -102,6 +112,17 @@ export class DegreeComponent implements OnDestroy, OnInit {
       this.loading = false;
     }
     );
+  } else {
+    this.submitted = true;
+  }
+  }
+
+  isInvalidField(formControl) {
+    return (this.degreeCreateForm.controls[formControl].touched ||
+      this.degreeCreateForm.controls[formControl].dirty) &&
+      this.degreeCreateForm.controls[formControl].errors
+      ? true
+      : false;
   }
 
   deleteDegree(id) {
@@ -115,6 +136,10 @@ export class DegreeComponent implements OnDestroy, OnInit {
       this.loading = false;
     }
     );
+  }
+
+  changeStatusEdit(status) {
+    this.editDetails.status = parseInt(status.srcElement.value, 0);
   }
 
   editDegree(degree) {

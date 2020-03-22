@@ -2,7 +2,7 @@
   <div class="card-header">
      <h5 class="card-title">University Degrees</h5>
      <div class="d-flex flex-row-reverse">
-        <button *ngIf="canDegreeAdd" class="btn btn-success" (click)="showDegreeCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Degree</button>&nbsp;
+        <button *ngIf="canDegreeAdd" class="btn btn-success" (click)="showDegreeCreateForm = true; onDegreeReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Degree</button>&nbsp;
         <!-- <button class="btn btn-warning" (click)="showCreateUserFrom = true"><i class="fas fa-redo-alt"></i>&nbsp;&nbsp;Update User</button>&nbsp; -->
         <!-- <button class="btn btn-danger" (click)="showCreateUserFrom = true"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Remove User</button> -->
      </div>
@@ -18,18 +18,37 @@
               <div class="row">
                  <div class="form-group col-3">
                     <label>Faculty Code</label>
-                    <input type="text" class="form-control" formControlName="faculty_code" placeholder="Enter User Name">
+                    <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="faculty_code" 
+                    [ngClass]="submitted || isInvalidField('faculty_code') ? 'error-field' : ''">
+                    <div class="err-lbl" *ngIf="submitted || isInvalidField('faculty_code')">
+                     <span class="field-msg error-msg" *ngIf="degreeCreateForm.controls.faculty_code.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                  </div>
                  <div class="form-group col-3">
                     <label>Degree Code</label>
-                    <input type="text" class="form-control" formControlName="degree_code" placeholder="Enter Password">
+                    <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="degree_code" 
+                    [ngClass]="submitted || isInvalidField('degree_code') ? 'error-field' : ''">
+                    <div class="err-lbl" *ngIf="submitted || isInvalidField('degree_code')">
+                     <span class="field-msg error-msg" *ngIf="degreeCreateForm.controls.degree_code.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                  </div>
                  <div class="form-group col-3">
                     <label>Degree Name</label>
-                    <input type="text" class="form-control" formControlName="degree_name" placeholder="Enter First Name">
+                    <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="degree_name" 
+                    [ngClass]="submitted || isInvalidField('degree_name') ? 'error-field' : ''">
+                    <div class="err-lbl" *ngIf="submitted || isInvalidField('degree_name')">
+                     <span class="field-msg error-msg" *ngIf="degreeCreateForm.controls.degree_name.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                  </div>
                  <div class="form-group col-3 d-flex align-items-center">
-                    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Add Degree</button>
+                    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Create Degree</button>&nbsp;
+                    <button class="btn btn-warning" (click)="showDegreeCreateForm = false"><i class="fa fa-reply"></i>&nbsp; Cancel</button>
                  </div>
               </div>
               </form>
@@ -38,7 +57,7 @@
      </div>
      <div class="col-md-12 table_outer">
       <div class="row">
-     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover">
+     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover" id="tblDegreeData">
         <thead>
            <tr>
               <th scope="col">Degree Code</th>
@@ -93,7 +112,11 @@
               </div>
               <div class="form-group">
                  <label>Status</label><sup>*</sup>
-                 <input type="number" class="form-control" placeholder="Enter Status" [(ngModel)]="editDetails.status" [ngModelOptions]="{standalone: true}">
+                 <select title="Degree Active/Deactive" class="form-control" (change)="changeStatusEdit($event)">
+                  <option value='' selected disabled>Please select</option>
+                  <option value='1'>ACTIVE</option>
+                  <option value='0'>DEACTIVE</option>
+               </select>
               </div>
            </form>
         </div>
