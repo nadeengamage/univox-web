@@ -11,7 +11,9 @@ export class NoRightClickDirective {
     }
 
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
-        event.preventDefault();
+        if (event.code === 'F12') {
+          event.preventDefault();
+        }
     }
 
   constructor() { }
