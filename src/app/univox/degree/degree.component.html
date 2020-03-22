@@ -78,9 +78,6 @@
                  <button *ngIf="canDegreeEdit" class="btn btn-warning tableAction" (click)="editDegree(degree)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
               </td>
            </tr>
-           <tr *ngIf="!(degreeList.length > 0);" class="nodata">
-              <td colspan="5">No Data Found!</td>
-           </tr>
         </tbody>
      </table>
      </div>

@@ -2,7 +2,7 @@
   <div class="card-header">
     <h5 class="card-title">University Criteria</h5>
     <div class="d-flex flex-row-reverse">
-       <button *ngIf="canCriteriaAdd" class="btn btn-success" (click)="showCriteriaCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Criteria</button>
+       <button *ngIf="canCriteriaAdd" class="btn btn-success" (click)="showCriteriaCreateForm = true; onCriteriaReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Criteria</button>
     </div>
  </div>
   <div class="card-body">
@@ -16,34 +16,77 @@
             <div class="row">
                <div class="form-group col-3">
                   <label>Degree Code</label>
-                  <input type="text" class="form-control" formControlName="degree_code">
+                  <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="degree_code"
+                  [ngClass]="submitted || isInvalidField('degree_code') ? 'error-field' : ''">
+                  <div class="err-lbl" *ngIf="submitted || isInvalidField('degree_code')">
+                     <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.degree_code.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                </div>
                <div class="form-group col-3">
                   <label>Batch One Student Per Program</label>
-                  <input type="text" class="form-control" formControlName="btch_one_stud_per_program">
+                  <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="btch_one_stud_per_program"
+                  [ngClass]="submitted || isInvalidField('btch_one_stud_per_program') ? 'error-field' : ''">
+                  <div class="err-lbl" *ngIf="submitted || isInvalidField('btch_one_stud_per_program')">
+                     <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.btch_one_stud_per_program.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                </div>
                <div class="form-group col-3">
                   <label>Batch Two Student Per Program</label>
-                  <input type="text" class="form-control" formControlName="btch_two_stud_per_program">
+                  <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="btch_two_stud_per_program"
+                  [ngClass]="submitted || isInvalidField('btch_two_stud_per_program') ? 'error-field' : ''">
+                  <div class="err-lbl" *ngIf="submitted || isInvalidField('btch_two_stud_per_program')">
+                     <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.btch_two_stud_per_program.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                </div>
                <div class="form-group col-3">
                   <label>First Exam Paper Mark</label>
-                  <input type="text" class="form-control" formControlName="first_exam_paper_mark">
+                  <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="first_exam_paper_mark"
+                  [ngClass]="submitted || isInvalidField('first_exam_paper_mark') ? 'error-field' : ''">
+                  <div class="err-lbl" *ngIf="submitted || isInvalidField('first_exam_paper_mark')">
+                     <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.first_exam_paper_mark.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                </div>
                <div class="form-group col-3">
                   <label>Second Exam Paper Mark</label>
-                  <input type="text" class="form-control" formControlName="second_exam_paper_mark">
+                  <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="second_exam_paper_mark"
+                  [ngClass]="submitted || isInvalidField('second_exam_paper_mark') ? 'error-field' : ''">
+                  <div class="err-lbl" *ngIf="submitted || isInvalidField('second_exam_paper_mark')">
+                     <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.second_exam_paper_mark.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                </div>
                <div class="form-group col-3">
                   <label>Batch One Cut Off Mark</label>
-                  <input type="text" class="form-control" formControlName="btch_one_cut_off_mark">
+                  <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="btch_one_cut_off_mark"
+                  [ngClass]="submitted || isInvalidField('btch_one_cut_off_mark') ? 'error-field' : ''">
+                  <div class="err-lbl" *ngIf="submitted || isInvalidField('btch_one_cut_off_mark')">
+                     <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.btch_one_cut_off_mark.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                </div>
                <div class="form-group col-3">
                   <label>Batch Two Cut Off Mark</label>
-                  <input type="text" class="form-control" formControlName="btch_two_cut_off_mark">
+                  <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="btch_two_cut_off_mark"
+                  [ngClass]="submitted || isInvalidField('btch_two_cut_off_mark') ? 'error-field' : ''">
+                  <div class="err-lbl" *ngIf="submitted || isInvalidField('btch_two_cut_off_mark')">
+                     <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.btch_two_cut_off_mark.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
                </div>
                <div class="form-group col-3 d-flex align-items-center">
-                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Add Criteria</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Add Criteria</button>&nbsp;
+                <button class="btn btn-warning" (click)="showCriteriaCreateForm = false"><i class="fa fa-reply"></i>&nbsp; Cancel</button>
                </div>
             </div>
             </form>
@@ -52,7 +95,7 @@
    </div>
    <div class="col-md-12 table_outer">
       <div class="row">
-     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover">
+     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped table-bordered row-border hover" id="tblCriteriaData">
         <thead>
            <tr>
               <th scope="col">Degree Code</th>
@@ -83,9 +126,6 @@
                 <button *ngIf="canCriteriaDelete" class="btn btn-danger tableAction" (click)="deleteCriteria(criteria.x_id)"><i class="far fa-trash-alt"></i></button>
                 <button *ngIf="canCriteriaEdit" class="btn btn-warning tableAction" (click)="editCriteria(criteria)" data-toggle="modal" data-target="#criteriaModal"><i class="far fa-edit"></i></button>
               </td>
-           </tr>
-           <tr *ngIf="!(criteriaList.length > 0);" class="nodata">
-              <td colspan="13">No Data Found!</td>
            </tr>
         </tbody>
      </table>
@@ -135,7 +175,11 @@
               </div>
               <div class="form-group">
                 <label>Status</label><sup>*</sup>
-                <input type="number" class="form-control" placeholder="Enter Status" [(ngModel)]="editDetails.status" [ngModelOptions]="{standalone: true}">
+                <select title="Criteria Active/Deactive" class="form-control" (change)="changeStatusEdit($event)">
+                  <option value='' selected disabled>Please select</option>
+                  <option value='1'>ACTIVE</option>
+                  <option value='0'>DEACTIVE</option>
+               </select>
               </div>
               </form>
       </div>
