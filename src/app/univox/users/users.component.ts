@@ -3,6 +3,8 @@ import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { UserPermissionService } from '../../service/permissions/user-permission-service';
+import { UserDetailsService } from '../../service/user-details-service';
 declare var $: any;
 
 @Component({
@@ -28,6 +30,9 @@ export class UsersComponent implements OnDestroy, OnInit {
   editUserId;
   userCreateForm: FormGroup;
   submitted = false;
+  canUserAdd: boolean;
+  canUserEdit: boolean;
+  canUserDelete: boolean;
 
   public loading = false;
 
@@ -35,6 +40,8 @@ export class UsersComponent implements OnDestroy, OnInit {
     public fb: FormBuilder,
     private univoxService: UnivoxService,
     private notifier: NotifierService,
+    private userDetailsService: UserDetailsService,
+    private userPermissionService: UserPermissionService
   ) {
     this.userCreateForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(8)]],
@@ -51,6 +58,15 @@ export class UsersComponent implements OnDestroy, OnInit {
       pageLength: 10,
       responsive: true
     };
+    this.canUserAdd = this.userPermissionService.isUserAdd(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canUserEdit = this.userPermissionService.isUserEdit(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canUserDelete = this.userPermissionService.isUserDelete(
+      this.userDetailsService.getRequestInfo()
+    );
     this.getAllUsers();
   }
 

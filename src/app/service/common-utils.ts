@@ -1,0 +1,5 @@
+export const USERS_GROUPS = {
+    SUPERADMIN: 'SUPERADMIN',
+    ADMIN: 'ADMIN',
+    DATAENTRY: 'DATAENTRY'
+};

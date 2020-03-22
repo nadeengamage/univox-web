@@ -19,6 +19,7 @@ import { FacultyComponent } from './univox/faculty/faculty.component';
 import { DegreeComponent } from './univox/degree/degree.component';
 import { CriteriaComponent } from './univox/criteria/criteria.component';
 import { ApplicantComponent } from './univox/applicant/applicant.component';
+import { UserDetailsService } from './service/user-details-service';
 import { DataTablesModule } from 'angular-datatables';
 
 const customNotifierOptions: NotifierOptions = {
@@ -99,7 +100,8 @@ const customNotifierOptions: NotifierOptions = {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    UserDetailsService
   ],
   bootstrap: [AppComponent]
 })
