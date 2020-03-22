@@ -94,7 +94,7 @@
                   <th scope="col">Status</th>
                   <th scope="col">User Name</th>
                   <th scope="col">Role Name</th>
-                  <th scope="col" style="width: 80px;"></th>
+                  <th scope="col" style="width: 100px;"></th>
                </tr>
             </thead>
             <tbody>
@@ -107,7 +107,7 @@
                   <td>{{user.username}}</td>
                   <td>{{user.roles.role_name}}</td>
                   <td>
-                     <button *ngIf="user.status === true" class="btn btn-danger tableDelete" (click)="deleteUser(user.x_id)"><i class="fa fa-lock"></i></button>
+                     <button *ngIf="user.status === true" class="btn btn-danger btn-sm tableDelete" (click)="deleteUser(user.x_id)">Deactivate</button>
                      <!-- <button class="btn btn-warning tableEdit" (click)="editUser(user)" data-toggle="modal" data-target="#userModal"><i class="far fa-edit"></i></button> -->
                   </td>
                </tr>

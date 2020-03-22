@@ -70,14 +70,18 @@ export class UsersComponent implements OnDestroy, OnInit {
     this.loading = true;
     this.univoxService.getAllUsers().subscribe(
       res => {
-        this.usersList = res.data;
-        this.filterUserData = res.data;
-        this.dtTrigger.next();
+        if (res.status === 200) {
+          this.usersList = res.data;
+          this.filterUserData = res.data;
+          this.dtTrigger.next();
+        } else {
+          this.notifier.notify('warning', res.msg);
+        }
         this.loading = false;
-        console.log(res.data);
       },
       error => {
         this.loading = false;
+        this.notifier.notify('error', error.error);
       }
     );
   }
