@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { CriteriaPermissionService } from '../../service/permissions/criteria-permission-service';
 import { UserDetailsService } from '../../service/user-details-service';
@@ -31,6 +31,7 @@ export class CriteriaComponent implements OnDestroy, OnInit {
   };
   editCriteriaId;
   criteriaCreateForm: FormGroup;
+  submitted = false;
   canCriteriaAdd: boolean;
   canCriteriaEdit: boolean;
   canCriteriaDelete: boolean;
@@ -45,13 +46,13 @@ export class CriteriaComponent implements OnDestroy, OnInit {
     private criteriaPermissionService: CriteriaPermissionService
   ) {
     this.criteriaCreateForm = this.fb.group({
-      degree_code: [''],
-      btch_one_stud_per_program: [''],
-      btch_two_stud_per_program: [''],
-      first_exam_paper_mark: [''],
-      second_exam_paper_mark: [''],
-      btch_one_cut_off_mark: [''],
-      btch_two_cut_off_mark: [''],
+      degree_code: ['', Validators.required],
+      btch_one_stud_per_program: ['', Validators.required],
+      btch_two_stud_per_program: ['', Validators.required],
+      first_exam_paper_mark: ['', Validators.required],
+      second_exam_paper_mark: ['', Validators.required],
+      btch_one_cut_off_mark: ['', Validators.required],
+      btch_two_cut_off_mark: ['', Validators.required],
     });
   }
 
@@ -73,41 +74,46 @@ export class CriteriaComponent implements OnDestroy, OnInit {
     this.getAllCriterias();
   }
 
+  onCriteriaReset() {
+    this.submitted = false;
+    this.criteriaCreateForm.reset();
+  }
+
   ngOnDestroy() {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
 
   getAllCriterias() {
+    const table = $('#tblCriteriaData').DataTable();
+    table.clear().destroy();
     this.loading = true;
     this.univoxService.getAllCriterias().subscribe(
       res => {
+        if (res.status === 200) {
         this.criteriaList = res.data;
         this.filterCriteriaData = res.data;
         this.dtTrigger.next();
-        this.loading = false;
         console.log(res.data);
+        } else {
+          this.notifier.notify('warning', res.msg);
+        }
+        this.loading = false;
       },
       error => {
+        this.notifier.notify('error', error.error);
         this.loading = false;
       }
     );
   }
 
   createCriteria() {
+    if (!this.criteriaCreateForm.invalid) {
     this.loading = true;
     this.univoxService.createCriteria(this.criteriaCreateForm.value).subscribe(res => {
       this.notifier.notify('success', res.message);
       this.showCriteriaCreateForm = false;
-      this.criteriaCreateForm = this.fb.group({
-        degree_code: [''],
-        btch_one_stud_per_program: [''],
-        btch_two_stud_per_program: [''],
-        first_exam_paper_mark: [''],
-        second_exam_paper_mark: [''],
-        btch_one_cut_off_mark: [''],
-        btch_two_cut_off_mark: [''],
-      });
+      this.criteriaCreateForm.reset();
       this.getAllCriterias();
     },
     error => {
@@ -115,6 +121,21 @@ export class CriteriaComponent implements OnDestroy, OnInit {
       this.loading = false;
     }
     );
+  } else {
+    this.submitted = true;
+  }
+  }
+
+  isInvalidField(formControl) {
+    return (this.criteriaCreateForm.controls[formControl].touched ||
+      this.criteriaCreateForm.controls[formControl].dirty) &&
+      this.criteriaCreateForm.controls[formControl].errors
+      ? true
+      : false;
+  }
+
+  changeStatusEdit(status) {
+    this.editDetails.status = parseInt(status.srcElement.value, 0);
   }
 
   deleteCriteria(id) {

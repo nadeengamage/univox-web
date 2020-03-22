@@ -2,9 +2,7 @@
    <div class="card-header">
       <h5 class="card-title">Faculties</h5>
       <div class="d-flex flex-row-reverse">
-         <button *ngIf="canFacultyAdd" class="btn btn-success" (click)="showFacultyCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Faculty</button>&nbsp;
-         <!-- <button class="btn btn-warning" (click)="showCreateUserFrom = true"><i class="fas fa-redo-alt"></i>&nbsp;&nbsp;Update User</button>&nbsp; -->
-         <!-- <button class="btn btn-danger" (click)="showCreateUserFrom = true"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Remove User</button> -->
+         <button *ngIf="canFacultyAdd" class="btn btn-success" (click)="showFacultyCreateForm = true; onFacultyReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Faculty</button>
       </div>
    </div>
    <div class="card-body">
@@ -92,7 +90,7 @@
                   </div>
                   <div class="form-group col-4">
                      <label>Status</label><sup>*</sup>
-                     <select title="User Active/Deactive" class="form-control" (change)="changeStatusEdit($event)">
+                     <select title="Faculty Active/Deactive" class="form-control" (change)="changeStatusEdit($event)">
                         <option value='' selected disabled>Please select</option>
                         <option value='1'>ACTIVE</option>
                         <option value='0'>DEACTIVE</option>

@@ -70,6 +70,11 @@ export class FacultyComponent implements OnDestroy, OnInit {
     this.dtTrigger.unsubscribe();
   }
 
+  onFacultyReset() {
+    this.submitted = false;
+    this.facultyCreateForm.reset();
+  }
+
   getAllFaculty() {
     const table = $('#tblFacultyData').DataTable();
     table.clear().destroy();
