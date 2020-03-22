@@ -2,7 +2,7 @@
    <div class="card-header">
       <h5 class="card-title">Faculties</h5>
       <div class="d-flex flex-row-reverse">
-         <button class="btn btn-success" (click)="showFacultyCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Faculty</button>&nbsp;
+         <button *ngIf="canFacultyAdd" class="btn btn-success" (click)="showFacultyCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Faculty</button>&nbsp;
          <!-- <button class="btn btn-warning" (click)="showCreateUserFrom = true"><i class="fas fa-redo-alt"></i>&nbsp;&nbsp;Update User</button>&nbsp; -->
          <!-- <button class="btn btn-danger" (click)="showCreateUserFrom = true"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Remove User</button> -->
       </div>
@@ -60,8 +60,8 @@
                   <td>{{faculty.faculty_code}}</td>
                   <td>{{faculty.faculty_name}}</td>
                   <td>
-                     <button class="btn btn-danger tableAction" (click)="deleteFaculty(faculty.faculty_code)"><i class="far fa-trash-alt"></i></button>
-                     <button class="btn btn-warning tableAction" (click)="editFaculty(faculty)" data-toggle="modal" data-target="#facultyModal"><i class="far fa-edit"></i></button>
+                     <button *ngIf="canFacultyDelete" class="btn btn-danger tableAction" (click)="deleteFaculty(faculty.faculty_code)"><i class="far fa-trash-alt"></i></button>
+                     <button *ngIf="canFacultyEdit" class="btn btn-warning tableAction" (click)="editFaculty(faculty)" data-toggle="modal" data-target="#facultyModal"><i class="far fa-edit"></i></button>
                   </td>
                </tr>
             </tbody>

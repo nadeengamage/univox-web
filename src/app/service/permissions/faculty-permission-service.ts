@@ -5,10 +5,10 @@ import { USERS_GROUPS } from '../common-utils';
   providedIn: 'root'
 })
 export class FacultyPermissionService {
-  private facultyView = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
-  private facultyAdd = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
-  private facultyEdit = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
-  private facultyDelete = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
+  private facultyView = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN, USERS_GROUPS.DATAENTRY];
+  private facultyAdd = [USERS_GROUPS.SUPERADMIN];
+  private facultyEdit = [USERS_GROUPS.SUPERADMIN];
+  private facultyDelete = [USERS_GROUPS.SUPERADMIN];
 
   constructor() {}
 

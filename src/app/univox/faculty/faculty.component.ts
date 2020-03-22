@@ -3,6 +3,8 @@ import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { FacultyPermissionService } from '../../service/permissions/faculty-permission-service';
+import { UserDetailsService } from '../../service/user-details-service';
 declare var $: any;
 
 @Component({
@@ -26,13 +28,18 @@ export class FacultyComponent implements OnDestroy, OnInit {
   editFacultyId;
   facultyCreateForm: FormGroup;
   submitted = false;
+  canFacultyAdd: boolean;
+  canFacultyEdit: boolean;
+  canFacultyDelete: boolean;
 
   public loading = false;
 
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private userDetailsService: UserDetailsService,
+    private facultyPermissionService: FacultyPermissionService
   ) {
     this.facultyCreateForm = this.fb.group({
       faculty_code: ['', Validators.required],
@@ -46,6 +53,15 @@ export class FacultyComponent implements OnDestroy, OnInit {
       pageLength: 10,
       responsive: true
     };
+    this.canFacultyAdd = this.facultyPermissionService.isFacultyAdd(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canFacultyEdit = this.facultyPermissionService.isFacultyEdit(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canFacultyDelete = this.facultyPermissionService.isFacultyDelete(
+      this.userDetailsService.getRequestInfo()
+    );
     this.getAllFaculty();
   }
 

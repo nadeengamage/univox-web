@@ -2,7 +2,7 @@
   <div class="card-header">
     <h5 class="card-title">University Criteria</h5>
     <div class="d-flex flex-row-reverse">
-       <button class="btn btn-success" (click)="showCriteriaCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Criteria</button>
+       <button *ngIf="canCriteriaAdd" class="btn btn-success" (click)="showCriteriaCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Criteria</button>
     </div>
  </div>
   <div class="card-body">
@@ -80,8 +80,8 @@
               <td *ngIf="criteria.status === true">Active</td>
               <td *ngIf="criteria.status === false">Deactive</td>
               <td>
-                <button class="btn btn-danger tableAction" (click)="deleteCriteria(criteria.x_id)"><i class="far fa-trash-alt"></i></button>
-                <button class="btn btn-warning tableAction" (click)="editCriteria(criteria)" data-toggle="modal" data-target="#criteriaModal"><i class="far fa-edit"></i></button>
+                <button *ngIf="canCriteriaDelete" class="btn btn-danger tableAction" (click)="deleteCriteria(criteria.x_id)"><i class="far fa-trash-alt"></i></button>
+                <button *ngIf="canCriteriaEdit" class="btn btn-warning tableAction" (click)="editCriteria(criteria)" data-toggle="modal" data-target="#criteriaModal"><i class="far fa-edit"></i></button>
               </td>
            </tr>
            <tr *ngIf="!(criteriaList.length > 0);" class="nodata">

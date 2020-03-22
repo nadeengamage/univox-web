@@ -2,7 +2,7 @@
   <div class="card-header">
      <h5 class="card-title">University Degrees</h5>
      <div class="d-flex flex-row-reverse">
-        <button class="btn btn-success" (click)="showDegreeCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Degree</button>&nbsp;
+        <button *ngIf="canDegreeAdd" class="btn btn-success" (click)="showDegreeCreateForm = true"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Degree</button>&nbsp;
         <!-- <button class="btn btn-warning" (click)="showCreateUserFrom = true"><i class="fas fa-redo-alt"></i>&nbsp;&nbsp;Update User</button>&nbsp; -->
         <!-- <button class="btn btn-danger" (click)="showCreateUserFrom = true"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp;Remove User</button> -->
      </div>
@@ -55,8 +55,8 @@
               <td>{{degree.faculty.faculty_code}}</td>
               <td>{{degree.faculty.faculty_name}}</td>
               <td>
-                 <button class="btn btn-danger tableAction" (click)="deleteDegree(degree.degree_code)"><i class="far fa-trash-alt"></i></button>
-                 <button class="btn btn-warning tableAction" (click)="editDegree(degree)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
+                 <button *ngIf="canDegreeDelete" class="btn btn-danger tableAction" (click)="deleteDegree(degree.degree_code)"><i class="far fa-trash-alt"></i></button>
+                 <button *ngIf="canDegreeEdit" class="btn btn-warning tableAction" (click)="editDegree(degree)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
               </td>
            </tr>
            <tr *ngIf="!(degreeList.length > 0);" class="nodata">
