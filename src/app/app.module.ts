@@ -21,6 +21,7 @@ import { CriteriaComponent } from './univox/criteria/criteria.component';
 import { ApplicantComponent } from './univox/applicant/applicant.component';
 import { UserDetailsService } from './service/user-details-service';
 import { DataTablesModule } from 'angular-datatables';
+import { NoRightClickDirective } from './service/no-right-click.directive';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -65,6 +66,7 @@ const customNotifierOptions: NotifierOptions = {
 
 @NgModule({
   declarations: [
+    NoRightClickDirective,
     AppComponent,
     FullLayoutComponent,
     NavBarComponent,
