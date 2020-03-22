@@ -730,25 +730,13 @@
                            <label>A/L Stream<span class="mandatory">*</span></label>
                            <select title="A/L Steam" class="form-control" (change)="changeAlSteam($event)">
                               <option value="" disabled selected>Please Select</option>
-                           <option value="Sinhala">Sinhala</option>
-                           <option value="Accounting">Accounting</option>
+                           <option value="Arts">Arts</option>
                            <option value="Bio Systems Technology">Bio Systems Technology</option>
-                           <option value="Biology">Biology</option>
-                           <option value="Buddhist Civilization">Buddhist Civilization</option>
-                           <option value="Business Studies">Business Studies</option>
-                           <option value="Chemistry">Chemistry</option>
-                           <option value="Combined Mathematics">Combined Mathematics</option>
-                           <option value="Commerce stream">Commerce stream</option>
-                           <option value="Economics">Economics</option>
+                           <option value="Biological Science">Biological Science</option>
+                           <option value="Commerce">Commerce</option>
                            <option value="Engineering Technology">Engineering Technology</option>
-                           <option value="Geography">Geography</option>
-                           <option value="History">History</option>
-                           <option value="Logic">Logic</option>
-                           <option value="Music">Music</option>
-                           <option value="Physics">Physics</option>
-                           <option value="Political Science">Political Science</option>
-                           <option value="Science for Technology">Science for Technology</option>
-                           <option value="Statistics">Statistics</option>
+                           <option value="Physical Science">Physical Science</option>
+                           <option value="Other A/L Stream">Other A/L Stream</option>
                            </select>
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('stream')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.stream.errors?.required">

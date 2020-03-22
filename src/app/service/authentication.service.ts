@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpUtilsService } from './http-utils.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from './user';
 import { NotifierService } from 'angular-notifier';
-import { error } from 'util';
+import * as jwt_decode from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,24 +43,20 @@ export class AuthService {
         this.getUserProfile(user).subscribe((response) => {
             for (const element of response.data) {
               if (element.username === user.username) {
-                this.currentUser = element.username;
+                const decoded = jwt_decode(res.access_token);
+                const getDetails = decoded.user_claims.roles;
+                localStorage.setItem('user_details', window.btoa(JSON.stringify(getDetails)));
+                this.currentUser = getDetails.username;
                 this.router.navigate(['univox']);
                 this.notifier.notify('success', 'Welcome back! ' + this.currentUser);
-                this.hideLoading();
                 break;
               }
             }
         });
       },
       res => {
-        this.notifier.notify('error', res.error.description);
+        this.notifier.notify('error', res.error.description ? res.error.description : 'Oops! Connection Failed.');
       });
-  }
-
-  hideLoading() {
-    if (this.currentUser !== null) {
-      return true;
-    }
   }
 
   getToken() {
@@ -73,7 +69,16 @@ export class AuthService {
   }
 
   doLogout() {
+    const user = JSON.parse(
+      window.atob(
+        localStorage.getItem('user_details')
+        ? localStorage.getItem('user_details')
+        : 'e30='
+      )
+    );
+    this.currentUser = user.username;
     const removeToken = localStorage.removeItem('access_token');
+    localStorage.removeItem('user_details');
     if (removeToken == null) {
       this.router.navigate(['signin']);
       this.notifier.notify('default', 'See yaa! ' + this.currentUser);

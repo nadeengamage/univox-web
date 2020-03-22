@@ -33,9 +33,20 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
-    // this.loading = true;
+    this.loading = true;
     this.authService.signIn(this.signinForm.value);
-    // this.loading = this.authService.hideLoading();
+    const user = JSON.parse(
+      window.atob(
+        localStorage.getItem('user_details')
+        ? localStorage.getItem('user_details')
+        : 'e30='
+      )
+    );
+    if (user !== null) {
+      this.loading = false;
+    } else {
+      this.loading = false;
+    }
   }
 
 }
