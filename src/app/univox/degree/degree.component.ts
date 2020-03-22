@@ -3,6 +3,8 @@ import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { DegreePermissionService } from '../../service/permissions/degree-permission-service';
+import { UserDetailsService } from '../../service/user-details-service';
 
 @Component({
   selector: 'app-degree',
@@ -25,13 +27,18 @@ export class DegreeComponent implements OnDestroy, OnInit {
   };
   editDegreeId;
   degreeCreateForm: FormGroup;
+  canDegreeAdd: boolean;
+  canDegreeEdit: boolean;
+  canDegreeDelete: boolean;
 
   public loading = false;
 
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private userDetailsService: UserDetailsService,
+    private degreePermissionService: DegreePermissionService
   ) {
     this.degreeCreateForm = this.fb.group({
       faculty_code: [''],
@@ -46,6 +53,15 @@ export class DegreeComponent implements OnDestroy, OnInit {
       pageLength: 10,
       responsive: true
     };
+    this.canDegreeAdd = this.degreePermissionService.isDegreeAdd(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canDegreeEdit = this.degreePermissionService.isDegreeEdit(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canDegreeDelete = this.degreePermissionService.isDegreeDelete(
+      this.userDetailsService.getRequestInfo()
+    );
     this.getAllDegree();
   }
 

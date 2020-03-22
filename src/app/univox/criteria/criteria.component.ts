@@ -3,6 +3,8 @@ import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { CriteriaPermissionService } from '../../service/permissions/criteria-permission-service';
+import { UserDetailsService } from '../../service/user-details-service';
 
 @Component({
   selector: 'app-criteria',
@@ -29,13 +31,18 @@ export class CriteriaComponent implements OnDestroy, OnInit {
   };
   editCriteriaId;
   criteriaCreateForm: FormGroup;
+  canCriteriaAdd: boolean;
+  canCriteriaEdit: boolean;
+  canCriteriaDelete: boolean;
 
   public loading = false;
 
   constructor(
     public fb: FormBuilder,
     private univoxService: UnivoxService,
-    private notifier: NotifierService
+    private notifier: NotifierService,
+    private userDetailsService: UserDetailsService,
+    private criteriaPermissionService: CriteriaPermissionService
   ) {
     this.criteriaCreateForm = this.fb.group({
       degree_code: [''],
@@ -54,6 +61,15 @@ export class CriteriaComponent implements OnDestroy, OnInit {
       pageLength: 10,
       responsive: true
     };
+    this.canCriteriaAdd = this.criteriaPermissionService.isCriteriaAdd(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canCriteriaEdit = this.criteriaPermissionService.isCriteriaEdit(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canCriteriaDelete = this.criteriaPermissionService.isCriteriaDelete(
+      this.userDetailsService.getRequestInfo()
+    );
     this.getAllCriterias();
   }
 

@@ -14,8 +14,8 @@
       <div class="tab-content" id="applicantTabContent">
          <div class="tab-pane fade show active" id="nvq" role="tabpanel" aria-labelledby="nvq-tab">
             <div class="d-flex flex-row-start">
-               <button class="btn btn-info" (click)="showNvqApplicantCreateForm = true; onNvqReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
-               <button class="btn btn-warning" (click)="showNvqBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
+               <button *ngIf="canApplicantAdd" class="btn btn-info" (click)="showNvqApplicantCreateForm = true; onNvqReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
+               <button *ngIf="canApplicantAdd" class="btn btn-warning" (click)="showNvqBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
             </div>
             <div class="createForm" *ngIf="showNvqBulkUpload">
                <div class="card secondary-card">
@@ -438,8 +438,8 @@
          </div>
          <div class="tab-pane fade" id="al" role="tabpanel" aria-labelledby="al-tab">
             <div class="d-flex flex-row-start">
-               <button class="btn btn-info" (click)="showAlApplicantCreateForm = true; onAlReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
-               <button class="btn btn-warning" (click)="showAlBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
+               <button *ngIf="canApplicantAdd" class="btn btn-info" (click)="showAlApplicantCreateForm = true; onAlReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
+               <button *ngIf="canApplicantAdd" class="btn btn-warning" (click)="showAlBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
             </div>
             <div class="createForm" *ngIf="showAlBulkUpload">
                <div class="card secondary-card">

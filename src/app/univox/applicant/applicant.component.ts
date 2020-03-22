@@ -3,6 +3,8 @@ import { UnivoxService } from './../../service/univox-service.service';
 import { NotifierService } from 'angular-notifier';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { ApplicantPermissionService } from '../../service/permissions/applicant-permission-service';
+import { UserDetailsService } from '../../service/user-details-service';
 declare var $: any;
 
 @Component({
@@ -32,6 +34,9 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   showNvqBulkUpload = false;
   nvqStudentType = 'NVQ';
   alStudentType = 'AL';
+  canApplicantAdd: boolean;
+  canApplicantEdit: boolean;
+  canApplicantDelete: boolean;
 
   public loading = false;
 
@@ -39,6 +44,8 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     public fb: FormBuilder,
     private univoxService: UnivoxService,
     private notifier: NotifierService,
+    private userDetailsService: UserDetailsService,
+    private applicantPermissionService: ApplicantPermissionService
   ) {
     this.nvqApplicantCreateForm = this.fb.group({
       student_type: [''],
@@ -123,6 +130,15 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       responsive: true,
       scrollX: true
     };
+    this.canApplicantAdd = this.applicantPermissionService.isApplicantAdd(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canApplicantEdit = this.applicantPermissionService.isApplicantEdit(
+      this.userDetailsService.getRequestInfo()
+    );
+    this.canApplicantDelete = this.applicantPermissionService.isApplicantDelete(
+      this.userDetailsService.getRequestInfo()
+    );
     this.getNvqAplicants();
   }
 
