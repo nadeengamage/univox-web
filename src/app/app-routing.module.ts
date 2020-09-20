@@ -8,6 +8,8 @@ import { FacultyComponent } from './univox/faculty/faculty.component';
 import { DegreeComponent } from './univox/degree/degree.component';
 import { CriteriaComponent } from './univox/criteria/criteria.component';
 import { ApplicantComponent } from './univox/applicant/applicant.component';
+import { MarkComponent } from './univox/mark/mark.component';
+import { ReportsComponent } from './univox/reports/reports.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signin', pathMatch: 'full' },
@@ -19,6 +21,8 @@ const routes: Routes = [
     { path: 'degrees', component: DegreeComponent },
     { path: 'criterias', component: CriteriaComponent },
     { path: 'applicant', component: ApplicantComponent },
+    { path: 'marks', component: MarkComponent },
+    { path: 'reports', component: ReportsComponent },
   ] },
   { path: '**', redirectTo: '404' }
 ];

@@ -1,0 +1,55 @@
+<div class="card">
+   <div class="card-header">
+      <h5 class="card-title">Reports</h5>
+   </div>
+   <div class="card-body">
+      <div class="col-md-12 table_outer">
+         <div class="row">
+            <div class="form-group col-3">
+               <label>Degree<span class="mandatory">*</span></label>
+               <select class="form-control" (change)="changeDegree($event)">
+               <option value="" selected disabled>Please select a degree</option>
+               <ng-container *ngFor="let degree of degreeList">
+                  <option>{{degree.degree_name}}</option>
+               </ng-container>
+               </select>
+               <!-- <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('title')">
+                  <span class="field-msg error-msg" *ngIf="reportForm.controls.title.errors?.required">
+                  <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                  </span>
+               </div> -->
+            </div>
+            <div class="form-group col-3" *ngIf="showStudentType">
+               <label>Select Student Type<span class="mandatory">*</span></label>
+               <select class="form-control" (change)="changeStudentType($event)">
+               <option value="" selected disabled>Please select a student type</option>
+                  <option value="B1">B1</option>
+                  <option value="B2">B2</option>
+               </select>
+            </div>
+            <div class="form-group col-3" *ngIf="showSteam">
+               <label>Select Steam<span class="mandatory">*</span></label>
+               <select class="form-control" (change)="changeSteam($event)">
+               <option value="" selected disabled>Please select a steam</option>
+                  <option value="NVQ">NVQ</option>
+                  <option value="AL">AL</option>
+               </select>
+            </div>
+            <!-- <div class="form-group col-3" *ngIf="showGenerate">
+               <button class="btn btn-success" (click)="createReport()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Report</button>&nbsp;
+            </div> -->
+            <div class="d-flex flex-row-reverse" *ngIf="showGenerate">
+               <button class="btn btn-success" (click)="createReport()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Report</button>&nbsp;
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<ng-template #customLoadingTemplate>
+   <div class="custom-class">
+      <h3>
+         Please Wait...
+      </h3>
+   </div>
+</ng-template>
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }" [template]="customLoadingTemplate"></ngx-loading>
