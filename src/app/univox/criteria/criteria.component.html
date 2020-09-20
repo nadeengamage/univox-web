@@ -16,8 +16,15 @@
             <div class="row">
                <div class="form-group col-3">
                   <label>Degree Code</label>
-                  <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="degree_code"
+                  <select class="form-control" (change)="changeDegree($event)" title="Cannot be empty!"
                   [ngClass]="submitted || isInvalidField('degree_code') ? 'error-field' : ''">
+                     <option value="" selected disabled>Please select a degree</option>
+                     <ng-container *ngFor="let degree of degreeList">
+                        <option>{{degree.degree_name}}</option>
+                     </ng-container>
+                     </select>
+                  <!-- <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="degree_code" -->
+                  <!-- [ngClass]="submitted || isInvalidField('degree_code') ? 'error-field' : ''"> -->
                   <div class="err-lbl" *ngIf="submitted || isInvalidField('degree_code')">
                      <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.degree_code.errors?.required">
                      <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -25,7 +32,7 @@
                   </div>
                </div>
                <div class="form-group col-3">
-                  <label>Batch One Student Per Program</label>
+                  <label>B1 Student Per Program</label>
                   <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="btch_one_stud_per_program"
                   [ngClass]="submitted || isInvalidField('btch_one_stud_per_program') ? 'error-field' : ''">
                   <div class="err-lbl" *ngIf="submitted || isInvalidField('btch_one_stud_per_program')">
@@ -35,7 +42,7 @@
                   </div>
                </div>
                <div class="form-group col-3">
-                  <label>Batch Two Student Per Program</label>
+                  <label>B2 Student Per Program</label>
                   <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="btch_two_stud_per_program"
                   [ngClass]="submitted || isInvalidField('btch_two_stud_per_program') ? 'error-field' : ''">
                   <div class="err-lbl" *ngIf="submitted || isInvalidField('btch_two_stud_per_program')">
@@ -65,7 +72,7 @@
                   </div>
                </div>
                <div class="form-group col-3">
-                  <label>Batch One Cut Off Mark</label>
+                  <label>B1 Cut Off Mark</label>
                   <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="btch_one_cut_off_mark"
                   [ngClass]="submitted || isInvalidField('btch_one_cut_off_mark') ? 'error-field' : ''">
                   <div class="err-lbl" *ngIf="submitted || isInvalidField('btch_one_cut_off_mark')">
@@ -75,7 +82,7 @@
                   </div>
                </div>
                <div class="form-group col-3">
-                  <label>Batch Two Cut Off Mark</label>
+                  <label>B2 Cut Off Mark</label>
                   <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="btch_two_cut_off_mark"
                   [ngClass]="submitted || isInvalidField('btch_two_cut_off_mark') ? 'error-field' : ''">
                   <div class="err-lbl" *ngIf="submitted || isInvalidField('btch_two_cut_off_mark')">
@@ -100,10 +107,10 @@
            <tr>
               <th scope="col">Degree Code</th>
               <th scope="col">Faculty Code</th>
-              <th scope="col">Batch 1 Cut Off Mark</th>
-              <th scope="col">Batch 1 Student Per Program</th>
-              <th scope="col">Batch 2 Cut Off Mark</th>
-              <th scope="col">Batch 2 Student Per Program</th>
+              <th scope="col">B1 Cut Off Mark</th>
+              <th scope="col">B1 Student Per Program</th>
+              <th scope="col">B2 Cut Off Mark</th>
+              <th scope="col">B2 Student Per Program</th>
               <th scope="col">First Exam Paper Mark</th>
               <th scope="col">Second Exam Paper Mark</th>
               <th scope="col">Status</th>

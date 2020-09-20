@@ -17,6 +17,7 @@ export class CriteriaComponent implements OnDestroy, OnInit {
 
   filterCriteriaData = [];
   criteriaList = [];
+  degreeList = [];
   showCriteriaCreateForm = false;
   modalTitle = null;
   editDetails = {
@@ -77,6 +78,7 @@ export class CriteriaComponent implements OnDestroy, OnInit {
   onCriteriaReset() {
     this.submitted = false;
     this.criteriaCreateForm.reset();
+    this.getAllDegree();
   }
 
   ngOnDestroy() {
@@ -105,6 +107,28 @@ export class CriteriaComponent implements OnDestroy, OnInit {
         this.loading = false;
       }
     );
+  }
+
+  getAllDegree() {
+    this.loading = true;
+    this.univoxService.getAllDegrees().subscribe(
+      res => {
+        if (res.status === 200) {
+        this.degreeList = res.data;
+        } else {
+          this.notifier.notify('warning', res.msg);
+        }
+        this.loading = false;
+      },
+      error => {
+      }
+    );
+  }
+
+  changeDegree(degree) {
+    this.criteriaCreateForm.patchValue({
+      degree_code: degree.srcElement.value
+    });
   }
 
   createCriteria() {
