@@ -35,10 +35,15 @@ export class UnivoxService {
   private getNvqApplicantEndPoint: string;
   private getAlApplicantEndPoint: string;
   private createApplicantEndPoint: string;
-  private updateNvqApplicantEndPoint: string;
-  private updateAlApplicantEndPoint: string;
+  private updateApplicantEndPoint: string;
   private createNvqBulkApplicantEndPoint: string;
   private createAlBulkApplicantEndPoint: string;
+
+  private getMarksEndPoint: string;
+  private createMarksEndPoint: string;
+  private getMarksByIdEndPoint: string;
+  private updateMarksEndPoint: string;
+  private deleteMarksEndPoint: string;
 
   constructor(private http: HttpUtilsService) {
     // USERS
@@ -73,10 +78,16 @@ export class UnivoxService {
     this.getNvqApplicantEndPoint = this.mainUrl + '/applicants/nvq/details';
     this.getAlApplicantEndPoint = this.mainUrl + '/applicants/al/details';
     this.createApplicantEndPoint = this.mainUrl + '/applicants';
-    this.updateNvqApplicantEndPoint = this.mainUrl + '/applicants';
-    this.updateAlApplicantEndPoint = this.mainUrl + '/applicants/{applicationNo}';
+    this.updateApplicantEndPoint = this.mainUrl + '/applicants/{applicationNo}';
     this.createNvqBulkApplicantEndPoint = this.mainUrl + '/applicants/transform/nvq_students';
     this.createAlBulkApplicantEndPoint = this.mainUrl + '/applicants/transform/al_students';
+
+    // MARKS
+    this.getMarksEndPoint = this.mainUrl + '/applicants/marks';
+    this.createMarksEndPoint = this.mainUrl + '/applicants/marks';
+    this.getMarksByIdEndPoint = this.mainUrl + '/applicants/marks/nvq/{id}';
+    this.updateMarksEndPoint = this.mainUrl + '/applicants/marks';
+    this.deleteMarksEndPoint = this.mainUrl + '/applicants/marks/nvq/{id}';
 
   }
 
@@ -201,13 +212,32 @@ export class UnivoxService {
     return this.http.multiPart(create, data);
   }
   public updateNvqApplicant(data) {
-    const updateNvqApplicant = this.updateAlApplicantEndPoint;
+    const updateNvqApplicant = this.updateApplicantEndPoint;
     return this.http.put(updateNvqApplicant, data);
   }
   public updateAlApplicant(applicationNo, data) {
-    const updateAlApplicant = this.updateAlApplicantEndPoint.replace(
+    const updateAlApplicant = this.updateApplicantEndPoint.replace(
       '{applicationNo}', applicationNo
     );
     return this.http.put(updateAlApplicant, data);
+  }
+
+  public getAllMarks() {
+    const marks = this.getMarksEndPoint;
+    return this.http.get(marks);
+  }
+  public createMark(data) {
+    const create = this.createMarksEndPoint;
+    return this.http.post(create, data);
+  }
+  public updateMarkById(data) {
+    const updateMarkById = this.updateMarksEndPoint;
+    return this.http.put(updateMarkById, data);
+  }
+  public deleteMark(id) {
+      const deleteMark = this.deleteMarksEndPoint.replace(
+        '{id}', id
+      );
+      return this.http.delete(deleteMark);
   }
 }

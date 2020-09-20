@@ -19,6 +19,8 @@ import { FacultyComponent } from './univox/faculty/faculty.component';
 import { DegreeComponent } from './univox/degree/degree.component';
 import { CriteriaComponent } from './univox/criteria/criteria.component';
 import { ApplicantComponent } from './univox/applicant/applicant.component';
+import { MarkComponent } from './univox/mark/mark.component';
+import { ReportsComponent } from './univox/reports/reports.component';
 import { UserDetailsService } from './service/user-details-service';
 import { DataTablesModule } from 'angular-datatables';
 import { NoRightClickDirective } from './service/no-right-click.directive';
@@ -78,7 +80,9 @@ const customNotifierOptions: NotifierOptions = {
     FacultyComponent,
     DegreeComponent,
     CriteriaComponent,
-    ApplicantComponent
+    ApplicantComponent,
+    MarkComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
