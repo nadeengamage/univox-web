@@ -20,7 +20,7 @@
                   [ngClass]="submitted || isInvalidField('degree_code') ? 'error-field' : ''">
                      <option value="" selected disabled>Please select a degree</option>
                      <ng-container *ngFor="let degree of degreeList">
-                        <option>{{degree.degree_name}}</option>
+                        <option>{{degree.degree_code}}</option>
                      </ng-container>
                      </select>
                   <!-- <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="degree_code" -->
