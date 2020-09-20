@@ -8,7 +8,7 @@ export class UserPermissionService {
   private userView = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
   private userAdd = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
   private userEdit = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
-  private userDelete = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
+  private userDelete = [USERS_GROUPS.SUPERADMIN];
 
   constructor() {}
 

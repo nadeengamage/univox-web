@@ -9,7 +9,7 @@
         <!-- Iterates over all sidebar items-->
         <ng-container>
           <ng-container *ngFor="let link of links">
-            <ng-container *ngIf="canShowLink || link.text != 'Users' && link.text != 'Criteria'">
+            <ng-container *ngIf="canShowLink || link.text != 'Users' && link.text != 'Criteria' && link.text != 'Reports'">
               <li class="text-white" routerLinkActive="active" *ngIf="link.canAccess" [routerLink]="[link.routerLink]">
                 <a [routerLink]="[link.routerLink]">
                   <em class="{{ link.icon }}"></em>

@@ -8,7 +8,7 @@ export class DegreePermissionService {
   private degreeView = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN, USERS_GROUPS.DATAENTRY];
   private degreeAdd = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
   private degreeEdit = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
-  private degreeDelete = [USERS_GROUPS.SUPERADMIN, USERS_GROUPS.ADMIN];
+  private degreeDelete = [USERS_GROUPS.SUPERADMIN];
 
   constructor() {}
 
