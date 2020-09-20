@@ -86,7 +86,18 @@ export class ReportsComponent implements OnDestroy, OnInit {
     }
   }
 
+  cancelCreateReport() {
+    this.details = {
+      degree: '',
+      studentType: '',
+      steam: '',
+    };
+    this.showStudentType = false;
+    this.showSteam = false;
+    this.showGenerate = false;
+  }
+
   createReport() {
-    
+
   }
 }

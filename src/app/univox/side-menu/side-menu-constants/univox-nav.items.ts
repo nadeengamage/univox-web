@@ -13,37 +13,37 @@ export const univoxNavItems = [
   },
   {
     text: 'Faculties',
-    icon: 'fas fa-sign-out-alt',
+    icon: 'fas fa-university',
     routerLink: '/univox/faculties',
     canAccess: true
   },
   {
     text: 'Degrees',
-    icon: 'fas fa-sign-out-alt',
+    icon: 'fas fa-server',
     routerLink: '/univox/degrees',
     canAccess: true
   },
   {
     text: 'Criteria',
-    icon: 'fas fa-sign-out-alt',
+    icon: 'fas fa-th',
     routerLink: '/univox/criterias',
     canAccess: true
   },
   {
     text: 'Applicants',
-    icon: 'fas fa-sign-out-alt',
+    icon: 'fas fa-users',
     routerLink: '/univox/applicant',
     canAccess: true
   },
   {
     text: 'Marks',
-    icon: 'fas fa-sign-out-alt',
+    icon: 'fas fa-tasks',
     routerLink: '/univox/marks',
     canAccess: true
   },
   {
     text: 'Reports',
-    icon: 'fas fa-sign-out-alt',
+    icon: 'fas fa-chart-bar',
     routerLink: '/univox/reports',
     canAccess: true
   },

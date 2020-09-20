@@ -39,7 +39,8 @@
                <button class="btn btn-success" (click)="createReport()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Report</button>&nbsp;
             </div> -->
             <div class="d-flex flex-row-reverse" *ngIf="showGenerate">
-               <button class="btn btn-success" (click)="createReport()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Report</button>&nbsp;
+               <button class="btn btn-warning" (click)="cancelCreateReport()"><i class="fas fa-reply"></i>&nbsp;&nbsp;Cancel</button>&nbsp;
+               <button class="btn btn-success" (click)="createReport()"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create Report</button>&nbsp;
             </div>
          </div>
       </div>

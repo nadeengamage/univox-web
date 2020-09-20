@@ -18,6 +18,7 @@ export class DegreeComponent implements OnDestroy, OnInit {
 
   filterDegreeData = [];
   degreeList = [];
+  facultyList = [];
   showDegreeCreateForm = false;
   modalTitle = null;
   editDetails = {
@@ -75,6 +76,7 @@ export class DegreeComponent implements OnDestroy, OnInit {
   onDegreeReset() {
     this.submitted = false;
     this.degreeCreateForm.reset();
+    this.getAllFaculty();
   }
 
   getAllDegree() {
@@ -96,6 +98,30 @@ export class DegreeComponent implements OnDestroy, OnInit {
       error => {
       }
     );
+  }
+
+  getAllFaculty() {
+    this.loading = true;
+    this.univoxService.getAllFaculties().subscribe(
+      res => {
+        if (res.status === 200) {
+          this.facultyList = res.data;
+        } else {
+          this.notifier.notify('warning', res.msg);
+        }
+        this.loading = false;
+      },
+      error => {
+        this.notifier.notify('error', error.error);
+        this.loading = false;
+      }
+    );
+  }
+
+  changeFaculty(faculty) {
+    this.degreeCreateForm.patchValue({
+      faculty_code: faculty.srcElement.value
+    });
   }
 
   createDegree() {

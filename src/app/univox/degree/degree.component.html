@@ -18,8 +18,15 @@
               <div class="row">
                  <div class="form-group col-3">
                     <label>Faculty Code</label>
-                    <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="faculty_code" 
-                    [ngClass]="submitted || isInvalidField('faculty_code') ? 'error-field' : ''">
+                    <select class="form-control" (change)="changeFaculty($event)" title="Cannot be empty!"
+                  [ngClass]="submitted || isInvalidField('faculty_code') ? 'error-field' : ''">
+                     <option value="" selected disabled>Please select a faculty</option>
+                     <ng-container *ngFor="let faculty of facultyList">
+                        <option>{{faculty.faculty_name}}</option>
+                     </ng-container>
+                     </select>
+                    <!-- <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="faculty_code"  -->
+                    <!-- [ngClass]="submitted || isInvalidField('faculty_code') ? 'error-field' : ''"> -->
                     <div class="err-lbl" *ngIf="submitted || isInvalidField('faculty_code')">
                      <span class="field-msg error-msg" *ngIf="degreeCreateForm.controls.faculty_code.errors?.required">
                      <i class="fa fa-times-circle"></i>&nbsp;Invalid
