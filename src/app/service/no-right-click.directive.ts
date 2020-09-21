@@ -7,12 +7,12 @@ export class NoRightClickDirective {
 
     @HostListener('contextmenu', ['$event'])
     onRightClick(event) {
-        // event.preventDefault();
+        event.preventDefault();
     }
 
     @HostListener('document:keydown', ['$event']) onKeydownHandler(event: KeyboardEvent) {
         if (event.code === 'F12') {
-          // event.preventDefault();
+          event.preventDefault();
         }
     }
 
