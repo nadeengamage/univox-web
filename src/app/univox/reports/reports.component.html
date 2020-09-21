@@ -10,7 +10,7 @@
                <select class="form-control" (change)="changeDegree($event)">
                <option value="" selected disabled>Please select a degree</option>
                <ng-container *ngFor="let degree of degreeList">
-                  <option>{{degree.degree_name}}</option>
+                  <option>{{degree.degree_code}}</option>
                </ng-container>
                </select>
                <!-- <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('title')">
@@ -46,9 +46,9 @@
             <div class="fixed-download excel" *ngIf="reportsList.length > 0">
                <button class="btn btn-success" (click)="downloadExcelReport()"><i class="fas fa-file-excel"></i>&nbsp;&nbsp;Download EXCEL</button>&nbsp;
             </div>
-            <div class="fixed-download pdf" *ngIf="reportsList.length > 0">
+            <!-- <div class="fixed-download pdf" *ngIf="reportsList.length > 0">
                <button class="btn btn-warning" (click)="downloadPdfReport()"><i class="fas fa-file-pdf"></i>&nbsp;&nbsp;Download PDF</button>&nbsp;
-            </div>
+            </div> -->
          </div>
       </div>
       <div class="col-md-12 table_outer mb-15" *ngIf="reportsList.length > 0">

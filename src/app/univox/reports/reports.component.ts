@@ -8,6 +8,9 @@ import { UserDetailsService } from '../../service/user-details-service';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { DatePipe } from '../../../../node_modules/@angular/common';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 declare var $: any;
 
 @Component({
@@ -121,6 +124,7 @@ export class ReportsComponent implements OnDestroy, OnInit {
         this.reportsList = res.result;
         } else {
           this.notifier.notify('warning', 'Cannot create report!');
+          this.loading = false;
         }
         setTimeout(() => {
           this.dtTrigger.next();
@@ -128,6 +132,9 @@ export class ReportsComponent implements OnDestroy, OnInit {
         }, 300);
       },
       error => {
+        this.notifier.notify('error', 'Oops!, Connection failed.');
+        this.loading = false;
+        this.cancelCreateReport();
       }
     );
   }
@@ -236,6 +243,88 @@ export class ReportsComponent implements OnDestroy, OnInit {
   }
 
   downloadPdfReport() {
-    this.notifier.notify('warning', 'Sorry! This feature does not support yet.');
+    // this.notifier.notify('warning', 'Sorry! This feature does not support yet.');
+    this.bindReport = [];
+    for (let i = 0; i < this.reportsList.length; i++) {
+      console.log(i, 'i');
+      this.makeJson.push(this.reportsList[i].std_identity_no === undefined ? '' : this.reportsList[i].std_identity_no);
+      this.makeJson.push(this.reportsList[i].std_application_no);
+      this.makeJson.push(this.reportsList[i].std_student_type);
+      this.makeJson.push(this.reportsList[i].std_batch_type  === undefined ? '' : this.reportsList[i].std_batch_type);
+      this.makeJson.push(this.reportsList[i].deg_degree_code);
+      this.makeJson.push(this.reportsList[i].std_title);
+      this.makeJson.push(this.reportsList[i].std_initials);
+      this.makeJson.push(this.reportsList[i].std_surename);
+      this.makeJson.push(this.reportsList[i].std_gender);
+      this.makeJson.push(this.reportsList[i].std_address_1);
+      this.makeJson.push(this.reportsList[i].std_address_2);
+      this.makeJson.push(this.reportsList[i].std_address_3);
+      this.makeJson.push(this.reportsList[i].std_district);
+      this.makeJson.push(this.reportsList[i].std_telephone);
+      this.makeJson.push(this.reportsList[i].student_marks.toString());
+      this.makeJson.push(this.reportsList[i].preferance_type);
+
+      this.bindReport.push(this.makeJson);
+
+      this.makeJson = [];
+    }
+    // const finalArray = this.makeArray();
+    console.log(this.bindReport);
+    if (this.reportsList.length === this.bindReport.length) {
+      const docPdf = {
+        header: '',
+        pageOrientation: 'landscape',
+        pageSize: 'A3',
+        content: [
+          {text: 'UNIVOTEC Student Selection Report - 2020(UnivoX)', style: 'header'},
+          {text: 'This is UnivoX© 2020 system generated PDF. - ' + this.datePipe.transform(new Date(), 'medium'), style: 'subheader',
+          fontSize: 10, color: 'gray', italics: true, margin: [0, 0, 0, 10]},
+          {
+            style: 'tableExample',
+            table: {
+              // widths: [ '*', '*' ],
+              headerRows: 1,
+              body: [
+                [
+                  {text: 'Identity No', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Application No', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Student Type', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Batch Type', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Degree Code', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Title', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Initials', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Surename', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Gender', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Address 1', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Address 2', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Address 3', bold: true, fillColor: '#ffe49f'},
+                  {text: 'District', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Telephone', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Marks', bold: true, fillColor: '#ffe49f'},
+                  {text: 'Preference Sequence', bold: true, fillColor: '#ffe49f'}
+                ],
+                this.bindReport
+              ]
+            }
+          }
+        ]
+      };
+      // const test = [
+      //   ['Identity No', 'Application No', 'Student Type', 'Batch Type', 'Degree Code', 'Title', 'Initials',
+      // 'Surename', 'Gender', 'Address 1', 'Address 2', 'Address 3', 'District', 'Telephone', 'Marks', 'Preference Sequence'],
+      // ['Identity No', 'Application No', 'Student Type', 'Batch Type', 'Degree Code', 'Title', 'Initials',
+      // 'Surename', 'Gender', 'Address 1', 'Address 2', 'Address 3', 'District', 'Telephone', 'Marks', 'Preference Sequence']
+      // ];
+      // console.log(docPdf, 'test');
+      pdfMake.createPdf(docPdf).open();
+    }
+
+  }
+
+  makeArray() {
+    console.log(this.bindReport)
+    this.bindReport.forEach(item => {
+      return item;
+    });
   }
 }
