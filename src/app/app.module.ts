@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { DatePipe } from '@angular/common';
 
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -107,7 +108,8 @@ const customNotifierOptions: NotifierOptions = {
       useClass: AuthInterceptor,
       multi: true
     },
-    UserDetailsService
+    UserDetailsService,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

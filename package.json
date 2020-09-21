@@ -24,6 +24,8 @@
     "bootstrap": "^4.4.1",
     "datatables.net": "^1.10.20",
     "datatables.net-dt": "^1.10.20",
+    "exceljs": "^1.12.0",
+    "file-saver": "^2.0.2",
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
     "ngx-loading": "^8.0.0",

@@ -45,6 +45,8 @@ export class UnivoxService {
   private updateMarksEndPoint: string;
   private deleteMarksEndPoint: string;
 
+  private createReportsEndPoint: string;
+
   constructor(private http: HttpUtilsService) {
     // USERS
     this.getUsersEndPoint = this.mainUrl + '/users';
@@ -89,6 +91,8 @@ export class UnivoxService {
     this.updateMarksEndPoint = this.mainUrl + '/applicants/marks';
     this.deleteMarksEndPoint = this.mainUrl + '/applicants/marks/nvq/{id}';
 
+    // REPORTS
+    this.createReportsEndPoint = this.mainUrl + '/reports';
   }
 
   public getAllUsers() {
@@ -239,5 +243,10 @@ export class UnivoxService {
         '{id}', id
       );
       return this.http.delete(deleteMark);
+  }
+
+  public createReports(data) {
+    const createReports = this.createReportsEndPoint;
+    return this.http.post(createReports, data);
   }
 }
