@@ -1,0 +1,28 @@
+.fixed-download button {
+    width: 100px;
+    height: 100px;
+}
+.fixed-download button i {
+    font-size: 25px;
+}
+.fixed-download.excel button {
+    box-shadow: 0 0 5px 3px #218a38;
+}
+.fixed-download.pdf button {
+    box-shadow: 0 0 5px 3px #e4ad21;
+}
+.fixed-download.excel {
+    position: fixed;
+    right: 12px;
+    bottom: 45px;
+    z-index: 9;
+}
+.fixed-download.pdf {
+    position: fixed;
+    right: 125px;
+    bottom: 45px;
+    z-index: 9;
+}
+.mb-15 {
+    margin-bottom: 100px;
+}

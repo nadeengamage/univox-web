@@ -16,58 +16,23 @@ declare var $: any;
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnDestroy, OnInit {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger = new Subject();
 
   public loading = false;
   degreeList = [];
   filterDegreeData = [];
   details = {
     degree: '',
-    studentType: '',
-    steam: '',
+    batch_type: '',
+    stream: '',
   };
   showStudentType = false;
   showSteam = false;
   showGenerate = false;
   makeJson = [];
   bindReport = [];
-  mockJson = [
-    {
-      std_identity_no: '945211954V',
-      std_application_no: 'NVQ/BED/B2/001',
-      std_student_type: 'NVQ',
-      std_batch_type: 'B2',
-      deg_code: 'BED',
-      std_title: 'Ms.',
-      std_initials: 'R.A.M.M.',
-      std_surename: '`ZXDER',
-      std_gender: 'Male',
-      std_telephone: '03928475',
-      std_address_1: '403/125',
-      std_address_2: '80th Lane',
-      std_address_3: '0th Lane',
-      std_district: 'Nugegoda',
-      std_marks: '100',
-      preference_sequence: 1
-    },
-    {
-      std_identity_no: '111111',
-      std_application_no: 'NVQ/BED/B2/001',
-      std_student_type: '111',
-      std_batch_type: '111',
-      deg_code: '111',
-      std_title: 'Ms.',
-      std_initials: 'R.A.M.M.',
-      std_surename: '`1111',
-      std_gender: 'Male',
-      std_telephone: '11111',
-      std_address_1: '403/125',
-      std_address_2: '80th Lane',
-      std_address_3: '0th Lane',
-      std_district: 'Nugegoda',
-      std_marks: '100',
-      preference_sequence: 1
-    }
-  ];
+  reportsList = [];
 
   constructor(
     public fb: FormBuilder,
@@ -81,15 +46,20 @@ export class ReportsComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      responsive: true,
+      scrollX: true
+    };
     this.getAllDegree();
   }
 
   ngOnDestroy() {
+    this.dtTrigger.unsubscribe();
   }
 
   getAllDegree() {
-    const table = $('#tblDegreeData').DataTable();
-    table.clear().destroy();
     this.loading = true;
     this.univoxService.getAllDegrees().subscribe(
       res => {
@@ -112,20 +82,20 @@ export class ReportsComponent implements OnDestroy, OnInit {
     }
   }
 
-  changeStudentType(studentType) {
-    this.details.studentType = studentType.srcElement.value;
-    if (this.details.degree !== null && this.details.studentType !== null && this.details.studentType === 'B1') {
+  changeStudentType(batchType) {
+    this.details.batch_type = batchType.srcElement.value;
+    if (this.details.degree !== null && this.details.batch_type !== null && this.details.batch_type === 'B1') {
       this.showSteam = true;
     } else {
       this.showSteam = false;
       this.showGenerate = true;
-      this.details.steam = 'NVQ';
+      this.details.stream = 'NVQ';
     }
   }
 
-  changeSteam(steam) {
-    this.details.steam = steam.srcElement.value;
-    if (this.details.steam !== null) {
+  changeSteam(stream) {
+    this.details.stream = stream.srcElement.value;
+    if (this.details.stream !== null) {
       this.showGenerate = true;
     }
   }
@@ -133,8 +103,8 @@ export class ReportsComponent implements OnDestroy, OnInit {
   cancelCreateReport() {
     this.details = {
       degree: '',
-      studentType: '',
-      steam: '',
+      batch_type: '',
+      stream: '',
     };
     this.showStudentType = false;
     this.showSteam = false;
@@ -142,18 +112,39 @@ export class ReportsComponent implements OnDestroy, OnInit {
   }
 
   createReport() {
+    const table = $('#tblReportData').DataTable();
+    table.clear().destroy();
+    this.loading = true;
+    this.univoxService.createReports(this.details).subscribe(
+      res => {
+        if (res.message) {
+        this.reportsList = res.result;
+        } else {
+          this.notifier.notify('warning', 'Cannot create report!');
+        }
+        setTimeout(() => {
+          this.dtTrigger.next();
+          this.loading = false;
+        }, 300);
+      },
+      error => {
+      }
+    );
+  }
+
+  downloadExcelReport() {
     this.bindReport = [];
-    for (let i = 0; i < this.mockJson.length; i++) {
+    for (let i = 0; i < this.reportsList.length; i++) {
       console.log(i, 'i');
       this.makeJson = new Array(
-        this.mockJson[i].std_identity_no, this.mockJson[i].std_application_no, this.mockJson[i].std_student_type,
-        this.mockJson[i].std_batch_type, this.mockJson[i].deg_code,
-        this.mockJson[i].std_title, this.mockJson[i].std_initials,
-        this.mockJson[i].std_surename, this.mockJson[i].std_gender,
-        this.mockJson[i].std_telephone, this.mockJson[i].std_address_1,
-        this.mockJson[i].std_address_2, this.mockJson[i].std_address_3,
-        this.mockJson[i].std_district, this.mockJson[i].std_marks,
-        this.mockJson[i].preference_sequence.toString()
+        this.reportsList[i].std_identity_no, this.reportsList[i].std_application_no, this.reportsList[i].std_student_type,
+        this.reportsList[i].std_batch_type, this.reportsList[i].deg_degree_code,
+        this.reportsList[i].std_title, this.reportsList[i].std_initials,
+        this.reportsList[i].std_surename, this.reportsList[i].std_gender, this.reportsList[i].std_address_1,
+        this.reportsList[i].std_address_2, this.reportsList[i].std_address_3,
+        this.reportsList[i].std_district, this.reportsList[i].std_telephone,
+        this.reportsList[i].student_marks.toString(),
+        this.reportsList[i].preferance_type
       );
       this.bindReport.push(this.makeJson);
 
@@ -234,7 +225,7 @@ export class ReportsComponent implements OnDestroy, OnInit {
     // Merge Cells
     worksheet.mergeCells(`A${footerRow.number}:P${footerRow.number}`);
 
-    if (this.mockJson.length === this.bindReport.length) {
+    if (this.reportsList.length === this.bindReport.length) {
     // Generate Excel File with given name
         workbook.xlsx.writeBuffer().then((data) => {
           const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -242,5 +233,9 @@ export class ReportsComponent implements OnDestroy, OnInit {
         });
     }
 
+  }
+
+  downloadPdfReport() {
+    this.notifier.notify('warning', 'Sorry! This feature does not support yet.');
   }
 }
