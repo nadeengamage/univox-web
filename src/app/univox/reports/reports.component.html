@@ -10,7 +10,7 @@
                <select class="form-control" (change)="changeDegree($event)">
                <option value="" selected disabled>Please select a degree</option>
                <ng-container *ngFor="let degree of degreeList">
-                  <option>{{degree.degree_name}}</option>
+                  <option>{{degree.degree_code}}</option>
                </ng-container>
                </select>
                <!-- <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('title')">
