@@ -109,6 +109,8 @@ export class ReportsComponent implements OnDestroy, OnInit {
     this.showStudentType = false;
     this.showSteam = false;
     this.showGenerate = false;
+    this.bindReport = [];
+    this.reportsList = [];
   }
 
   createReport() {
