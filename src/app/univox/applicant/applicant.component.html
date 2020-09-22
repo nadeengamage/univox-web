@@ -14,7 +14,7 @@
       <div class="tab-content" id="applicantTabContent">
          <div class="tab-pane fade show active" id="nvq" role="tabpanel" aria-labelledby="nvq-tab">
             <div class="d-flex flex-row-start">
-               <button *ngIf="canApplicantAdd" class="btn btn-info" (click)="showNvqApplicantCreateForm = true; isEditNvqApplicant = false; onNvqReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
+               <button *ngIf="canApplicantAdd" class="btn btn-info" (click)="showNvqApplicantCreateForm = true; isEditNvqApplicant = false; onNvqReset(); getAllDegree();"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
                <button *ngIf="canApplicantAdd" class="btn btn-warning" (click)="showNvqBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
             </div>
             <div class="createForm" *ngIf="showNvqBulkUpload">
@@ -222,24 +222,12 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 1<span class="mandatory">*</span></label>
-                           <select title="hint - Filed" class="form-control" (change)="changeNvqPreferenceOne($event)">
-                              <option value="" disabled selected>Please Select</option>
-                              <option value="BST">BST</option>
-                              <option value="CTRM">CTRM</option>
-                              <option value="MAN">MAN</option>
-                              <option value="MEC">MEC</option>
-                              <option value="FPT">FPT</option>
-                              <option value="BED">BED</option>
-                              <option value="IM">IM</option>
-                              <option value="SOF">SOF</option>
-                              <option value="NET">NET</option>
-                              <option value="MMW">MMW</option>
-                              <option value="ELT">ELT</option>
-                              <option value="FTPT">FTPT</option>
-                              <option value="MAPT">MAPT</option>
-                              <option value="QS">QS</option>
-                              <option value="HM">HM</option>
-                              </select>
+                              <select class="form-control" (change)="changeNvqPreferenceOne($event)" title="Cannot be empty!">
+                                 <option value="" selected disabled>Please select a degree</option>
+                                 <ng-container *ngFor="let degree of degreeList">
+                                    <option>{{degree.degree_code}}</option>
+                                 </ng-container>
+                                 </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_1')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_1.errors?.required">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -248,24 +236,12 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 2</label>
-                           <select title="hint - Filed" class="form-control" (change)="changeNvqPreferenceTwo($event)">
-                              <option value="" disabled selected>Please Select</option>
-                              <option value="BST">BST</option>
-                              <option value="CTRM">CTRM</option>
-                              <option value="MAN">MAN</option>
-                              <option value="MEC">MEC</option>
-                              <option value="FPT">FPT</option>
-                              <option value="BED">BED</option>
-                              <option value="IM">IM</option>
-                              <option value="SOF">SOF</option>
-                              <option value="NET">NET</option>
-                              <option value="MMW">MMW</option>
-                              <option value="ELT">ELT</option>
-                              <option value="FTPT">FTPT</option>
-                              <option value="MAPT">MAPT</option>
-                              <option value="QS">QS</option>
-                              <option value="HM">HM</option>
-                              </select>
+                           <select class="form-control" (change)="changeNvqPreferenceTwo($event)" title="Cannot be empty!">
+                                 <option value="" selected disabled>Please select a degree</option>
+                                 <ng-container *ngFor="let degree of degreeList">
+                                    <option>{{degree.degree_code}}</option>
+                                 </ng-container>
+                                 </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_2')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_2.errors?.required">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -274,24 +250,12 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 3</label>
-                           <select title="hint - Filed" class="form-control" (change)="changeNvqPreferenceThree($event)">
-                              <option value="" disabled selected>Please Select</option>
-                              <option value="BST">BST</option>
-                              <option value="CTRM">CTRM</option>
-                              <option value="MAN">MAN</option>
-                              <option value="MEC">MEC</option>
-                              <option value="FPT">FPT</option>
-                              <option value="BED">BED</option>
-                              <option value="IM">IM</option>
-                              <option value="SOF">SOF</option>
-                              <option value="NET">NET</option>
-                              <option value="MMW">MMW</option>
-                              <option value="ELT">ELT</option>
-                              <option value="FTPT">FTPT</option>
-                              <option value="MAPT">MAPT</option>
-                              <option value="QS">QS</option>
-                              <option value="HM">HM</option>
-                              </select>
+                           <select class="form-control" (change)="changeNvqPreferenceThree($event)" title="Cannot be empty!">
+                                 <option value="" selected disabled>Please select a degree</option>
+                                 <ng-container *ngFor="let degree of degreeList">
+                                    <option>{{degree.degree_code}}</option>
+                                 </ng-container>
+                                 </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_3')">
                               <span class="field-msg error-msg" *ngIf="nvqApplicantCreateForm.controls.preference_3.errors?.required">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -443,7 +407,7 @@
          </div>
          <div class="tab-pane fade" id="al" role="tabpanel" aria-labelledby="al-tab">
             <div class="d-flex flex-row-start">
-               <button *ngIf="canApplicantAdd" class="btn btn-info" (click)="showAlApplicantCreateForm = true; onAlReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
+               <button *ngIf="canApplicantAdd" class="btn btn-info" (click)="showAlApplicantCreateForm = true; onAlReset(); getAllDegree();"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
                <button *ngIf="canApplicantAdd" class="btn btn-warning" (click)="showAlBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
             </div>
             <div class="createForm" *ngIf="showAlBulkUpload">
@@ -660,24 +624,12 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 1<span class="mandatory">*</span></label>
-                           <select title="hint - Filed" class="form-control" (change)="changeAlPreferenceOne($event)">
-                           <option value="" disabled selected>Please Select</option>
-                           <option value="BST">BST</option>
-                           <option value="CTRM">CTRM</option>
-                           <option value="MAN">MAN</option>
-                           <option value="MEC">MEC</option>
-                           <option value="FPT">FPT</option>
-                           <option value="BED">BED</option>
-                           <option value="IM">IM</option>
-                           <option value="SOF">SOF</option>
-                           <option value="NET">NET</option>
-                           <option value="MMW">MMW</option>
-                           <option value="ELT">ELT</option>
-                           <option value="FTPT">FTPT</option>
-                           <option value="MAPT">MAPT</option>
-                           <option value="QS">QS</option>
-                           <option value="HM">HM</option>
-                           </select>
+                           <select class="form-control" (change)="changeAlPreferenceOne($event)" title="Cannot be empty!">
+                                 <option value="" selected disabled>Please select a degree</option>
+                                 <ng-container *ngFor="let degree of degreeList">
+                                    <option>{{degree.degree_code}}</option>
+                                 </ng-container>
+                                 </select>
                            <div class="err-lbl" *ngIf="alSubmitted || isInvalidAlField('preference_1')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_1.errors?.required">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -686,24 +638,12 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 2</label>
-                           <select title="hint - Filed" class="form-control" (change)="changeAlPreferenceTwo($event)">
-                              <option value="" disabled selected>Please Select</option>
-                              <option value="BST">BST</option>
-                              <option value="CTRM">CTRM</option>
-                              <option value="MAN">MAN</option>
-                              <option value="MEC">MEC</option>
-                              <option value="FPT">FPT</option>
-                              <option value="BED">BED</option>
-                              <option value="IM">IM</option>
-                              <option value="SOF">SOF</option>
-                              <option value="NET">NET</option>
-                              <option value="MMW">MMW</option>
-                              <option value="ELT">ELT</option>
-                              <option value="FTPT">FTPT</option>
-                              <option value="MAPT">MAPT</option>
-                              <option value="QS">QS</option>
-                              <option value="HM">HM</option>
-                              </select>
+                           <select class="form-control" (change)="changeAlPreferenceTwo($event)" title="Cannot be empty!">
+                                 <option value="" selected disabled>Please select a degree</option>
+                                 <ng-container *ngFor="let degree of degreeList">
+                                    <option>{{degree.degree_code}}</option>
+                                 </ng-container>
+                                 </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_2')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_2.errors?.required">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -712,24 +652,12 @@
                         </div>
                         <div class="form-group col-3">
                            <label>Preference 3</label>
-                           <select title="hint - Filed" class="form-control" (change)="changeAlPreferenceThree($event)">
-                              <option value="" disabled selected>Please Select</option>
-                              <option value="BST">BST</option>
-                              <option value="CTRM">CTRM</option>
-                              <option value="MAN">MAN</option>
-                              <option value="MEC">MEC</option>
-                              <option value="FPT">FPT</option>
-                              <option value="BED">BED</option>
-                              <option value="IM">IM</option>
-                              <option value="SOF">SOF</option>
-                              <option value="NET">NET</option>
-                              <option value="MMW">MMW</option>
-                              <option value="ELT">ELT</option>
-                              <option value="FTPT">FTPT</option>
-                              <option value="MAPT">MAPT</option>
-                              <option value="QS">QS</option>
-                              <option value="HM">HM</option>
-                              </select>
+                           <select class="form-control" (change)="changeAlPreferenceThree($event)" title="Cannot be empty!">
+                                 <option value="" selected disabled>Please select a degree</option>
+                                 <ng-container *ngFor="let degree of degreeList">
+                                    <option>{{degree.degree_code}}</option>
+                                 </ng-container>
+                                 </select>
                            <div class="err-lbl" *ngIf="nvqSubmitted || isInvalidNvqField('preference_3')">
                               <span class="field-msg error-msg" *ngIf="alApplicantCreateForm.controls.preference_3.errors?.required">
                               <i class="fa fa-times-circle"></i>&nbsp;Invalid

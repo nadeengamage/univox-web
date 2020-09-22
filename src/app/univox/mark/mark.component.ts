@@ -33,6 +33,7 @@ export class MarkComponent implements OnDestroy, OnInit {
   canMarkAdd: boolean;
   canMarkEdit: boolean;
   canMarkDelete: boolean;
+  degreeList = [];
 
   public loading = false;
 
@@ -78,6 +79,24 @@ export class MarkComponent implements OnDestroy, OnInit {
   onMarkReset() {
     this.submitted = false;
     this.marksCreateForm.reset();
+  }
+
+  getAllDegree() {
+    this.loading = true;
+    this.univoxService.getAllDegrees().subscribe(
+      res => {
+        if (res.status === 200) {
+        this.degreeList = res.data;
+        } else {
+          this.notifier.notify('warning', res.msg);
+        }
+        this.loading = false;
+      },
+      error => {
+        this.notifier.notify('warning', error.msg);
+        this.loading = false;
+      }
+    );
   }
 
   getAllMarks() {
@@ -141,18 +160,31 @@ export class MarkComponent implements OnDestroy, OnInit {
       : false;
   }
 
-  deleteMark(alStudent, nvqStudent) {
+  deleteMark(alStudent, nvqStudent, type) {
     const makeId = (alStudent !== null) ? alStudent : nvqStudent;
     this.loading = true;
-    this.univoxService.deleteMark(makeId).subscribe(res => {
-      this.notifier.notify('success', res.message);
-      this.getAllMarks();
-    },
-    error => {
-      this.notifier.notify('error', error.error);
-      this.loading = false;
+    if (type === 'NVQ') {
+      this.univoxService.deleteNvqMark(makeId).subscribe(res => {
+        this.notifier.notify('success', res.message);
+        this.getAllMarks();
+      },
+      error => {
+        this.notifier.notify('error', error.error);
+        this.loading = false;
+      }
+      );
+    } else {
+      this.univoxService.deleteAlMark(makeId).subscribe(res => {
+        this.notifier.notify('success', res.message);
+        this.getAllMarks();
+      },
+      error => {
+        this.notifier.notify('error', error.error);
+        this.loading = false;
+      }
+      );
     }
-    );
+
   }
 
   editMark(mark, alStudent, nvqStudent) {

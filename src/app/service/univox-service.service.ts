@@ -43,7 +43,8 @@ export class UnivoxService {
   private createMarksEndPoint: string;
   private getMarksByIdEndPoint: string;
   private updateMarksEndPoint: string;
-  private deleteMarksEndPoint: string;
+  private deleteNvqMarksEndPoint: string;
+  private deleteAlMarksEndPoint: string;
 
   private createReportsEndPoint: string;
 
@@ -89,7 +90,8 @@ export class UnivoxService {
     this.createMarksEndPoint = this.mainUrl + '/applicants/marks';
     this.getMarksByIdEndPoint = this.mainUrl + '/applicants/marks/nvq/{id}';
     this.updateMarksEndPoint = this.mainUrl + '/applicants/marks';
-    this.deleteMarksEndPoint = this.mainUrl + '/applicants/marks/nvq/{id}';
+    this.deleteNvqMarksEndPoint = this.mainUrl + '/applicants/marks/nvq/{id}';
+    this.deleteAlMarksEndPoint = this.mainUrl + '/applicants/marks/al/{id}';
 
     // REPORTS
     this.createReportsEndPoint = this.mainUrl + '/reports';
@@ -240,12 +242,18 @@ export class UnivoxService {
     const updateMarkById = this.updateMarksEndPoint;
     return this.http.put(updateMarkById, data);
   }
-  public deleteMark(id) {
-      const deleteMark = this.deleteMarksEndPoint.replace(
+  public deleteNvqMark(id) {
+      const deleteMark = this.deleteNvqMarksEndPoint.replace(
         '{id}', id
       );
       return this.http.delete(deleteMark);
   }
+  public deleteAlMark(id) {
+    const deleteMark = this.deleteAlMarksEndPoint.replace(
+      '{id}', id
+    );
+    return this.http.delete(deleteMark);
+}
 
   public createReports(data) {
     const createReports = this.createReportsEndPoint;

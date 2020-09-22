@@ -39,6 +39,7 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   canApplicantDelete: boolean;
   isEditNvqApplicant: boolean;
   isEditAlApplicant: boolean;
+  degreeList = [];
 
   public loading = false;
 
@@ -152,6 +153,24 @@ export class ApplicantComponent implements OnDestroy, OnInit {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
     this.dtaTrigger.unsubscribe();
+  }
+
+  getAllDegree() {
+    this.loading = true;
+    this.univoxService.getAllDegrees().subscribe(
+      res => {
+        if (res.status === 200) {
+        this.degreeList = res.data;
+        } else {
+          this.notifier.notify('warning', res.msg);
+        }
+        this.loading = false;
+      },
+      error => {
+        this.notifier.notify('warning', error.msg);
+        this.loading = false;
+      }
+    );
   }
 
   getNvqAplicants() {

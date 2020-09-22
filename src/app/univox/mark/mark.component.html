@@ -2,7 +2,7 @@
    <div class="card-header">
       <h5 class="card-title">Marks</h5>
       <div class="d-flex flex-row-reverse">
-         <button *ngIf="canMarkAdd" class="btn btn-success" (click)="showMarkCreateForm = true; onMarkReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Mark</button>
+         <button *ngIf="canMarkAdd" class="btn btn-success" (click)="showMarkCreateForm = true; onMarkReset(); getAllDegree();"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Mark</button>
       </div>
    </div>
    <div class="card-body">
@@ -39,8 +39,15 @@
                   </div>
                   <div class="form-group col-3">
                      <label>Degree Code</label>
-                     <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="degree_code"
-                        [ngClass]="submitted || isInvalidField('degree_code') ? 'error-field' : ''">
+                     <!-- <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="degree_code"
+                        [ngClass]="submitted || isInvalidField('degree_code') ? 'error-field' : ''"> -->
+                     <select class="form-control" formControlName="degree_code"
+                     [ngClass]="submitted || isInvalidField('degree_code') ? 'error-field' : ''" title="Cannot be empty!">
+                        <option value="" selected disabled>Please select a degree</option>
+                        <ng-container *ngFor="let degree of degreeList">
+                           <option>{{degree.degree_code}}</option>
+                        </ng-container>
+                        </select>
                      <div class="err-lbl" *ngIf="submitted || isInvalidField('degree_code')">
                         <span class="field-msg error-msg" *ngIf="marksCreateForm.controls.degree_code.errors?.required">
                         <i class="fa fa-times-circle"></i>&nbsp;Invalid
@@ -108,7 +115,7 @@
                   <td *ngIf="marks.status === false">Deactive</td>
                   
                   <td>
-                     <button *ngIf="canMarkDelete" class="btn btn-danger tableAction" (click)="deleteMark(marks.applicant.al_details?.application_no, marks.applicant.nvq_details?.application_no)"><i class="far fa-trash-alt"></i></button>
+                     <button *ngIf="canMarkDelete" class="btn btn-danger tableAction" (click)="deleteMark(marks.applicant.al_details?.application_no, marks.applicant.nvq_details?.application_no, marks.applicant.student_type)"><i class="far fa-trash-alt"></i></button>
                      <button *ngIf="canMarkEdit" class="btn btn-warning tableAction" (click)="editMark(marks, marks.applicant.al_details?.application_no, marks.applicant.nvq_details?.application_no)" data-toggle="modal" data-target="#markModal"><i class="far fa-edit"></i></button>
                   </td>
                </tr>
