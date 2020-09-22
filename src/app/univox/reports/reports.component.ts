@@ -112,6 +112,8 @@ export class ReportsComponent implements OnDestroy, OnInit {
     this.showStudentType = false;
     this.showSteam = false;
     this.showGenerate = false;
+    this.bindReport = [];
+    this.reportsList = [];
   }
 
   createReport() {
@@ -145,7 +147,7 @@ export class ReportsComponent implements OnDestroy, OnInit {
       console.log(i, 'i');
       this.makeJson = new Array(
         this.reportsList[i].std_identity_no, this.reportsList[i].std_application_no, this.reportsList[i].std_student_type,
-        this.reportsList[i].std_batch_type, this.reportsList[i].deg_degree_code,
+        this.reportsList[i].batch_type, this.reportsList[i].deg_degree_code,
         this.reportsList[i].std_title, this.reportsList[i].std_initials,
         this.reportsList[i].std_surename, this.reportsList[i].std_gender, this.reportsList[i].std_address_1,
         this.reportsList[i].std_address_2, this.reportsList[i].std_address_3,
@@ -171,7 +173,8 @@ export class ReportsComponent implements OnDestroy, OnInit {
     const titleRow = worksheet.addRow([title]);
     titleRow.font = { name: 'Comic Sans MS', family: 4, size: 16, underline: 'double', bold: true };
     worksheet.addRow([]);
-    const subTitleRow = worksheet.addRow(['Date : ' + this.datePipe.transform(new Date(), 'medium')]);
+    const subTitleRow = worksheet.addRow(['Degree Name - ' + this.details.degree + '/' + this.details.batch_type + '/' +
+    this.details.stream + ' - (Date : ' + this.datePipe.transform(new Date(), 'medium') + ')']);
 
     // Blank Row
     worksheet.addRow([]);

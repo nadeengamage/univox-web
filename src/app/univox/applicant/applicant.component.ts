@@ -37,6 +37,8 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   canApplicantAdd: boolean;
   canApplicantEdit: boolean;
   canApplicantDelete: boolean;
+  isEditNvqApplicant: boolean;
+  isEditAlApplicant: boolean;
 
   public loading = false;
 
@@ -58,7 +60,9 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       ethnicity: [''],
       address_1: ['', Validators.required],
       address_2: [''],
+      address_3: [''],
       city: ['', Validators.required],
+      permanent_district: [''],
       district: ['', Validators.required],
       telephone: ['', [Validators.minLength(10), Validators.maxLength(12),
         Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
@@ -93,7 +97,9 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       ethnicity: [''],
       address_1: ['', Validators.required],
       address_2: [''],
+      address_3: [''],
       city: ['', Validators.required],
+      permanent_district: [''],
       district: ['', Validators.required],
       telephone: ['', [Validators.minLength(10), Validators.maxLength(12),
         Validators.pattern(/^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/)]],
@@ -157,9 +163,11 @@ export class ApplicantComponent implements OnDestroy, OnInit {
         this.nvqAplicantList = res.data;
         this.nvqAplicantFilterList = res.data;
         this.dtTrigger.next();
-        this.loading = false;
         this.nvqApplicantCreateForm.reset();
         console.log(res.data);
+        setTimeout(() => {
+          this.loading = false;
+        }, 400);
       },
       error => {
         this.loading = false;
@@ -295,26 +303,76 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   }
 
   createNvqApplicant() {
+    this.nvqApplicantCreateForm.patchValue({
+      permanent_district: '-'
+    });
     console.log(this.nvqApplicantCreateForm);
-
-    if (!this.nvqApplicantCreateForm.invalid) {
-    this.nvqSubmitted = false;
-    this.univoxService.createApplicant(this.nvqApplicantCreateForm.value).subscribe(
-      res => {
-        this.nvqAplicantList = res.data;
-        this.nvqAplicantFilterList = res.data;
-        this.getNvqAplicants();
-        this.nvqApplicantCreateForm.reset();
-        this.showNvqApplicantCreateForm = false;
-        this.notifier.notify('success', res.message);
-        console.log(res.data);
-      },
-      error => {
-        this.notifier.notify('error', error.error);
+    if (!this.isEditNvqApplicant) {
+      if (!this.nvqApplicantCreateForm.invalid) {
+      this.nvqSubmitted = false;
+      this.univoxService.createApplicant(this.nvqApplicantCreateForm.value).subscribe(
+        res => {
+          this.getNvqAplicants();
+          this.nvqApplicantCreateForm.reset();
+          this.showNvqApplicantCreateForm = false;
+          this.notifier.notify('success', res.message);
+          console.log(res.data);
+        },
+        error => {
+          this.notifier.notify('error', error.error);
+        }
+      );
+      } else {
+        this.nvqSubmitted = true;
       }
-    );
     } else {
-      this.nvqSubmitted = true;
+      if (!this.nvqApplicantCreateForm.invalid) {
+        this.nvqSubmitted = false;
+        const sendUpdate =  {
+          student_type: this.nvqApplicantCreateForm.value.student_type,
+          application_no: this.nvqApplicantCreateForm.value.application_no,
+          identity_no: this.nvqApplicantCreateForm.value.identity_no,
+          initials: this.nvqApplicantCreateForm.value.initials,
+          surename: this.nvqApplicantCreateForm.value.surename,
+          title: this.nvqApplicantCreateForm.value.title,
+          gender: this.nvqApplicantCreateForm.value.gender,
+          ethnicity: this.nvqApplicantCreateForm.value.ethnicity,
+          address_1: this.nvqApplicantCreateForm.value.address_1,
+          address_2: this.nvqApplicantCreateForm.value.address_2,
+          address_3: this.nvqApplicantCreateForm.value.address_3,
+          city: this.nvqApplicantCreateForm.value.city,
+          permanent_district: this.nvqApplicantCreateForm.value.permanent_district,
+          district: this.nvqApplicantCreateForm.value.district,
+          telephone: this.nvqApplicantCreateForm.value.telephone,
+          mobile: this.nvqApplicantCreateForm.value.mobile,
+          email: this.nvqApplicantCreateForm.value.email,
+          preference_1: this.nvqApplicantCreateForm.value.preference_1,
+          preference_2: this.nvqApplicantCreateForm.value.preference_2,
+          preference_3: this.nvqApplicantCreateForm.value.preference_3,
+          index_no: this.nvqApplicantCreateForm.value.index_no,
+          diploma: this.nvqApplicantCreateForm.value.diploma,
+          remarks: this.nvqApplicantCreateForm.value.remarks,
+          marital_status: this.nvqApplicantCreateForm.value.marital_status,
+          permenent_address: this.nvqApplicantCreateForm.value.permenent_address === undefined ? '' : this.nvqApplicantCreateForm.value.permenent_address,
+          batch_type: this.nvqApplicantCreateForm.value.batch_type,
+          status: 1
+        };
+        this.univoxService.updateNvqApplicant(this.nvqApplicantCreateForm.value.application_no, sendUpdate).subscribe(
+          res => {
+            this.getNvqAplicants();
+            this.nvqApplicantCreateForm.reset();
+            this.showNvqApplicantCreateForm = false;
+            this.isEditNvqApplicant = false;
+            this.notifier.notify('success', res.message);
+            console.log(res.data);
+          },
+          error => {
+            this.notifier.notify('error', error.error);
+          }
+        );
+        } else {
+          this.nvqSubmitted = true;
+        }
     }
   }
 
@@ -386,8 +444,10 @@ export class ApplicantComponent implements OnDestroy, OnInit {
         this.alAplicantFilterList = res.data;
         this.dtaTrigger.next();
         this.alApplicantCreateForm.reset();
-        this.loading = false;
         console.log(res.data);
+        setTimeout(() => {
+          this.loading = false;
+        }, 400);
       },
       error => {
         this.loading = false;
@@ -397,33 +457,90 @@ export class ApplicantComponent implements OnDestroy, OnInit {
   }
 
   createAlApplicant() {
+    this.alApplicantCreateForm.patchValue({
+      permanent_district: '-'
+    });
     console.log(this.alApplicantCreateForm);
-    if (!this.alApplicantCreateForm.invalid) {
-    this.alSubmitted = false;
-    this.loading = true;
-    this.univoxService.createApplicant(this.alApplicantCreateForm.value).subscribe(
-      res => {
-        this.alAplicantList = res.data;
-        this.alAplicantFilterList = res.data;
-        this.getAlAplicants();
-        this.alApplicantCreateForm.reset();
-        this.showAlApplicantCreateForm = false;
-        this.loading = false;
-        this.notifier.notify('success', res.message);
-        console.log(res.data);
-      },
-      error => {
-        this.loading = false;
-        this.notifier.notify('error', error.error);
+    if (this.isEditAlApplicant) {
+      if (!this.alApplicantCreateForm.invalid) {
+      this.alSubmitted = false;
+      this.loading = true;
+      const sendUpdate =  {
+        student_type: this.alApplicantCreateForm.value.student_type,
+        application_no: this.alApplicantCreateForm.value.application_no,
+        identity_no: this.alApplicantCreateForm.value.identity_no,
+        initials: this.alApplicantCreateForm.value.initials,
+        surename: this.alApplicantCreateForm.value.surename,
+        title: this.alApplicantCreateForm.value.title,
+        gender: this.alApplicantCreateForm.value.gender,
+        ethnicity: this.alApplicantCreateForm.value.ethnicity,
+        address_1: this.alApplicantCreateForm.value.address_1,
+        address_2: this.alApplicantCreateForm.value.address_2,
+        address_3: this.alApplicantCreateForm.value.address_3,
+        city: this.alApplicantCreateForm.value.city,
+        permanent_district: this.alApplicantCreateForm.value.permanent_district,
+        district: this.alApplicantCreateForm.value.district,
+        telephone: this.alApplicantCreateForm.value.telephone,
+        mobile: this.alApplicantCreateForm.value.mobile,
+        email: this.alApplicantCreateForm.value.email,
+        preference_1: this.alApplicantCreateForm.value.preference_1,
+        preference_2: this.alApplicantCreateForm.value.preference_2,
+        preference_3: this.alApplicantCreateForm.value.preference_3,
+        stream: this.alApplicantCreateForm.value.stream,
+        al_index_no: this.alApplicantCreateForm.value.al_index_no,
+        z_score: this.alApplicantCreateForm.value.z_score,
+        al_ict: this.alApplicantCreateForm.value.al_ict,
+        comm_and_media: this.alApplicantCreateForm.value.comm_and_media,
+        general_english: this.alApplicantCreateForm.value.general_english,
+        general_common_test: this.alApplicantCreateForm.value.general_common_test,
+        status: 1,
+        marital_status: 'S'
+      };
+      this.univoxService.updateAlApplicant(this.alApplicantCreateForm.value.application_no, sendUpdate).subscribe(
+        res => {
+          this.getAlAplicants();
+          this.alApplicantCreateForm.reset();
+          this.showAlApplicantCreateForm = false;
+          this.notifier.notify('success', res.message);
+          console.log(res.data);
+        },
+        error => {
+          this.loading = false;
+          this.notifier.notify('error', error.error);
+        }
+      );
+      } else {
+        this.alSubmitted = true;
       }
-    );
     } else {
-      this.alSubmitted = true;
+      if (!this.alApplicantCreateForm.invalid) {
+        this.alSubmitted = false;
+        this.loading = true;
+        this.univoxService.createApplicant(this.alApplicantCreateForm.value).subscribe(
+          res => {
+            this.alAplicantList = res.data;
+            this.alAplicantFilterList = res.data;
+            this.getAlAplicants();
+            this.alApplicantCreateForm.reset();
+            this.showAlApplicantCreateForm = false;
+            this.notifier.notify('success', res.message);
+            console.log(res.data);
+          },
+          error => {
+            this.loading = false;
+            this.notifier.notify('error', error.error);
+          }
+        );
+        } else {
+          this.alSubmitted = true;
+        }
     }
   }
 
   editNvqApplicant(applicant) {
+    this.isEditNvqApplicant = true;
     this.nvqApplicantCreateForm.reset();
+    console.log(applicant, 'appppppp');
     this.nvqApplicantCreateForm.patchValue({
       student_type: applicant.student_type,
       application_no: applicant.nvq_details.application_no,
@@ -433,8 +550,9 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       title: applicant.title,
       gender: applicant.gender,
       ethnicity: applicant.ethnicity,
-      address_1: [''],
+      address_1: applicant.address_1,
       address_2: applicant.address_2,
+      address_3: applicant.address_3,
       city: applicant.city,
       district: applicant.district,
       telephone: applicant.telephone,
@@ -446,10 +564,46 @@ export class ApplicantComponent implements OnDestroy, OnInit {
       index_no: applicant.nvq_details.index_no,
       diploma: applicant.nvq_details.diploma,
       remarks: applicant.nvq_details.remarks,
-      marital_status: [''],
+      marital_status: applicant.marital_status,
       permenent_address: applicant.permenent_address,
       batch_type: applicant.batch_type
     });
     this.showNvqApplicantCreateForm = true;
+  }
+
+  editAlApplicant(applicant) {
+    this.isEditAlApplicant = true;
+    this.alApplicantCreateForm.reset();
+    console.log(applicant, 'appppppp');
+    this.alApplicantCreateForm.patchValue({
+      student_type: applicant.student_type,
+      application_no: applicant.al_details.application_no,
+      identity_no: applicant.identity_no,
+      initials: applicant.initials,
+      surename: applicant.surename,
+      title: applicant.title,
+      gender: applicant.gender,
+      ethnicity: applicant.ethnicity,
+      address_1: applicant.address_1,
+      address_2: applicant.address_2,
+      address_3: applicant.address_3,
+      city: applicant.city,
+      permanent_district: applicant.permanent_district,
+      district: applicant.district,
+      telephone: applicant.telephone,
+      mobile: applicant.mobile,
+      email: applicant.email,
+      preference_1: applicant.preference_1,
+      preference_2: applicant.preference_2,
+      preference_3: applicant.preference_3,
+      stream: applicant.al_details.stream,
+      al_index_no: applicant.al_details.al_index_no,
+      z_score: applicant.al_details.z_score,
+      al_ict: applicant.al_details.al_ict,
+      comm_and_media: applicant.al_details.comm_and_media,
+      general_english: applicant.al_details.general_english,
+      general_common_test: applicant.al_details.general_common_test
+    });
+    this.showAlApplicantCreateForm = true;
   }
 }

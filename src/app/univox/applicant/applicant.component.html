@@ -14,7 +14,7 @@
       <div class="tab-content" id="applicantTabContent">
          <div class="tab-pane fade show active" id="nvq" role="tabpanel" aria-labelledby="nvq-tab">
             <div class="d-flex flex-row-start">
-               <button *ngIf="canApplicantAdd" class="btn btn-info" (click)="showNvqApplicantCreateForm = true; onNvqReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
+               <button *ngIf="canApplicantAdd" class="btn btn-info" (click)="showNvqApplicantCreateForm = true; isEditNvqApplicant = false; onNvqReset()"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Applicant</button>&nbsp;
                <button *ngIf="canApplicantAdd" class="btn btn-warning" (click)="showNvqBulkUpload = true;"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Create Bulk Applicant</button>
             </div>
             <div class="createForm" *ngIf="showNvqBulkUpload">
@@ -40,7 +40,8 @@
             <div class="createForm" *ngIf="showNvqApplicantCreateForm">
                <div class="card secondary-card">
                   <div class="card-header d-flex">
-                     <h6 class="card-title">Create Applicant</h6>
+                     <h6 class="card-title" *ngIf="isEditNvqApplicant === false">Create Applicant</h6>
+                     <h6 class="card-title" *ngIf="isEditNvqApplicant === true">Update Applicant</h6>
                   </div>
                   <div class="card-body">
                      <form [formGroup]="nvqApplicantCreateForm" (ngSubmit)="createNvqApplicant()">
@@ -141,6 +142,10 @@
                         <div class="form-group col-3">
                            <label>Address 2</label>
                            <input type="text" class="form-control" formControlName="address_2">
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Address 3</label>
+                           <input type="text" class="form-control" formControlName="address_3">
                         </div>
                         <div class="form-group col-3">
                            <label>City<span class="mandatory">*</span></label>
@@ -427,7 +432,7 @@
                         <td>{{applicant.nvq_details.remarks}}</td>
                         <td>{{applicant.nvq_details.permenent_address}}</td>
                         <td class="lastColumn">
-                           <!-- <button class="btn btn-warning tableEdit" (click)="editNvqApplicant(applicant)" data-toggle="modal" data-target="#nvqApplicantEditModal"><i class="far fa-edit"></i></button> -->
+                           <button class="btn btn-warning tableEdit" (click)="editNvqApplicant(applicant)"><i class="far fa-edit"></i></button>
                            <!-- <button class="btn btn-warning tableEdit" (click)="editNvqApplicant(applicant)"><i class="far fa-edit"></i></button> -->
                         </td>
                      </tr>
@@ -464,7 +469,8 @@
             <div class="createForm" *ngIf="showAlApplicantCreateForm">
                <div class="card secondary-card">
                   <div class="card-header d-flex">
-                     <h6 class="card-title">Create Applicant</h6>
+                     <h6 class="card-title" *ngIf="isEditAlApplicant === false">Create Applicant</h6>
+                     <h6 class="card-title" *ngIf="isEditAlApplicant === true">Update Applicant</h6>
                   </div>
                   <div class="card-body">
                      <form [formGroup]="alApplicantCreateForm" (ngSubmit)="createAlApplicant()">
@@ -574,6 +580,10 @@
                         <div class="form-group col-3">
                            <label>Address 2</label>
                            <input type="text" class="form-control" formControlName="address_2">
+                        </div>
+                        <div class="form-group col-3">
+                           <label>Address 3</label>
+                           <input type="text" class="form-control" formControlName="address_3">
                         </div>
                         <div class="form-group col-3">
                            <label>City<span class="mandatory">*</span></label>
@@ -821,7 +831,7 @@
                         <th scope="col">General English</th>
                         <th scope="col">General Test</th>
                         <!-- <th scope="col">Maths</th> -->
-                        <!-- <th scope="col" class="lastColumn"></th> -->
+                        <th scope="col" class="lastColumn"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -854,10 +864,10 @@
                         <td>{{applicant.al_details.general_english}}</td>
                         <td>{{applicant.al_details.general_common_test}}</td>
                         <!-- <td>{{applicant.al_details.general_common_test}}</td> -->
-                        <!-- <td class="lastColumn">
-                           <button class="btn btn-danger tableDelete" (click)="deleteApplicant(applicant.application_no)"><i class="far fa-trash-alt"></i></button>
-                           <button class="btn btn-warning tableEdit" (click)="editApplicant(applicant)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
-                           </td> -->
+                        <td class="lastColumn">
+                           <!-- <button class="btn btn-danger tableDelete" (click)="deleteApplicant(applicant.application_no)"><i class="far fa-trash-alt"></i></button> -->
+                           <button class="btn btn-warning tableEdit" (click)="editAlApplicant(applicant)" data-toggle="modal" data-target="#degreeModal"><i class="far fa-edit"></i></button>
+                           </td>
                      </tr>
                   </tbody>
                   </table>

@@ -25,7 +25,8 @@ export class CriteriaComponent implements OnDestroy, OnInit {
     btch_one_stud_per_program: '',
     btch_two_stud_per_program: '',
     first_exam_paper_mark: '',
-    second_exam_paper_mark: '',
+    second_exam_paper_mark: '0',
+    crt_btch_one_al_cut_off_mark: '',
     btch_one_cut_off_mark: '',
     btch_two_cut_off_mark: '',
     status: 0
@@ -51,7 +52,8 @@ export class CriteriaComponent implements OnDestroy, OnInit {
       btch_one_stud_per_program: ['', Validators.required],
       btch_two_stud_per_program: ['', Validators.required],
       first_exam_paper_mark: ['', Validators.required],
-      second_exam_paper_mark: ['', Validators.required],
+      second_exam_paper_mark: ['0'],
+      crt_btch_one_al_cut_off_mark: ['', Validators.required],
       btch_one_cut_off_mark: ['', Validators.required],
       btch_two_cut_off_mark: ['', Validators.required],
     });
@@ -132,6 +134,9 @@ export class CriteriaComponent implements OnDestroy, OnInit {
   }
 
   createCriteria() {
+    this.criteriaCreateForm.patchValue({
+      second_exam_paper_mark: '0'
+    });
     if (!this.criteriaCreateForm.invalid) {
     this.loading = true;
     this.univoxService.createCriteria(this.criteriaCreateForm.value).subscribe(res => {
@@ -169,7 +174,7 @@ export class CriteriaComponent implements OnDestroy, OnInit {
       this.getAllCriterias();
     },
     error => {
-      this.notifier.notify('error', error.error);
+      this.notifier.notify('error', error.message);
       this.loading = false;
     }
     );
@@ -181,7 +186,8 @@ export class CriteriaComponent implements OnDestroy, OnInit {
       btch_one_stud_per_program: criteria.btch_one_stud_per_program.toString(),
       btch_two_stud_per_program: criteria.btch_two_stud_per_program.toString(),
       first_exam_paper_mark: criteria.first_exam_paper_mark.toString(),
-      second_exam_paper_mark: criteria.second_exam_paper_mark.toString(),
+      second_exam_paper_mark: '0',
+      crt_btch_one_al_cut_off_mark: criteria.crt_btch_one_al_cut_off_mark.toString(),
       btch_one_cut_off_mark: criteria.btch_one_cut_off_mark.toString(),
       btch_two_cut_off_mark: criteria.btch_two_cut_off_mark.toString(),
       status: 1
