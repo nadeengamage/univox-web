@@ -94,7 +94,7 @@
                   <th scope="col">Remarks</th>
                   <th scope="col">Identity No</th>
                   <th scope="col">Status</th>
-                  <th scope="col" style="width: 100px;"></th>
+                  <th scope="col" style="width: 120px;"></th>
                </tr>
             </thead>
             <tbody>
@@ -115,7 +115,7 @@
                   <td *ngIf="marks.status === false">Deactive</td>
                   
                   <td>
-                     <button *ngIf="canMarkDelete" class="btn btn-danger tableAction" (click)="deleteMark(marks.applicant.al_details?.application_no, marks.applicant.nvq_details?.application_no, marks.applicant.student_type)"><i class="far fa-trash-alt"></i></button>
+                     <button *ngIf="user.status === true && canMarkDelete" class="btn btn-danger tableDelete" (click)="deleteMark(marks.applicant.al_details?.application_no, marks.applicant.nvq_details?.application_no, marks.applicant.student_type)">Deactivate</button>
                      <button *ngIf="canMarkEdit" class="btn btn-warning tableAction" (click)="editMark(marks, marks.applicant.al_details?.application_no, marks.applicant.nvq_details?.application_no)" data-toggle="modal" data-target="#markModal"><i class="far fa-edit"></i></button>
                   </td>
                </tr>
