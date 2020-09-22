@@ -215,8 +215,10 @@ export class UnivoxService {
     const create = this.createAlBulkApplicantEndPoint;
     return this.http.multiPart(create, data);
   }
-  public updateNvqApplicant(data) {
-    const updateNvqApplicant = this.updateApplicantEndPoint;
+  public updateNvqApplicant(applicationNo, data) {
+    const updateNvqApplicant = this.updateApplicantEndPoint.replace(
+      '{applicationNo}', applicationNo
+    );
     return this.http.put(updateNvqApplicant, data);
   }
   public updateAlApplicant(applicationNo, data) {

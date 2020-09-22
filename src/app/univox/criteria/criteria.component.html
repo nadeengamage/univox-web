@@ -61,12 +61,22 @@
                      </span>
                   </div>
                </div>
-               <div class="form-group col-3">
+               <!-- <div class="form-group col-3">
                   <label>Second Exam Paper Mark</label>
                   <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="second_exam_paper_mark"
                   [ngClass]="submitted || isInvalidField('second_exam_paper_mark') ? 'error-field' : ''">
                   <div class="err-lbl" *ngIf="submitted || isInvalidField('second_exam_paper_mark')">
                      <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.second_exam_paper_mark.errors?.required">
+                     <i class="fa fa-times-circle"></i>&nbsp;Invalid
+                     </span>
+                  </div>
+               </div> -->
+               <div class="form-group col-3">
+                  <label>Z-Score</label>
+                  <input title="Cannot be empty!" type="text" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" formControlName="crt_btch_one_al_cut_off_mark"
+                  [ngClass]="submitted || isInvalidField('crt_btch_one_al_cut_off_mark') ? 'error-field' : ''">
+                  <div class="err-lbl" *ngIf="submitted || isInvalidField('crt_btch_one_al_cut_off_mark')">
+                     <span class="field-msg error-msg" *ngIf="criteriaCreateForm.controls.crt_btch_one_al_cut_off_mark.errors?.required">
                      <i class="fa fa-times-circle"></i>&nbsp;Invalid
                      </span>
                   </div>
@@ -112,7 +122,7 @@
               <th scope="col">B2 Cut Off Mark</th>
               <th scope="col">B2 Student Per Program</th>
               <th scope="col">First Exam Paper Mark</th>
-              <th scope="col">Second Exam Paper Mark</th>
+              <th scope="col">Z-Score</th>
               <th scope="col">Status</th>
               <th scope="col" style="width: 100px;"></th>
            </tr>
@@ -126,11 +136,11 @@
               <td>{{criteria.btch_two_cut_off_mark}}</td>
               <td>{{criteria.btch_two_stud_per_program}}</td>
               <td>{{criteria.first_exam_paper_mark}}</td>
-              <td>{{criteria.second_exam_paper_mark}}</td>
+              <td>{{criteria.crt_btch_one_al_cut_off_mark}}</td>
               <td *ngIf="criteria.status === true">Active</td>
               <td *ngIf="criteria.status === false">Deactive</td>
               <td>
-                <button *ngIf="canCriteriaDelete" class="btn btn-danger tableAction" (click)="deleteCriteria(criteria.x_id)"><i class="far fa-trash-alt"></i></button>
+                <button *ngIf="canCriteriaDelete" class="btn btn-danger tableAction" (click)="deleteCriteria(criteria.degree.degree_code)"><i class="far fa-trash-alt"></i></button>
                 <button *ngIf="canCriteriaEdit" class="btn btn-warning tableAction" (click)="editCriteria(criteria)" data-toggle="modal" data-target="#criteriaModal"><i class="far fa-edit"></i></button>
               </td>
            </tr>
@@ -168,9 +178,13 @@
                 <label>First Exam Paper Mark</label><sup>*</sup>
                 <input type="text" class="form-control" placeholder="Enter First Exam Paper Mark" [(ngModel)]="editDetails.first_exam_paper_mark" [ngModelOptions]="{standalone: true}">
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label>Second Exam Paper Mark</label><sup>*</sup>
                 <input type="text" class="form-control" placeholder="Enter Second Exam Paper Mark" [(ngModel)]="editDetails.second_exam_paper_mark" [ngModelOptions]="{standalone: true}">
+              </div> -->
+              <div class="form-group">
+                <label>Z-Score</label><sup>*</sup>
+                <input type="text" class="form-control" placeholder="Enter Z-Score" [(ngModel)]="editDetails.crt_btch_one_al_cut_off_mark" [ngModelOptions]="{standalone: true}">
               </div>
               <div class="form-group">
                 <label>Batch One Cut Off Mark</label><sup>*</sup>
