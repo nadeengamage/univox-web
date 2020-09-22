@@ -140,7 +140,7 @@ export class ReportsComponent implements OnDestroy, OnInit {
       console.log(i, 'i');
       this.makeJson = new Array(
         this.reportsList[i].std_identity_no, this.reportsList[i].std_application_no, this.reportsList[i].std_student_type,
-        this.reportsList[i].std_batch_type, this.reportsList[i].deg_degree_code,
+        this.reportsList[i].batch_type, this.reportsList[i].deg_degree_code,
         this.reportsList[i].std_title, this.reportsList[i].std_initials,
         this.reportsList[i].std_surename, this.reportsList[i].std_gender, this.reportsList[i].std_address_1,
         this.reportsList[i].std_address_2, this.reportsList[i].std_address_3,
