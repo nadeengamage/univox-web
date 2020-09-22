@@ -115,7 +115,7 @@
                   <td *ngIf="marks.status === false">Deactive</td>
                   
                   <td>
-                     <button *ngIf="user.status === true && canMarkDelete" class="btn btn-danger tableDelete" (click)="deleteMark(marks.applicant.al_details?.application_no, marks.applicant.nvq_details?.application_no, marks.applicant.student_type)">Deactivate</button>
+                     <button *ngIf="marks.status === true && canMarkDelete" class="btn btn-danger tableDelete" (click)="deleteMark(marks.applicant.al_details?.application_no, marks.applicant.nvq_details?.application_no, marks.applicant.student_type)">Deactivate</button>
                      <button *ngIf="canMarkEdit" class="btn btn-warning tableAction" (click)="editMark(marks, marks.applicant.al_details?.application_no, marks.applicant.nvq_details?.application_no)" data-toggle="modal" data-target="#markModal"><i class="far fa-edit"></i></button>
                   </td>
                </tr>
